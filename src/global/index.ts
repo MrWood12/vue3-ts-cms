@@ -1,11 +1,9 @@
-// 导入index.css
-import "element-plus/dist/index.css";
-// 局部导入的路径
-import { ElButton } from "element-plus/lib/components";
+// ui组件引用的入口文件
+
 import { App } from "vue";
-const components = [ElButton];
-export function registerApp(app: App): void {
-  for (const component of components) {
-    app.component(component.name, component);
-  }
+import registerElement from "./register-element";
+export function globalRegister(app: App): void {
+  // 两种写法都是可以的 因为app.use可以传入一个对象或函数，会自动传入app参数
+  // registerElement(app);
+  app.use(registerElement);
 }
