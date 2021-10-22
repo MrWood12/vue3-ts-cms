@@ -5,6 +5,8 @@ import store from "./store";
 import { globalRegister } from "./global/index";
 // import "./service/axios-demo";
 import { hyRequest } from "./service/index";
+import "normalize.css";
+import "./assets/css/index.less";
 
 const app = createApp(App);
 
