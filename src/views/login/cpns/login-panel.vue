@@ -3,13 +3,15 @@
     <div class="title">权益系统后台</div>
     <div class="title-tips">此后台仅剩工作人员登录</div>
 
-    <login-account></login-account>
+    <login-account ref="accountRef"></login-account>
 
     <div class="account-control">
       <el-checkbox v-model="iskeepInfo">自动登录</el-checkbox>
     </div>
 
-    <el-button type="primary" class="login-button">登录</el-button>
+    <el-button type="primary" class="login-button" @click="handleLoginClick"
+      >登录</el-button
+    >
   </div>
 </template>
 
@@ -21,9 +23,19 @@ export default defineComponent({
     LoginAccount,
   },
   setup() {
-    const iskeepInfo = ref(false);
+    // 记住账号密码
+    const iskeepInfo = ref(true);
+    // 获取LoginAccount中的函数
+    const accountRef = ref<InstanceType<typeof LoginAccount>>();
+    // 点击登录
+    const handleLoginClick = () => {
+      console.log("登录");
+      accountRef.value?.loginAction(iskeepInfo.value);
+    };
     return {
       iskeepInfo,
+      handleLoginClick,
+      accountRef,
     };
   },
 });

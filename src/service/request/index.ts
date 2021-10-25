@@ -40,8 +40,7 @@ class HCRequest {
     // 2、添加所有实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log("所有实例都有拦截器，请求拦截成功1");
-        console.log(this.showLoading);
+        // console.log("所有实例都有拦截器，请求拦截成功1");
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -53,18 +52,16 @@ class HCRequest {
         return config;
       },
       (err) => {
-        console.log("所有实例都有拦截器，请求拦截失败1");
+        // console.log("所有实例都有拦截器，请求拦截失败1");
         return err;
       }
     );
     this.instance.interceptors.response.use(
       (res) => {
-        console.log("所有实例都有拦截器，响应拦截成功1");
+        // console.log("所有实例都有拦截器，响应拦截成功1");
         // 移除loading
         // 可选链，有值的时候调用，没值的时候不调用，可以不写if
-        setTimeout(() => {
-          this.loading?.close();
-        }, 3000);
+        this.loading?.close();
         const data = res.data;
         if (data.returnCode === "-1001") {
           console.log("请求失败，错误信息");
@@ -73,7 +70,7 @@ class HCRequest {
         }
       },
       (err) => {
-        console.log("所有实例都有拦截器，响应拦截失败1");
+        // console.log("所有实例都有拦截器，响应拦截失败1");
         // 移除loading
         // 可选链，有值的时候调用，没值的时候不调用，可以不写if
         this.loading?.close();
@@ -105,7 +102,7 @@ class HCRequest {
           // 2.重置showloading
           // 在上方showloading被设计为false，为了不影响其他请求，需要在请求结束获取响应的时候将其设置为true
           this.showLoading = DEAFULT_LOADING;
-          console.log(res);
+          // console.log(res);
           // 3、将结果通过resolve返回出去
           resolve(res);
         })

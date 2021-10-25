@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import { globalRegister } from "./global/index";
 // import "./service/axios-demo";
-import { hyRequest } from "./service/index";
+// import { hyRequest } from "./service/index";
 import "normalize.css";
 import "./assets/css/index.less";
 
@@ -18,30 +18,31 @@ app.use(router);
 
 app.mount("#app");
 
-interface DataType {
-  data: any;
-  returnCode: string;
-  success: boolean;
-}
+// 示例
+// interface DataType {
+//   data: any;
+//   returnCode: string;
+//   success: boolean;
+// }
 
-hyRequest
-  .get<DataType>({
-    url: "/home/multidata",
-    method: "GET",
-    interceptors: {
-      requestInterceptor: (config) => {
-        console.log("单独请求的config");
-        return config;
-      },
-      responseInterceptor: (res) => {
-        console.log("单独响应的response");
-        return res;
-      },
-    },
-    showLoading: false,
-  })
-  .then((res) => {
-    console.log(res.data);
-    console.log(res.returnCode);
-    console.log(res.success);
-  });
+// hyRequest
+//   .get<DataType>({
+//     url: "/home/multidata",
+//     method: "GET",
+//     interceptors: {
+//       requestInterceptor: (config) => {
+//         console.log("单独请求的config");
+//         return config;
+//       },
+//       responseInterceptor: (res) => {
+//         console.log("单独响应的response");
+//         return res;
+//       },
+//     },
+//     showLoading: false,
+//   })
+//   .then((res) => {
+//     console.log(res.data);
+//     console.log(res.returnCode);
+//     console.log(res.success);
+//   });
