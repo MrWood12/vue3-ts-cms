@@ -1,6 +1,9 @@
 <template>
   <div class="login-panel">
-    <div class="title">权益系统后台</div>
+    <div class="head">
+      <img class="login-img" src="@/assets/img/yuncanglogo.png" />
+      <div class="title">权益系统后台</div>
+    </div>
     <div class="title-tips">此后台仅剩工作人员登录</div>
 
     <login-account ref="accountRef"></login-account>
@@ -45,8 +48,14 @@ export default defineComponent({
 .login-panel {
   width: 366px;
   margin-bottom: 120px;
-  .title {
+  .head {
+    display: flex;
     text-align: center;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .title {
     font-size: 32px;
   }
   .title-tips {
@@ -62,6 +71,12 @@ export default defineComponent({
   .login-button {
     width: 100%;
     margin-top: 10px;
+  }
+  .login-img {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin-right: 15px;
   }
 }
 </style>

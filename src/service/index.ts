@@ -2,6 +2,7 @@
 
 import HCRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
+import localCatch from "@/utils/cache";
 const hyRequest = new HCRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
@@ -9,7 +10,7 @@ const hyRequest = new HCRequest({
   interceptors: {
     requestInterceptor: (config) => {
       // 携带token拦截
-      const token = "";
+      const token = localCatch.getCache("token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

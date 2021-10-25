@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { globalRegister } from "./global/index";
+import { setupStore } from "./store";
 // import "./service/axios-demo";
 // import { hyRequest } from "./service/index";
 import "normalize.css";
@@ -15,6 +16,7 @@ const app = createApp(App);
 app.use(globalRegister);
 app.use(store);
 app.use(router);
+setupStore();
 
 app.mount("#app");
 
