@@ -24,7 +24,7 @@
 import { defineComponent, reactive, ref } from "vue";
 import { rules } from "../config/account-config";
 import { ElForm } from "element-plus";
-import localCache from "@/utils/cache";
+import localCache from "@/utils/localCache";
 import { useStore } from "vuex";
 export default defineComponent({
   setup() {
@@ -45,8 +45,8 @@ export default defineComponent({
           //1、是否记住账号密码
           if (iskeepInfo) {
             // 本地缓存
-            localCache.setCache("name", account.name);
-            localCache.setCache("password", account.password);
+            localCache.setlocalCache("name", account.name);
+            localCache.setlocalCache("password", account.password);
           } else {
             localCache.removeCache("name");
             localCache.removeCache("password");

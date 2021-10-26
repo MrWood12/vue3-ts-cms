@@ -9,9 +9,31 @@ import {
   ElFormItem,
   ElInput,
   ElCheckbox,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItemGroup,
+  ElMenuItem,
 } from "element-plus/lib/components";
 import { App } from "vue";
-const components = [ElButton, ElForm, ElFormItem, ElInput, ElCheckbox];
+const components = [
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElCheckbox,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItemGroup,
+  ElMenuItem,
+];
 export default function (app: App): void {
   for (const component of components) {
     // 全局注册

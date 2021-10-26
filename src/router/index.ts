@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import localCache from "@/utils/cache";
+import localCache from "@/utils/localCache";
 
 const routes: Array<RouteRecordRaw> = [
   {

@@ -2,7 +2,7 @@
 
 import HCRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
-import localCatch from "@/utils/cache";
+import localCatch from "@/utils/localCache";
 const hyRequest = new HCRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,

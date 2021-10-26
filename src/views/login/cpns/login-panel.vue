@@ -27,7 +27,7 @@ export default defineComponent({
   },
   setup() {
     // 记住账号密码
-    const iskeepInfo = ref(true);
+    const iskeepInfo = ref(false);
     // 获取LoginAccount中的函数
     const accountRef = ref<InstanceType<typeof LoginAccount>>();
     // 点击登录
