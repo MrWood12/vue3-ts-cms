@@ -1,70 +1,81 @@
 <template>
   <div class="nav-menu">
-    <div class="logo">
-      <img class="img" src="~@/assets/img/yuncanglogo.png" alt="logo" />
-      <span class="title">权益系统后台</span>
-    </div>
-    <!-- <el-menu
-      default-active="1"
-      active-text-color="#ffff"
-      background-color="#001529"
-      class="el-menu-vertical-demo"
-      text-color="#fff"
+    <div
+      class="logo"
+      :style="collapse ? 'padding-left: 15px;' : 'padding-left: 28px;'"
     >
-      <el-menu-item index="1">
-        <i class="el-icon-document"></i>
-        <span>工作台</span>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <i class="el-icon-document"></i>
-        <span>资金池</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-document"></i>
-        <span>权益订单</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-document"></i>
-        <span>消费订单</span>
-      </el-menu-item>
-      <el-sub-menu index="5">
-        <template #title>
-          <i class="el-icon-location"></i>
-          <span>油卡业务</span>
+      <img class="img" src="~@/assets/img/yuncanglogo.png" alt="logo" />
+      <span v-show="!collapse" class="title">权益系统后台</span>
+    </div>
+    <el-menu
+      default-active="39"
+      class="el-menu-vertical"
+      :collapse="collapse"
+      background-color="#0c2135"
+      text-color="#b7bdc3"
+      active-text-color="#0a60bd"
+    >
+      <template v-for="item in userMenus" :key="item.id">
+        <!-- 二级菜单 -->
+        <template v-if="item.type === 1">
+          <!-- 二级菜单可以展开的标题 -->
+          <el-sub-menu :index="item.id + ''">
+            <template #title>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <span>{{ item.name }}</span>
+            </template>
+            <template v-for="subitem in item.children" :key="subitem.id">
+              <el-menu-item
+                :index="subitem.id + ''"
+                style="padding-left: 49px; background-color: #000c17"
+                @click="handleMenuItemClick(subitem)"
+              >
+                <i v-if="subitem.icon" :class="subitem.icon"></i>
+                <span>{{ subitem.name }}</span>
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
         </template>
-        <el-menu-item index="5-1">油卡申请</el-menu-item>
-        <el-menu-item index="5-2">油卡管理</el-menu-item>
-        <el-menu-item index="5-3">油卡订单</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="6">
-        <template #title>
-          <i class="el-icon-location"></i>
-          <span>财务管理</span>
+        <!-- 一级菜单 -->
+        <template v-else-if="item.type === 2">
+          <el-menu-item
+            :index="item.id + ''"
+            @click="handleMenuItemClick(item)"
+          >
+            <i v-if="item.icon" :class="item.icon"></i>
+            <span>{{ item.name }}</span>
+          </el-menu-item>
         </template>
-        <el-menu-item index="6-1">余额充值记录</el-menu-item>
-        <el-menu-item index="6-2">余额交易流水</el-menu-item>
-        <el-menu-item index="6-3">现金交易流水</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="7">
-        <template #title>
-          <i class="el-icon-location"></i>
-          <span>系统配置</span>
-        </template>
-        <el-menu-item index="7-1">渠道管理</el-menu-item>
-      </el-sub-menu>
-    </el-menu> -->
-    <el-menu default-active="2" class="el-menu-vertical">
-      <!-- <template v-for="item in "></template> -->
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent, computed } from "vue";
+// vuex对ts兼容并不完善,所以自己封装useStore
+import { useStore } from "@/store/index";
+import { useRouter } from "vue-router";
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
-    return {};
+    const store = useStore();
+    const userMenus = computed(() => store.state.login.userMenus);
+    const router = useRouter();
+    const handleMenuItemClick = (item: any) => {
+      router.push({
+        path: item.url ?? "/not-found",
+      });
+    };
+    return {
+      userMenus,
+      handleMenuItemClick,
+    };
   },
 });
 </script>
@@ -90,5 +101,32 @@ export default defineComponent({
       letter-spacing: 2px;
     }
   }
+  .el-menu {
+    border-right: none;
+  }
+
+  // 目录
+  .el-submenu {
+    background-color: #001529 !important;
+  }
+
+  ::v-deep .el-submenu__title {
+    background-color: #001529 !important;
+  }
+
+  // hover 高亮
+  .el-menu-item:hover {
+    color: #fff !important; // 菜单
+  }
+
+  .el-menu-item.is-active {
+    color: #fff !important;
+    background-color: #0a60bd !important;
+  }
+}
+
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 100%;
+  height: calc(100% - 48px);
 }
 </style>

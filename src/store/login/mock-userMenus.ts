@@ -1,0 +1,132 @@
+const mokeUserMenus = [
+  {
+    // 图标
+    icon: "el-icon-monitor",
+    id: 1,
+    name: "工作台",
+    sort: 1,
+    // 1：有子菜单 2：无子菜单
+    type: 2,
+    // 路由
+    url: "/main/workbench",
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 2,
+    name: "会员管理",
+    sort: 2,
+    type: 2,
+    url: "/main/member",
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 3,
+    name: "资金池",
+    sort: 3,
+    type: 2,
+    url: "/main/capitalpool",
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 4,
+    name: "权益订单",
+    sort: 4,
+    type: 2,
+    url: "/main/powerorders",
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 5,
+    name: "消费订单",
+    sort: 5,
+    type: 2,
+    url: "/main/payorders",
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 6,
+    name: "油卡业务",
+    sort: 6,
+    type: 1,
+    url: "/main/cardbusiness",
+    children: [
+      {
+        id: 61,
+        name: "油卡申请",
+        sort: 6,
+        type: 2,
+        url: "/main/cardbusiness/application",
+      },
+      {
+        id: 62,
+        name: "油卡管理",
+        sort: 6,
+        type: 2,
+        url: "/main/cardbusiness/manage",
+      },
+      {
+        id: 63,
+        name: "油卡订单",
+        sort: 6,
+        type: 2,
+        url: "/main/cardbusiness/order",
+      },
+    ],
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 7,
+    name: "财务管理",
+    sort: 7,
+    type: 1,
+    url: "/main/finance",
+    children: [
+      {
+        id: 71,
+        name: "对账系统",
+        sort: 7,
+        type: 2,
+        url: "/main/finance/reconciliation",
+      },
+      {
+        id: 72,
+        name: "余额充值记录",
+        sort: 7,
+        type: 2,
+        url: "/main/finance/recharge",
+      },
+      {
+        id: 73,
+        name: "余额交易记录",
+        sort: 7,
+        type: 2,
+        url: "/main/finance/trade",
+      },
+      {
+        id: 74,
+        name: "现金交易记录",
+        sort: 7,
+        type: 2,
+        url: "/main/finance/cashtrade",
+      },
+    ],
+  },
+  {
+    icon: "el-icon-monitor",
+    id: 8,
+    name: "系统配置",
+    sort: 8,
+    type: 1,
+    url: "/main/system",
+    children: [
+      {
+        id: 81,
+        name: "渠道管理",
+        sort: 8,
+        type: 2,
+        url: "/main/system/channel",
+      },
+    ],
+  },
+];
+export default mokeUserMenus;

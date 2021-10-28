@@ -17,6 +17,15 @@ import {
   ElSubMenu,
   ElMenuItemGroup,
   ElMenuItem,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElAvatar,
+  ElCol,
+  ElRow,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 } from "element-plus/lib/components";
 import { App } from "vue";
 const components = [
@@ -33,6 +42,15 @@ const components = [
   ElSubMenu,
   ElMenuItemGroup,
   ElMenuItem,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElAvatar,
+  ElCol,
+  ElRow,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 ];
 export default function (app: App): void {
   for (const component of components) {
