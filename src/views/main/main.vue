@@ -8,7 +8,9 @@
         <el-header class="page-header">
           <nav-header @foldChange="handleFoldClick"></nav-header>
         </el-header>
-        <el-header class="page-header">Header2</el-header>
+        <div class="page-breadcrumb">
+          <hy-breadcrumb :breadcrumbs="breadcrumbs"></hy-breadcrumb>
+        </div>
         <el-main class="page-content">
           <div class="page-info">
             <router-view></router-view>
@@ -23,6 +25,7 @@
 import { defineComponent, ref } from "vue";
 import NavMenu from "@/components/nav-menu";
 import NavHeader from "@/components/nav-header";
+import HyBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb";
 
 export default defineComponent({
   setup() {
@@ -30,11 +33,14 @@ export default defineComponent({
     const handleFoldClick = (isFold: boolean) => {
       isCollapse.value = isFold;
     };
-    return { handleFoldClick, isCollapse };
+    // 面包屑的数据 [{name:,path:}]
+    const breadcrumbs: IBreadcrumb[] = [];
+    return { handleFoldClick, isCollapse, breadcrumbs };
   },
   components: {
     NavMenu,
     NavHeader,
+    HyBreadcrumb,
   },
 });
 </script>
@@ -60,7 +66,9 @@ export default defineComponent({
     border-radius: 5px;
   }
 }
-
+.page-breadcrumb {
+  padding: 0 20px 20px 20px;
+}
 .el-header,
 .el-footer {
   display: flex;

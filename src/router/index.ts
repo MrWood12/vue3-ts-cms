@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import localCache from "@/utils/localCache";
+import { firstMenu } from "@/utils/map-menus";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,11 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "not-found",
     component: () => import("@/views/main/main.vue"),
   },
-  // {
-  //   path: "/:pathMatch(.*)*",
-  //   name: "not-found",
-  //   component: () => import("@/views/not-found/not-found.vue"),
-  // },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: () => import("@/views/not-found/not-found.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -40,6 +41,10 @@ router.beforeEach((to) => {
     if (!token) {
       return "./login";
     }
+  }
+
+  if (to.path === "/main") {
+    return firstMenu.url;
   }
 });
 export default router;

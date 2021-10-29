@@ -8,7 +8,7 @@
       <span v-show="!collapse" class="title">权益系统后台</span>
     </div>
     <el-menu
-      default-active="39"
+      :default-active="defaultvalue"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"
@@ -52,10 +52,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
 // vuex对ts兼容并不完善,所以自己封装useStore
 import { useStore } from "@/store/index";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import { pathMapToMenu } from "@/utils/map-menus";
 export default defineComponent({
   props: {
     collapse: {
@@ -64,9 +65,17 @@ export default defineComponent({
     },
   },
   setup() {
+    // store
     const store = useStore();
     const userMenus = computed(() => store.state.login.userMenus);
+    // router
     const router = useRouter();
+    const route = useRoute();
+    const currentPath = route.path;
+    // data
+    const menu = pathMapToMenu(userMenus.value, currentPath);
+    const defaultvalue = ref(menu.id + "");
+    // event handle
     const handleMenuItemClick = (item: any) => {
       router.push({
         path: item.url ?? "/not-found",
@@ -75,6 +84,7 @@ export default defineComponent({
     return {
       userMenus,
       handleMenuItemClick,
+      defaultvalue,
     };
   },
 });

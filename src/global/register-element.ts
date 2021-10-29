@@ -26,6 +26,8 @@ import {
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 } from "element-plus/lib/components";
 import { App } from "vue";
 const components = [
@@ -51,6 +53,8 @@ const components = [
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 ];
 export default function (app: App): void {
   for (const component of components) {

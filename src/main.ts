@@ -15,8 +15,9 @@ const app = createApp(App);
 // globalRegister(app);
 app.use(globalRegister);
 app.use(store);
-app.use(router);
+// 注册动态路由
 setupStore();
+app.use(router);
 
 app.mount("#app");
 

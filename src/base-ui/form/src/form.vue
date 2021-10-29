@@ -1,12 +1,45 @@
 <template>
   <div class="hy-form">
-    <el-form label-width="100px">
+    <el-form :label-width="labelWidth">
       <el-row>
-        <el-col :span="8">
-          <el-form-item label="用户名/手机">
-            <el-input placeholder="请输入用户名/手机号"></el-input>
-          </el-form-item>
-        </el-col>
+        <template v-for="item in formItems" :key="item.placeholder">
+          <el-col v-bind="colLayout">
+            <el-form-item
+              :label="item.label"
+              :rules="item.rules"
+              :style="itemStyle"
+            >
+              <template
+                v-if="item.type === 'input' || item.type === 'password'"
+              >
+                <el-input
+                  :placeholder="item.placeholder"
+                  :show-password="item.type === 'password'"
+                  v-bind="item.otherOptions"
+                ></el-input>
+              </template>
+              <template v-else-if="item.type === 'select'">
+                <el-select
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                  style="width: 100%"
+                >
+                  <el-option
+                    v-for="option in item.options"
+                    :key="option.title"
+                    :value="option.title"
+                  ></el-option>
+                </el-select>
+              </template>
+              <template v-else-if="item.type === 'datepicker'">
+                <el-date-picker
+                  style="width: 100%"
+                  v-bind="item.otherOptions"
+                ></el-date-picker>
+              </template>
+            </el-form-item>
+          </el-col>
+        </template>
       </el-row>
     </el-form>
   </div>
@@ -21,6 +54,24 @@ export default defineComponent({
       type: Array as PropType<IFormItem[]>,
       default: () => [],
     },
+    labelWidth: {
+      type: String,
+      default: "100px",
+    },
+    itemStyle: {
+      type: Object,
+      default: () => ({ padding: "10px 30px" }),
+    },
+    colLayout: {
+      type: Object,
+      default: () => ({
+        xl: 6, //>1920--4
+        lg: 8,
+        md: 12,
+        sm: 24,
+        xs: 24,
+      }),
+    },
   },
   setup() {
     return {};
@@ -28,4 +79,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.hy-form {
+  padding-top: 22px;
+}
+</style>
