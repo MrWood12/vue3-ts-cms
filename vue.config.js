@@ -3,12 +3,12 @@ const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 
 module.exports = {
   devServer: {
+    // proxy: "http://api.yikah.cn",
     proxy: {
-      "^/api": {
-        target: "http://152.136.185.210:5000",
-        pathRewrite: {
-          "^/api": "",
-        },
+      "/backend": {
+        target: "http://api.yikah.cn",
+        secure: false,
+        ws: true,
         changeOrigin: true,
       },
     },

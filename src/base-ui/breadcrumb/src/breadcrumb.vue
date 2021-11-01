@@ -26,4 +26,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-breadcrumb {
+  padding-top: 20px;
+}
+</style>

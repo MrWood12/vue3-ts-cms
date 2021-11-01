@@ -3,13 +3,13 @@ import { ILoginState } from "./types";
 import { IRootState } from "../types";
 import {
   loginAccountRequest,
-  requestUserInfoById,
+  // requestUserInfoById,
   // requestUserMenusByRoleId,
 } from "@/service/login/login";
 import localCache from "@/utils/localCache";
 import router from "@/router";
 import { mapMenusToRoutes } from "@/utils/map-menus";
-import mokeUserMenus from "./mock-userMenus";
+// import mokeUserMenus from "./mock-userMenus";
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
@@ -41,9 +41,10 @@ const loginModule: Module<ILoginState, IRootState> = {
   },
   actions: {
     async accountLoginAction({ commit }, payload: any) {
+      console.log(payload);
       // 1、实现登录逻辑
       const loginResult = await loginAccountRequest(payload);
-      const { id, token } = loginResult.data;
+      const { token } = loginResult.data;
       commit("changeToken", token);
       const name = localCache.getCache("name");
       if (name) {
@@ -52,19 +53,19 @@ const loginModule: Module<ILoginState, IRootState> = {
         localCache.setsessionCache("token", token);
       }
 
-      // 2、请求用户信息
-      const userInfoResult = await requestUserInfoById(id);
-      const userInfo = userInfoResult.data;
-      commit("changeUserInfo", userInfo);
-      localCache.setlocalCache("userInfo", userInfo);
+      // // 2、请求用户信息
+      // const userInfoResult = await requestUserInfoById(id);
+      // const userInfo = userInfoResult.data;
+      // commit("changeUserInfo", userInfo);
+      // localCache.setlocalCache("userInfo", userInfo);
 
-      // 3、请求用户菜单
-      // const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id);
-      // const userMenus = userMenusResult.data;
-      const userMenus = mokeUserMenus;
-      console.log(userMenus);
-      commit("changeUserMenus", userMenus);
-      localCache.setlocalCache("userMenus", userMenus);
+      // // 3、请求用户菜单
+      // // const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id);
+      // // const userMenus = userMenusResult.data;
+      // const userMenus = mokeUserMenus;
+      // console.log(userMenus);
+      // commit("changeUserMenus", userMenus);
+      // localCache.setlocalCache("userMenus", userMenus);
 
       // 4、跳转首页
       router.push("/main");

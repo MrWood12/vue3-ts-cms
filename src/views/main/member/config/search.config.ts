@@ -5,11 +5,10 @@ export const searchFormConfig: IForm = {
   itemStyle: {
     padding: "0 5px",
   },
-  colLayout: {
-    span: 5,
-  },
+
   formItems: [
     {
+      field: "id",
       type: "input",
       placeholder: "请输入用户名/手机",
       otherOptions: {
@@ -17,6 +16,7 @@ export const searchFormConfig: IForm = {
       },
     },
     {
+      field: "date",
       type: "datepicker",
       placeholder: "创建时间范围",
       otherOptions: {
@@ -26,6 +26,7 @@ export const searchFormConfig: IForm = {
       },
     },
     {
+      field: "way",
       type: "select",
       placeholder: "渠道来源",
       options: [
@@ -38,6 +39,7 @@ export const searchFormConfig: IForm = {
       ],
     },
     {
+      field: "state",
       type: "select",
       placeholder: "状态",
     },

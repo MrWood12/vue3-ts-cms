@@ -32,7 +32,6 @@ export default defineComponent({
     const accountRef = ref<InstanceType<typeof LoginAccount>>();
     // 点击登录
     const handleLoginClick = () => {
-      console.log("登录");
       accountRef.value?.loginAction(iskeepInfo.value);
     };
     return {

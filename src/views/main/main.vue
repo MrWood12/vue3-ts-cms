@@ -5,7 +5,7 @@
         <nav-menu :collapse="isCollapse"></nav-menu>
       </el-aside>
       <el-container class="page">
-        <el-header class="page-header">
+        <el-header class="page-header" style="border-bottom: 2px solid #f0f2f5">
           <nav-header @foldChange="handleFoldClick"></nav-header>
         </el-header>
         <div class="page-breadcrumb">
@@ -22,11 +22,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import NavMenu from "@/components/nav-menu";
 import NavHeader from "@/components/nav-header";
-import HyBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb";
-
+import { useRoute } from "vue-router";
+import HyBreadcrumb from "@/base-ui/breadcrumb";
+import { useStore } from "@/store";
+import { pathMapBreadcrumbs } from "@/utils/map-menus";
 export default defineComponent({
   setup() {
     const isCollapse = ref(false);
@@ -34,7 +36,17 @@ export default defineComponent({
       isCollapse.value = isFold;
     };
     // 面包屑的数据 [{name:,path:}]
-    const breadcrumbs: IBreadcrumb[] = [];
+    const route = useRoute();
+    const store = useStore();
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus;
+      const currentPath = route.path;
+      console.log(userMenus);
+      console.log(currentPath);
+      pathMapBreadcrumbs(userMenus, currentPath);
+      console.log(pathMapBreadcrumbs);
+      return pathMapBreadcrumbs(userMenus, currentPath);
+    });
     return { handleFoldClick, isCollapse, breadcrumbs };
   },
   components: {

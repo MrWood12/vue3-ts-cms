@@ -1,35 +1,37 @@
 <template>
   <div class="nav-header">
-    <i
-      class="fold-menu"
-      :class="isFold ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
-      @click="handleFoldClick"
-    ></i>
-    <div class="userinfo">
-      <el-button class="button-icon" icon="el-icon-search" circle></el-button>
-      <el-button
-        class="button-icon"
-        style="margin-right: 15px"
-        icon="el-icon-bell"
-        circle
-      ></el-button>
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          <el-avatar
-            :size="35"
-            :src="circleUrl"
-            style="margin-right: 10px"
-          ></el-avatar>
-          {{ name }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item icon="el-icon-circle-close"
-              >退出登录</el-dropdown-item
-            >
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+    <div class="nav-header-first">
+      <i
+        class="fold-menu"
+        :class="isFold ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
+        @click="handleFoldClick"
+      ></i>
+      <div class="userinfo">
+        <el-button class="button-icon" icon="el-icon-search" circle></el-button>
+        <el-button
+          class="button-icon"
+          style="margin-right: 15px"
+          icon="el-icon-bell"
+          circle
+        ></el-button>
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            <el-avatar
+              :size="35"
+              :src="circleUrl"
+              style="margin-right: 10px"
+            ></el-avatar>
+            {{ name }}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item icon="el-icon-circle-close"
+                >退出登录</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "@/store";
+
 export default defineComponent({
   emits: ["foldChange"],
   setup(props, { emit }) {
@@ -47,6 +50,7 @@ export default defineComponent({
       isFold.value = !isFold.value;
       emit("foldChange", isFold.value);
     };
+
     return {
       isFold,
       handleFoldClick,
@@ -59,9 +63,14 @@ export default defineComponent({
 <style scoped lang="less">
 .nav-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
+  .nav-header-first {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
   .userinfo {
     display: flex;
     align-items: center;
