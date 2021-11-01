@@ -2,8 +2,8 @@
   <div class="login-account">
     <div class="title">账号密码登录</div>
     <el-form :rules="rules" :model="account" ref="formRef">
-      <el-form-item prop="name">
-        <el-input placeholder="账户" v-model="account.name">
+      <el-form-item prop="username">
+        <el-input placeholder="账户" v-model="account.username">
           <template #prefix>
             <i class="el-input__icon el-icon-user"></i>
           </template>
@@ -31,7 +31,7 @@ export default defineComponent({
     const store = useStore();
     // 声明响应式变量
     const account = reactive({
-      name: localCache.getCache("name") ?? "",
+      username: localCache.getCache("username") ?? "",
       password: localCache.getCache("password") ?? "",
     });
     // 获取ElForm中函数数据
@@ -45,10 +45,10 @@ export default defineComponent({
           //1、是否记住账号密码
           if (iskeepInfo) {
             // 本地缓存
-            localCache.setlocalCache("name", account.name);
+            localCache.setlocalCache("username", account.username);
             localCache.setlocalCache("password", account.password);
           } else {
-            localCache.removeCache("name");
+            localCache.removeCache("username");
             localCache.removeCache("password");
           }
 

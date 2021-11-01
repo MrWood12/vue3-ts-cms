@@ -9,7 +9,7 @@ import {
 import localCache from "@/utils/localCache";
 import router from "@/router";
 import { mapMenusToRoutes } from "@/utils/map-menus";
-// import mokeUserMenus from "./mock-userMenus";
+import mokeUserMenus from "./mock-userMenus";
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
@@ -17,12 +17,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       token: "",
       userInfo: {},
       userMenus: [],
+      createTime: "",
     };
   },
   mutations: {
     changeToken(state, token: string) {
       state.token = token;
-      console.log(token);
     },
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo;
@@ -32,40 +32,45 @@ const loginModule: Module<ILoginState, IRootState> = {
       state.userMenus = userMenus;
       //2、Menu映射到routes路由内
       const routes = mapMenusToRoutes(userMenus);
-      console.log(routes);
       //  routes=>router.main.children
       routes.forEach((route) => {
         router.addRoute("main", route);
       });
     },
+    changeCreateTime(state, createTime: number) {
+      state.createTime = createTime;
+    },
   },
   actions: {
     async accountLoginAction({ commit }, payload: any) {
-      console.log(payload);
       // 1、实现登录逻辑
       const loginResult = await loginAccountRequest(payload);
       const { token } = loginResult.data;
       commit("changeToken", token);
-      const name = localCache.getCache("name");
-      if (name) {
+      const username = localCache.getCache("username");
+      if (username) {
+        localCache.clearCache();
         localCache.setlocalCache("token", token);
       } else {
+        localCache.clearCache();
         localCache.setsessionCache("token", token);
       }
 
-      // // 2、请求用户信息
-      // const userInfoResult = await requestUserInfoById(id);
-      // const userInfo = userInfoResult.data;
-      // commit("changeUserInfo", userInfo);
-      // localCache.setlocalCache("userInfo", userInfo);
+      // // 2、存储用户信息以及创建时间
+      const userInfo = loginResult.data;
+      commit("changeUserInfo", userInfo);
+      localCache.setlocalCache("userInfo", userInfo);
+      const createTime = new Date().getTime();
+      commit("changCreateTime", createTime);
+      localCache.setlocalCache("createTime", createTime);
 
       // // 3、请求用户菜单
       // // const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id);
       // // const userMenus = userMenusResult.data;
-      // const userMenus = mokeUserMenus;
+      const userMenus = mokeUserMenus;
       // console.log(userMenus);
-      // commit("changeUserMenus", userMenus);
-      // localCache.setlocalCache("userMenus", userMenus);
+      commit("changeUserMenus", userMenus);
+      localCache.setlocalCache("userMenus", userMenus);
 
       // 4、跳转首页
       router.push("/main");

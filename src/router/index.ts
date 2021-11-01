@@ -36,10 +36,19 @@ const router = createRouter({
 
 // router导航守卫
 router.beforeEach((to) => {
+  // 登录校验
   if (to.path !== "/login") {
     const token = localCache.getCache("token");
+    const userInfo = localCache.getCache("userInfo");
+    const createTime = localCache.getCache("createTime");
     if (!token) {
       return "./login";
+    } else {
+      const date = new Date().getTime();
+      if (date - createTime > userInfo.expires_in) {
+        localCache.clearCache();
+        return "./login";
+      }
     }
   }
 

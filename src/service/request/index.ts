@@ -48,11 +48,11 @@ class HCRequest {
             background: "rgba(0,0,0,0.5)",
           });
         }
-
         return config;
       },
       (err) => {
         // console.log("所有实例都有拦截器，请求拦截失败1");
+        console.log(err);
         return err;
       }
     );
@@ -70,14 +70,14 @@ class HCRequest {
         }
       },
       (err) => {
-        // console.log("所有实例都有拦截器，响应拦截失败1");
         // 移除loading
         // 可选链，有值的时候调用，没值的时候不调用，可以不写if
         this.loading?.close();
-        // 例子：判断不同的HttpErrorCode来显示不同的错误信息
+        // 例子：判断不同的console.log(err);HttpErrorCode来显示不同的错误信息
         if (err.response.status === 404) {
           console.log("404错误");
         }
+
         return err;
       }
     );

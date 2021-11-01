@@ -3,6 +3,7 @@
 import HCRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
 import localCatch from "@/utils/localCache";
+// import { ElMessage } from "element-plus";
 const hyRequest = new HCRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
@@ -26,6 +27,7 @@ const hyRequest = new HCRequest({
       return res;
     },
     responseInterceptorCatch: (err) => {
+      console.log(err.response.data);
       // console.log("响应失败的拦截");
       return err;
     },

@@ -41,10 +41,7 @@ export default defineComponent({
     const breadcrumbs = computed(() => {
       const userMenus = store.state.login.userMenus;
       const currentPath = route.path;
-      console.log(userMenus);
-      console.log(currentPath);
       pathMapBreadcrumbs(userMenus, currentPath);
-      console.log(pathMapBreadcrumbs);
       return pathMapBreadcrumbs(userMenus, currentPath);
     });
     return { handleFoldClick, isCollapse, breadcrumbs };

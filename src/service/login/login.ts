@@ -8,6 +8,6 @@ enum LoginAPI {
 export function loginAccountRequest(account: IAccount) {
   return hyRequest.get<IDataType<ILoginResult>>({
     url: LoginAPI.AccountLogin,
-    data: account,
+    params: account,
   });
 }
