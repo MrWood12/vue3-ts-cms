@@ -2,11 +2,22 @@
   <div class="channel">
     <hy-form v-model="formData" v-bind="searchFormConfig">
       <template #lineBtn>
-        <el-button class="checkBtn" size="small" type="primary">查询</el-button>
+        <el-button
+          class="checkBtn"
+          size="small"
+          type="primary"
+          @click="handleQueryClick"
+          >查询</el-button
+        >
       </template>
     </hy-form>
     <div class="content">
-      <hy-table :listData="channelList" v-bind="contentTableConfig">
+      <hy-table
+        :listData="channelList"
+        :dataCount="channelCount"
+        v-bind="contentTableConfig"
+        v-model:page="pageInfo"
+      >
         <!-- 1、header插槽 -->
         <template #headerHandler>
           <el-button type="primary" icon="el-icon-plus">新建</el-button>
@@ -35,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed, ref, watch } from "vue";
 import { useStore } from "@/store";
 import HyForm from "@/base-ui/form";
 import { searchFormConfig } from "./config/search.config";
@@ -48,23 +59,38 @@ export default defineComponent({
       name: "",
       status: "",
     });
+    // 分页点击下一页
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 });
+    watch(pageInfo, () => getPageData());
+    // 发送网络请求
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch("system/getPageListAction", {
+        pageUrl: "/backend/channel/index",
+        qeuryInfo: {
+          start: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          limit: pageInfo.value.pageSize,
+          ...queryInfo,
+        },
+      });
+    };
+    getPageData();
 
-    store.dispatch("system/getPageListAction", {
-      pageUrl: "/backend/channel/index",
-      qeuryInfo: {
-        start: 1,
-        limit: 10,
-      },
-    });
-
+    // 从vux中获取数据
     const channelList = computed(() => store.state.system.channelList);
     const channelCount = computed(() => store.state.system.channelCount);
+
+    // 点击搜索
+    const handleQueryClick = () => {
+      getPageData(formData.value);
+    };
     return {
       channelCount,
       channelList,
       formData,
       searchFormConfig,
       contentTableConfig,
+      handleQueryClick,
+      pageInfo,
     };
   },
   components: {

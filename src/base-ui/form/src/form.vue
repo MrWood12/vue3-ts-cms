@@ -19,7 +19,7 @@
                 style="width: 270px"
                 minlength:150
                 v-bind="item.otherOptions"
-                :model-value="formData[`${item.field}`]"
+                :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               ></el-input>
             </template>
@@ -29,7 +29,7 @@
                 v-bind="item.otherOptions"
                 size="small"
                 style="width: 270px"
-                :model-value="formData[`${item.field}`]"
+                :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               >
                 <el-option
@@ -43,7 +43,7 @@
               <el-date-picker
                 size="small"
                 v-bind="item.otherOptions"
-                :model-value="formData[`${item.field}`]"
+                :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               ></el-date-picker>
             </template>
