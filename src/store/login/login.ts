@@ -17,7 +17,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       token: "",
       userInfo: {},
       userMenus: [],
-      createTime: "",
+      createTime: 0,
     };
   },
   mutations: {
@@ -87,6 +87,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userMenus = localCache.getCache("userMenus");
       if (userMenus) {
         commit("changeUserMenus", userMenus);
+      }
+      const createTime = localCache.getCache("createTime");
+      if (createTime) {
+        commit("changCreateTime", createTime);
       }
     },
   },

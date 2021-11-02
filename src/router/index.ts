@@ -45,7 +45,8 @@ router.beforeEach((to) => {
       return "./login";
     } else {
       const date = new Date().getTime();
-      if (date - createTime > userInfo.expires_in) {
+      const finaldata = (date - createTime) / 1000;
+      if (finaldata > userInfo.expires_in) {
         localCache.clearCache();
         return "./login";
       }

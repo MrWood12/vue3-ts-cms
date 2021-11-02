@@ -3,7 +3,8 @@
 import HCRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
 import localCatch from "@/utils/localCache";
-// import { ElMessage } from "element-plus";
+import { ElMessage } from "element-plus";
+
 const hyRequest = new HCRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
@@ -13,7 +14,7 @@ const hyRequest = new HCRequest({
       // 携带token拦截
       const token = localCatch.getCache("token");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = token;
       }
       // console.log("请求成功的拦截");
       return config;
@@ -29,6 +30,10 @@ const hyRequest = new HCRequest({
     responseInterceptorCatch: (err) => {
       console.log(err.response.data);
       // console.log("响应失败的拦截");
+      const errData = err.response.data;
+      if (errData.status == 0) {
+        ElMessage.error(err.response.data.message);
+      }
       return err;
     },
   },

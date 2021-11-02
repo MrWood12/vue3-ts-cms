@@ -82,7 +82,7 @@ class HCRequest {
       }
     );
   }
-  request<T>(config: HYRequestConfig<T>): Promise<T> {
+  request<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1、是否显示loading
       if (config.showLoading === false) {
@@ -113,16 +113,16 @@ class HCRequest {
     });
   }
 
-  get<T>(config: HYRequestConfig<T>): Promise<T> {
+  get<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" });
   }
-  post<T>(config: HYRequestConfig<T>): Promise<T> {
+  post<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" });
   }
-  delete<T>(config: HYRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" });
   }
-  patch<T>(config: HYRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" });
   }
 }

@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import { globalRegister } from "./global/index";
 import { setupStore } from "./store";
+
 // import "./service/axios-demo";
 // import { hyRequest } from "./service/index";
 import "normalize.css";
