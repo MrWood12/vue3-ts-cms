@@ -8,6 +8,8 @@ const systemModule: Module<IsystemState, IRootState> = {
     return {
       channelList: [],
       channelCount: 0,
+      memberList: [],
+      memberCount: 0,
     };
   },
   mutations: {
@@ -17,20 +19,65 @@ const systemModule: Module<IsystemState, IRootState> = {
     changeChannelCount(state, channelCount: number) {
       state.channelCount = channelCount;
     },
+    changeMemberList(state, memberList: any[]) {
+      state.memberList = memberList;
+    },
+    changeMemberCount(state, memberCount: number) {
+      state.memberCount = memberCount;
+    },
+  },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`];
+        // switch (pageName) {
+        //   case "member":
+        //     return state.memberList;
+        //   case "channel":
+        //     return state.channelList;
+        // }
+      };
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`];
+      };
+    },
   },
   actions: {
     async getPageListAction({ commit }, payload: any) {
-      console.log(payload);
-      // 1、对页面发送请求
-      const pageResult = await getPageListData(
-        payload.pageUrl,
-        payload.qeuryInfo
-      );
-      console.log(pageResult);
+      // 1、获取pageUrl
+      const pageName = payload.pageName;
+      const pageUrl = `/${pageName}/index`;
+      // switch (pageName) {
+      //   case "channel":
+      //     pageUrl = "/channel";
+      //     break;
+      //   case "member":
+      //     pageUrl = "/member";
+      //     break;
+      // }
+      // 2、对页面发送请求
+      const pageResult = await getPageListData(pageUrl, payload.qeuryInfo);
+
+      // 3、将数据存储到state中
       const count = pageResult.count;
       const list = pageResult.data;
-      commit("changeChannelList", list);
-      commit("changeChannelCount", count);
+      const changePageName =
+        pageName.slice(0, 1).toUpperCase() + pageName.slice(1);
+      commit(`change${changePageName}List`, list);
+      commit(`change${changePageName}Count`, count);
+
+      // switch (pageName) {
+      //   case "channel":
+      //     commit(`changeChannelList`, list);
+      //     commit(`changeChannelCount`, count);
+      //     break;
+      //   case "member":
+      //     commit(`changeMemberList`, list);
+      //     commit(`changeMemberCount`, count);
+      //     break;
+      // }
     },
   },
 };

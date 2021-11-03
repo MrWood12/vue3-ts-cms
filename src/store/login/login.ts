@@ -18,6 +18,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       userInfo: {},
       userMenus: [],
       createTime: 0,
+      permissions: [],
     };
   },
   mutations: {
@@ -36,6 +37,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute("main", route);
       });
+      // 获取用户按钮的权限
+      // const permissions = mapMenusToPermissions(userMenus);
+      // console.log(permissions);
+      // state.permissions = permissions;
     },
     changeCreateTime(state, createTime: number) {
       state.createTime = createTime;

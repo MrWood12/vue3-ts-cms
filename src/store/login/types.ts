@@ -3,4 +3,5 @@ export interface ILoginState {
   userInfo: any;
   userMenus: any;
   createTime: any;
+  permissions: string[];
 }

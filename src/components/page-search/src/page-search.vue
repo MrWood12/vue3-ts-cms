@@ -1,0 +1,66 @@
+<template>
+  <div class="page-search">
+    <hy-form v-model="formData" v-bind="searchFormConfig">
+      <template #lineBtn>
+        <el-button
+          class="checkBtn"
+          size="small"
+          type="primary"
+          @click="handleQueryClick"
+          >查询</el-button
+        >
+      </template>
+    </hy-form>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import HyForm from "@/base-ui/form";
+export default defineComponent({
+  props: {
+    searchFormConfig: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ["queryBtnClick"],
+  setup(props, { emit }) {
+    // s双向绑定应该是由配置文件的field来决定
+    // 1、优化一：formData中的属性应该动态决定
+    const formItems = props.searchFormConfig?.formItems ?? [];
+    const formOriginData: any = {};
+    for (const item of formItems) {
+      formOriginData[item.field] = "";
+    }
+    const formData = ref(formOriginData);
+
+    // 2、查询
+    const handleQueryClick = () => {
+      emit("queryBtnClick", formData.value);
+    };
+    return {
+      formData,
+      handleQueryClick,
+    };
+  },
+  components: {
+    HyForm,
+  },
+});
+</script>
+
+<style scoped lang="less">
+.channel {
+  .newBtn {
+    text-align: left;
+    margin-left: 20px;
+  }
+}
+
+.checkBtn {
+  margin-top: 4px;
+  width: 65px;
+  margin-left: 50px;
+}
+</style>

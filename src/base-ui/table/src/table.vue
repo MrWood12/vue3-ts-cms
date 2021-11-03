@@ -32,6 +32,7 @@
           :prop="propItem.prop"
           :label="propItem.label"
           align="center"
+          show-overflow-tooltip
         >
           <template #default="scope">
             <slot :name="propItem.slotName" :row="scope.row">

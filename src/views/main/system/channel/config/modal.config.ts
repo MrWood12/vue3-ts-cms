@@ -1,22 +1,22 @@
-import { IForm } from "@/base-ui/form";
-
-export const searchFormConfig: IForm = {
-  labelWidth: "100px",
-  itemStyle: {
-    padding: "0 5px",
-  },
-
+export const modalConfig = {
   formItems: [
     {
       field: "name",
       type: "input",
-      placeholder: "请输入用户名/手机号",
+      label: "渠道名称",
+      placeholder: "请输入渠道名称",
     },
     {
       field: "price",
       type: "input",
-      label: "渠道名称：",
-      placeholder: "请输入渠道名称",
+      label: "权益定价",
+      placeholder: "请输入定价",
+    },
+    {
+      field: "desc",
+      type: "input",
+      label: "备注",
+      isHidden: false,
     },
     {
       field: "status",

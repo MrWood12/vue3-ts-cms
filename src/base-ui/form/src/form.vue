@@ -7,6 +7,7 @@
       <el-row>
         <template v-for="item in formItems" :key="item.placeholder">
           <el-form-item
+            v-if="!item.isHidden"
             :label="item.label"
             :rules="item.rules"
             :style="itemStyle"
