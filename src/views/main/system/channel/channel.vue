@@ -15,6 +15,7 @@
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
       :modalConfig="modalConfig"
+      pageName="channel"
     ></page-modal>
   </div>
 </template>

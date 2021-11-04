@@ -1,13 +1,12 @@
 export const contentTableConfig = {
   // title: "列表",
   propList: [
-    { prop: "id", label: "ID", minWidth: "100" },
-    { prop: "phone", label: "手机号", minWidth: "100" },
-    { prop: "realname", label: "姓名", minWidth: "100" },
-    { prop: "desc", label: "描述", minWidth: "100" },
+    { prop: "info", label: "账号信息", minWidth: "100", slotName: "info" },
+    { prop: "account", label: "有效余额", minWidth: "100" },
+    { prop: "create_time", label: "创建时间", minWidth: "100" },
+    { prop: "right", label: "权益有效期", minWidth: "100", slotName: "right" },
+    { prop: "channel", label: "来源渠道", minWidth: "100" },
     { prop: "status", label: "状态", minWidth: "100", slotName: "status" },
-    { prop: "create_time", label: "创建时间", minWidth: "100" },
-    { prop: "create_time", label: "创建时间", minWidth: "100" },
     { label: "操作", minWidth: "120", slotName: "handler" },
   ],
   // showIndexColumn: true,

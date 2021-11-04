@@ -1,8 +1,7 @@
 import { ILoginState } from "./login/types";
 import { IsystemState } from "./main/system/types";
 export interface IRootState {
-  name?: string;
-  age?: number;
+  entireChannel: any[];
 }
 
 export interface IRootWithModule {

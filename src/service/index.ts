@@ -16,6 +16,9 @@ const hyRequest = new HCRequest({
       if (token) {
         config.headers.Authorization = token;
       }
+      // 刷新token的过期时间
+      const nowDate = new Date().getTime();
+      localCatch.setlocalCache("nowDate", nowDate);
       // console.log("请求成功的拦截");
       return config;
     },

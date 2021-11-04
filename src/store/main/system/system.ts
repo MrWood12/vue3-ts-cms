@@ -1,7 +1,11 @@
 import { IRootState } from "@/store/types";
 import { Module } from "vuex";
 import { IsystemState } from "./types";
-import { getPageListData } from "@/service/main/system/system";
+import {
+  getPageListData,
+  createPageData,
+  editPageData,
+} from "@/service/main/system/system";
 const systemModule: Module<IsystemState, IRootState> = {
   namespaced: true,
   state() {
@@ -45,6 +49,7 @@ const systemModule: Module<IsystemState, IRootState> = {
     },
   },
   actions: {
+    // 请求列表
     async getPageListAction({ commit }, payload: any) {
       // 1、获取pageUrl
       const pageName = payload.pageName;
@@ -78,6 +83,35 @@ const systemModule: Module<IsystemState, IRootState> = {
       //     commit(`changeMemberCount`, count);
       //     break;
       // }
+    },
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 1、创建数据请求
+      const { pageName, queryInfo } = payload;
+      console.log(pageName);
+      const pageUrl = `/${pageName}/create`;
+      await createPageData(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
+    },
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1、创建数据请求
+      const { pageName, queryInfo, id } = payload;
+      const pageUrl = `/${pageName}/${id}`;
+      await editPageData(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
     },
   },
 };

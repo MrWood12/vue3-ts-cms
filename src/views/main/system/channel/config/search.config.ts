@@ -20,10 +20,12 @@ export const searchFormConfig: IForm = {
       placeholder: "请选择",
       options: [
         {
-          title: 1,
+          value: 1,
+          label: "启用",
         },
         {
-          title: 0,
+          value: -1,
+          label: "禁用",
         },
       ],
     },

@@ -100,6 +100,7 @@ export default defineComponent({
       (item: any) => {
         //用于过滤固定插槽
         if (item.slotName === "handler") return false;
+        if (item.slotName === "status") return false;
         return true;
       }
     );
