@@ -3,6 +3,7 @@
     <page-search
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryClick"
+      @resetBtnClick="handleResetClick"
     ></page-search>
     <page-content
       :contentTableConfig="contentTableConfig"
@@ -36,7 +37,8 @@ import { usePageModal } from "@/hooks/use-page-modal";
 
 export default defineComponent({
   setup() {
-    const [handleQueryClick, pageContentRef] = usePageSearch();
+    const [handleQueryClick, handleResetClick, pageContentRef] =
+      usePageSearch();
 
     // pageModal相关hook逻辑
     // 单独逻辑 比如是否显示密码框
@@ -60,6 +62,7 @@ export default defineComponent({
       searchFormConfig,
       contentTableConfig,
       handleQueryClick,
+      handleResetClick,
       pageContentRef,
       modalConfig,
       handleNewData,

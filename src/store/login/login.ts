@@ -42,7 +42,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       // console.log(permissions);
       // state.permissions = permissions;
     },
-    changeCreateTime(state, createTime: number) {
+    changCreateTime(state, createTime: number) {
       state.createTime = createTime;
     },
   },

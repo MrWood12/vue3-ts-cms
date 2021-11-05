@@ -3,6 +3,13 @@
     <hy-form v-model="formData" v-bind="searchFormConfig">
       <template #lineBtn>
         <el-button
+          class="resetBtn"
+          size="small"
+          type="primary"
+          @click="handleResetClick"
+          >重置</el-button
+        >
+        <el-button
           class="checkBtn"
           size="small"
           type="primary"
@@ -24,7 +31,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["queryBtnClick"],
+  emits: ["queryBtnClick", "resetBtnClick"],
   setup(props, { emit }) {
     // s双向绑定应该是由配置文件的field来决定
     // 1、优化一：formData中的属性应该动态决定
@@ -39,9 +46,15 @@ export default defineComponent({
     const handleQueryClick = () => {
       emit("queryBtnClick", formData.value);
     };
+    // 3、重置
+    const handleResetClick = () => {
+      formData.value = formOriginData;
+      emit("resetBtnClick");
+    };
     return {
       formData,
       handleQueryClick,
+      handleResetClick,
     };
   },
   components: {
@@ -59,6 +72,11 @@ export default defineComponent({
 }
 
 .checkBtn {
+  margin-top: 4px;
+  width: 65px;
+  margin-left: 20px;
+}
+.resetBtn {
   margin-top: 4px;
   width: 65px;
   margin-left: 50px;

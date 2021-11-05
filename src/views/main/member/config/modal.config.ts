@@ -20,7 +20,7 @@ export const modalConfig: IForm = {
     },
     {
       field: "phone",
-      type: "input",
+      type: "datepicker",
       label: "生效时间",
       placeholder: "请输入生效时间",
     },

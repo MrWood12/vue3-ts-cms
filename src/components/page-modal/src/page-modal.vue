@@ -2,7 +2,7 @@
   <div class="page-modal">
     <el-dialog
       v-model="centerDialogVisible"
-      title="Warning"
+      title="新建"
       width="60%"
       center
       destroy-on-close
@@ -63,7 +63,7 @@ export default defineComponent({
         console.log("编辑");
         store.dispatch("system/editPageDataAction", {
           pageName: props.pageName,
-          pageInfo: { ...formData.value, ...props.otherInfo },
+          queryInfo: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id,
         });
       } else {
@@ -71,7 +71,7 @@ export default defineComponent({
         console.log("新建");
         store.dispatch("system/createPageDataAction", {
           pageName: props.pageName,
-          pageInfo: { ...formData.value, ...props.otherInfo },
+          queryInfo: { ...formData.value, ...props.otherInfo },
         });
       }
     };

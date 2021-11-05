@@ -70,7 +70,6 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
 export function pathMapBreadcrumbs(userMenus: any[], currentPath: string) {
   const breadcrumbs: IBreadcrumb[] = [];
   pathMapToMenu(userMenus, currentPath, breadcrumbs);
-  console.log(breadcrumbs);
   return breadcrumbs;
 }
 

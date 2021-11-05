@@ -16,7 +16,6 @@ const store = createStore<IRootState>({
     async getInitialDataAction({ commit }) {
       //请求当前有效渠道数据
       const entireChannelResult = await getPageNormalData("/channel/validList");
-      console.log(entireChannelResult);
       const entireChannelList = entireChannelResult.data;
       // 保存当前有效渠道数据
       commit("changeEntireChannel", entireChannelList);

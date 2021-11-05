@@ -5,6 +5,7 @@ import {
   getPageListData,
   createPageData,
   editPageData,
+  updateStatus,
 } from "@/service/main/system/system";
 const systemModule: Module<IsystemState, IRootState> = {
   namespaced: true,
@@ -63,7 +64,7 @@ const systemModule: Module<IsystemState, IRootState> = {
       //     break;
       // }
       // 2、对页面发送请求
-      const pageResult = await getPageListData(pageUrl, payload.qeuryInfo);
+      const pageResult = await getPageListData(pageUrl, payload.queryInfo);
 
       // 3、将数据存储到state中
       const count = pageResult.count;
@@ -84,6 +85,7 @@ const systemModule: Module<IsystemState, IRootState> = {
       //     break;
       // }
     },
+    // 创建
     async createPageDataAction({ dispatch }, payload: any) {
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
@@ -99,11 +101,28 @@ const systemModule: Module<IsystemState, IRootState> = {
         },
       });
     },
+    // 编辑
     async editPageDataAction({ dispatch }, payload: any) {
       // 1、创建数据请求
       const { pageName, queryInfo, id } = payload;
       const pageUrl = `/${pageName}/${id}`;
       await editPageData(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
+    },
+    // 更新
+    async updatePageDataAction({ dispatch }, payload: any) {
+      // 1、创建数据请求
+      const { pageName, queryInfo } = payload;
+      const pageUrl = `/${pageName}/updateStatus`;
+      console.log(queryInfo);
+      await updateStatus(pageUrl, queryInfo);
       // 2、请求最新数据
       dispatch("getPageListAction", {
         pageName,

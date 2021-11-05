@@ -6,5 +6,10 @@ export function usePageSearch() {
   const handleQueryClick = (queryInfo: any) => {
     pageContentRef.value?.getPageData(queryInfo);
   };
-  return [handleQueryClick, pageContentRef];
+  // 点击重置
+  const handleResetClick = () => {
+    pageContentRef.value?.getPageData();
+  };
+
+  return [handleQueryClick, handleResetClick, pageContentRef];
 }

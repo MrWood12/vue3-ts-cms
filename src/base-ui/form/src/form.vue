@@ -44,6 +44,7 @@
             <template v-else-if="item.type === 'datepicker'">
               <el-date-picker
                 size="small"
+                style="width: 270px"
                 v-bind="item.otherOptions"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
@@ -109,9 +110,9 @@ export default defineComponent({
 <style scoped lang="less">
 .hy-form {
   padding-top: 22px;
-  margin-left: 50px;
   .el-row {
     display: flex;
+    justify-content: center;
   }
 }
 </style>

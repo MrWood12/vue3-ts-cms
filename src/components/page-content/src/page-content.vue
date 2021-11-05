@@ -7,7 +7,7 @@
       v-model:page="pageInfo"
     >
       <!-- 1、header插槽 -->
-      <template #headerHandler>
+      <template #headerHandler v-if="pageName == 'channel'">
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
           >新建</el-button
         >
@@ -18,6 +18,7 @@
           v-model="scope.row.status"
           :active-value="1"
           :inactive-value="-1"
+          @click="handleUpdateClick(scope.row)"
         />
       </template>
       <template #handler="scope">
@@ -76,8 +77,8 @@ export default defineComponent({
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch("system/getPageListAction", {
         pageName: props.pageName,
-        qeuryInfo: {
-          start: pageInfo.value.currentPage * pageInfo.value.pageSize,
+        queryInfo: {
+          start: pageInfo.value.currentPage,
           limit: pageInfo.value.pageSize,
           // start: 0,
           // limit: 10,
@@ -104,7 +105,16 @@ export default defineComponent({
         return true;
       }
     );
-
+    // 更新状态
+    const handleUpdateClick = (queryInfo: any = {}) => {
+      store.dispatch("system/updatePageDataAction", {
+        pageName: props.pageName,
+        queryInfo: {
+          id: queryInfo.id,
+          status: queryInfo.status,
+        },
+      });
+    };
     // 编辑/新建
     const handleNewClick = () => {
       emit("newBtnClick");
@@ -120,6 +130,7 @@ export default defineComponent({
       otherPropsSlots,
       handleNewClick,
       handleEditClick,
+      handleUpdateClick,
     };
   },
   components: {
