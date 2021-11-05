@@ -7,12 +7,12 @@ export const searchFormConfig: IForm = {
 
   formItems: [
     {
-      field: "name",
+      field: "realname",
       type: "input",
-      placeholder: "请输入用户名/手机号",
+      placeholder: "请输入用户名",
     },
     {
-      field: "price",
+      field: "channel",
       type: "input",
       placeholder: "请输入渠道名称",
     },
@@ -23,11 +23,15 @@ export const searchFormConfig: IForm = {
       options: [
         {
           value: 1,
-          label: "启用",
+          label: "激活",
         },
         {
           value: -1,
-          label: "禁用",
+          label: "冻结",
+        },
+        {
+          value: -2,
+          label: "到期",
         },
       ],
     },

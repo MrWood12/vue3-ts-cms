@@ -29,9 +29,9 @@
     <page-content
       :contentTableConfig="contentTableConfig"
       pageName="member"
+      ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
-      ref="pageModalRef"
     >
       <template #info="scope">
         <div class="info-name">{{ scope.row.realname }}</div>
@@ -103,7 +103,7 @@ export default defineComponent({
     // 当组件数据发生改变，重新刷新组件
     const modalConfigRef = computed(() => {
       const departmentItem = modalConfig.formItems.find(
-        (item) => item.field === "channelId"
+        (item) => item.field === "channel_id"
       );
       departmentItem!.options = store.state.entireChannel.map((item) => {
         return { label: item.name, value: item.id };

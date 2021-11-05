@@ -44,6 +44,7 @@ export default defineComponent({
 
     // 2、查询
     const handleQueryClick = () => {
+      console.log(formData.value);
       emit("queryBtnClick", formData.value);
     };
     // 3、重置

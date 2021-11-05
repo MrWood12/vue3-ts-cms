@@ -14,12 +14,12 @@ export const modalConfig: IForm = {
       placeholder: "请输入手机号",
     },
     {
-      field: "channelId",
+      field: "channel_id",
       type: "select",
       label: "渠道",
     },
     {
-      field: "phone",
+      field: "right_start_time",
       type: "datepicker",
       label: "生效时间",
       placeholder: "请输入生效时间",

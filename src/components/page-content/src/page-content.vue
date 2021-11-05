@@ -7,7 +7,7 @@
       v-model:page="pageInfo"
     >
       <!-- 1、header插槽 -->
-      <template #headerHandler v-if="pageName == 'channel'">
+      <template #headerHandler>
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
           >新建</el-button
         >
