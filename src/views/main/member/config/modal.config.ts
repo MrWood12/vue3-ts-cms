@@ -1,5 +1,9 @@
 import { IForm } from "@/base-ui/form";
 export const modalConfig: IForm = {
+  labelWidth: "70px",
+  itemStyle: {
+    padding: "0 5px",
+  },
   formItems: [
     {
       field: "realname",
@@ -14,15 +18,21 @@ export const modalConfig: IForm = {
       placeholder: "请输入手机号",
     },
     {
+      field: "card_no",
+      type: "input",
+      label: "车牌号",
+      placeholder: "请输入车牌号",
+    },
+    {
       field: "channel_id",
       type: "select",
       label: "渠道",
     },
     {
-      field: "right_start_time",
+      field: "right_end_time",
       type: "datepicker",
-      label: "生效时间",
-      placeholder: "请输入生效时间",
+      label: "到期时间",
+      placeholder: "请输入到期时间",
     },
     {
       field: "status",

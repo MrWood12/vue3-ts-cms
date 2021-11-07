@@ -6,5 +6,11 @@ export function getChannelById(id: number) {
       return item;
     }
   });
-  return channelName.name;
+  return channelName;
+}
+export function getChannelData(data: any) {
+  const finalData = data.map((item: any) => {
+    return item.name;
+  });
+  return finalData;
 }

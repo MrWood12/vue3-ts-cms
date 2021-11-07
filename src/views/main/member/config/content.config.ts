@@ -6,7 +6,7 @@ export const contentTableConfig = {
     { prop: "create_time", label: "创建时间", minWidth: "100" },
     { prop: "right", label: "权益有效期", minWidth: "100", slotName: "right" },
     {
-      prop: "channel",
+      prop: "channel_id",
       label: "来源渠道",
       minWidth: "100",
       slotName: "channel",

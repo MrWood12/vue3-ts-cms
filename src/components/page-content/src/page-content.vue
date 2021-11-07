@@ -8,9 +8,9 @@
     >
       <!-- 1、header插槽 -->
       <template #headerHandler>
-        <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
-          >新建</el-button
-        >
+        <div class="content-button">
+          <slot name="headerHandler"></slot>
+        </div>
       </template>
       <!-- 2、列中插槽 -->
       <template #status="scope">
@@ -115,6 +115,13 @@ export default defineComponent({
         },
       });
     };
+    // 导入
+    const hanleLoadDataClick = (queryInfo: any = {}) => {
+      store.dispatch("system/uploadPageDataAction", {
+        pageName: props.pageName,
+        queryInfo: queryInfo,
+      });
+    };
     // 编辑/新建
     const handleNewClick = () => {
       emit("newBtnClick");
@@ -131,6 +138,7 @@ export default defineComponent({
       handleNewClick,
       handleEditClick,
       handleUpdateClick,
+      hanleLoadDataClick,
     };
   },
   components: {
@@ -139,8 +147,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .content {
   padding: 20px;
+  .content-button {
+    display: flex;
+  }
 }
 </style>

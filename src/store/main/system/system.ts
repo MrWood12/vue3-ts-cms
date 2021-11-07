@@ -6,6 +6,7 @@ import {
   createPageData,
   editPageData,
   updateStatus,
+  upLoadFile,
 } from "@/service/main/system/system";
 const systemModule: Module<IsystemState, IRootState> = {
   namespaced: true,
@@ -121,8 +122,22 @@ const systemModule: Module<IsystemState, IRootState> = {
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
       const pageUrl = `/${pageName}/updateStatus`;
-      console.log(queryInfo);
       await updateStatus(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
+    },
+    // 导入
+    async uploadPageDataAction({ dispatch }, payload: any) {
+      // 1、创建数据请求
+      const { pageName, queryInfo } = payload;
+      const pageUrl = `/${pageName}/import`;
+      await upLoadFile(pageUrl, queryInfo);
       // 2、请求最新数据
       dispatch("getPageListAction", {
         pageName,

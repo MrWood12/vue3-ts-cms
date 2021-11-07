@@ -46,6 +46,8 @@
                 size="small"
                 style="width: 270px"
                 v-bind="item.otherOptions"
+                format="YYYY/MM/DD"
+                value-format="YYYY-MM-DD"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               ></el-date-picker>
@@ -78,7 +80,7 @@ export default defineComponent({
     },
     labelWidth: {
       type: String,
-      default: "100px",
+      default: "70px",
     },
     itemStyle: {
       type: Object,
@@ -110,9 +112,5 @@ export default defineComponent({
 <style scoped lang="less">
 .hy-form {
   padding-top: 22px;
-  .el-row {
-    display: flex;
-    justify-content: center;
-  }
 }
 </style>

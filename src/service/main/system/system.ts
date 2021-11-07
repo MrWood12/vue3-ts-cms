@@ -52,3 +52,18 @@ export function updateStatus(url: string, qeuryInfo: any) {
     },
   });
 }
+export function upLoadFile(url: string, queryInfo: any) {
+  const formData = new FormData();
+  formData.append("file", queryInfo);
+  return hyRequest.post({
+    url: url,
+    data: formData,
+    interceptors: {
+      responseInterceptor: (res) => {
+        ElMessage.success(res.msg);
+        // console.log("单独响应的response");
+        return res;
+      },
+    },
+  });
+}

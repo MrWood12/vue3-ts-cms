@@ -11,7 +11,13 @@
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
-    ></page-content>
+    >
+      <template v-slot:headerHandler>
+        <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
+          >新建</el-button
+        >
+      </template>
+    </page-content>
     <page-modal
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
@@ -37,7 +43,7 @@ import { usePageModal } from "@/hooks/use-page-modal";
 
 export default defineComponent({
   setup() {
-    const [handleQueryClick, handleResetClick, pageContentRef] =
+    const [handleQueryClick, handleResetClick, pageContentRef, handleNewClick] =
       usePageSearch();
 
     // pageModal相关hook逻辑
@@ -69,6 +75,7 @@ export default defineComponent({
       handleEditData,
       pageModalRef,
       defaultInfo,
+      handleNewClick,
     };
   },
   components: {

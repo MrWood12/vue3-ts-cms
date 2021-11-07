@@ -33,6 +33,24 @@
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
     >
+      <template v-slot:headerHandler>
+        <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
+          >新建</el-button
+        >
+        <el-upload
+          action="/backend/member/import"
+          :http-request="handleUploadClick"
+          accept=".xlsx"
+          :show-file-list="false"
+        >
+          <el-button
+            type="primary"
+            icon="el-icon-plus"
+            style="margin-left: 25px"
+            >导入</el-button
+          >
+        </el-upload>
+      </template>
       <template #info="scope">
         <div class="info-name">{{ scope.row.realname }}</div>
         <div class="info-phone">{{ scope.row.phone }}</div>
@@ -42,8 +60,13 @@
         <div class="end-time">{{ scope.row.right_end_time }}</div>
       </template>
       <template #channel="scope">
-        <div class="start-time">
-          {{ $filters.channelName(scope.row.channel_id) }}
+        <div
+          class="start-time"
+          v-for="item in $filters.channelData(scope.row.channels)"
+          :key="item.name"
+        >
+          <!-- {{ scope.row.channels.map((item) => item.name)[0] }} -->
+          {{ item }}
         </div>
       </template>
       <template #memberStatus="scope">
@@ -78,7 +101,6 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-
 import { useStore } from "@/store";
 
 import { contentTableConfig } from "./config/content.config";
@@ -96,8 +118,14 @@ export default defineComponent({
     PageSearch,
   },
   setup() {
-    const [handleQueryClick, handleResetClick, pageContentRef] =
-      usePageSearch();
+    const [
+      handleQueryClick,
+      handleResetClick,
+      pageContentRef,
+      handleNewClick,
+      handleUploadClick,
+    ] = usePageSearch();
+
     // 动态添加
     const store = useStore();
     // 当组件数据发生改变，重新刷新组件
@@ -113,7 +141,6 @@ export default defineComponent({
 
     const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
       usePageModal();
-
     return {
       contentTableConfig,
       searchFormConfig,
@@ -125,6 +152,8 @@ export default defineComponent({
       handleNewData,
       handleEditData,
       handleResetClick,
+      handleNewClick,
+      handleUploadClick,
     };
   },
 });
