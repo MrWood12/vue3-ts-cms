@@ -32,6 +32,7 @@
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
+      @chargeBtnClick="handleChargeData"
     >
       <template v-slot:headerHandler>
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
@@ -79,15 +80,6 @@
         >
           {{ $filters.memberStatusName(scope.row.status) }}
         </div>
-      </template>
-      <template #memberhandler="scope">
-        <el-button
-          size="mini"
-          icon="el-icon-shopping-cart-2"
-          type="text"
-          @click="handleEditClick(scope.row)"
-          >充值</el-button
-        >
       </template>
     </page-content>
     <page-modal
@@ -139,8 +131,13 @@ export default defineComponent({
       return modalConfig;
     });
 
-    const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
-      usePageModal();
+    const [
+      pageModalRef,
+      defaultInfo,
+      handleNewData,
+      handleEditData,
+      handleChargeData,
+    ] = usePageModal();
     return {
       contentTableConfig,
       searchFormConfig,
@@ -154,6 +151,7 @@ export default defineComponent({
       handleResetClick,
       handleNewClick,
       handleUploadClick,
+      handleChargeData,
     };
   },
 });

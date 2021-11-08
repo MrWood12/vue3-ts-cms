@@ -2,7 +2,11 @@ import { ref } from "vue";
 import PageModal from "@/components/page-modal";
 
 type CallbackType = () => void;
-export function usePageModal(newCb?: CallbackType, editCb?: CallbackType) {
+export function usePageModal(
+  newCb?: CallbackType,
+  editCb?: CallbackType,
+  rechargeCb?: CallbackType
+) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>();
   const defaultInfo = ref({});
   const handleNewData = () => {
@@ -19,5 +23,19 @@ export function usePageModal(newCb?: CallbackType, editCb?: CallbackType) {
     }
     editCb && editCb();
   };
-  return [pageModalRef, defaultInfo, handleNewData, handleEditData];
+  const handleChargeData = () => {
+    defaultInfo.value = {};
+    console.log(2);
+    if (pageModalRef.value) {
+      pageModalRef.value.centerDialogVisible = true;
+    }
+    rechargeCb && rechargeCb();
+  };
+  return [
+    pageModalRef,
+    defaultInfo,
+    handleNewData,
+    handleEditData,
+    handleChargeData,
+  ];
 }

@@ -30,8 +30,16 @@
             @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
-          <el-button size="mini" icon="el-icon-delete" type="text"
-            >删除</el-button
+        </div>
+      </template>
+      <template #memberhandler="scope">
+        <div class="handle-btns">
+          <el-button
+            size="mini"
+            icon="el-icon-edit"
+            type="text"
+            @click="handleChargeClick(scope.row)"
+            >充值</el-button
           >
         </div>
       </template>
@@ -66,7 +74,7 @@ export default defineComponent({
       require: true,
     },
   },
-  emits: ["newBtnClick", "editBtnClick"],
+  emits: ["newBtnClick", "editBtnClick", "chargeBtnClick"],
   setup(props, { emit }) {
     const store = useStore();
     // 分页点击下一页
@@ -102,6 +110,7 @@ export default defineComponent({
         //用于过滤固定插槽
         if (item.slotName === "handler") return false;
         if (item.slotName === "status") return false;
+        if (item.slotName === "memberhandler") return false;
         return true;
       }
     );
@@ -129,6 +138,10 @@ export default defineComponent({
     const handleEditClick = (item: any) => {
       emit("editBtnClick", item);
     };
+    const handleChargeClick = (item: any) => {
+      console.log(1);
+      emit("chargeBtnClick", item);
+    };
     return {
       dataList,
       dataCount,
@@ -139,6 +152,7 @@ export default defineComponent({
       handleEditClick,
       handleUpdateClick,
       hanleLoadDataClick,
+      handleChargeClick,
     };
   },
   components: {
