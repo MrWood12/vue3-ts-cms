@@ -3,6 +3,7 @@ import { IRootState, IStoreType } from "./types";
 import { getPageNormalData } from "@/service/main/system/system";
 import login from "./login/login";
 import system from "./main/system/system";
+import member from "./main/member/member";
 const store = createStore<IRootState>({
   state: {
     entireChannel: [],
@@ -24,6 +25,7 @@ const store = createStore<IRootState>({
   modules: {
     login,
     system,
+    member,
   },
 });
 export function setupStore() {

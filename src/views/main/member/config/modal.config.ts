@@ -57,3 +57,27 @@ export const modalConfig: IForm = {
     },
   ],
 };
+export const rechargeConfig: IForm = {
+  labelWidth: "70px",
+  itemStyle: {
+    padding: "0 5px",
+  },
+  formItems: [
+    {
+      field: "member_id",
+      type: "input",
+      label: "用户id",
+    },
+    {
+      field: "channel_id",
+      type: "select",
+      label: "渠道",
+    },
+    {
+      field: "amount",
+      type: "input",
+      label: "金额",
+      placeholder: "请输入充值金额",
+    },
+  ],
+};

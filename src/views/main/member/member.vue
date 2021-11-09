@@ -83,11 +83,21 @@
       </template>
     </page-content>
     <page-modal
-      :modalConfig="modalConfigRef"
+      :modalConfig="
+        modalName === 'newModal' ? modalConfigRef : rechargeConfigRef
+      "
       :defaultInfo="defaultInfo"
+      :clickName="modalName === 'newModal' ? 'modal' : 'recharge'"
       ref="pageModalRef"
       pageName="member"
     ></page-modal>
+    <!-- <page-modal
+      v-else-if="modalName === 'rechargeModal'"
+      :modalConfig="rechargeConfig"
+      :defaultInfo="defaultInfo"
+      ref="pageModalRef"
+      pageName="member"
+    ></page-modal> -->
   </div>
 </template>
 
@@ -97,7 +107,7 @@ import { useStore } from "@/store";
 
 import { contentTableConfig } from "./config/content.config";
 import { searchFormConfig } from "./config/search.config";
-import { modalConfig } from "./config/modal.config";
+import { modalConfig, rechargeConfig } from "./config/modal.config";
 
 import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
@@ -121,6 +131,17 @@ export default defineComponent({
     // 动态添加
     const store = useStore();
     // 当组件数据发生改变，重新刷新组件
+    const rechargeConfigRef = computed(() => {
+      const departmentItem = rechargeConfig.formItems.find(
+        (item) => item.field === "channel_id"
+      );
+      console.log(store.state.member.channelList);
+      departmentItem!.options = store.state.member.channelList.map((item) => {
+        return { label: item.channel_name, value: item.channel_id };
+      });
+      return rechargeConfig;
+    });
+
     const modalConfigRef = computed(() => {
       const departmentItem = modalConfig.formItems.find(
         (item) => item.field === "channel_id"
@@ -130,13 +151,13 @@ export default defineComponent({
       });
       return modalConfig;
     });
-
     const [
       pageModalRef,
       defaultInfo,
       handleNewData,
       handleEditData,
       handleChargeData,
+      modalName,
     ] = usePageModal();
     return {
       contentTableConfig,
@@ -152,6 +173,9 @@ export default defineComponent({
       handleNewClick,
       handleUploadClick,
       handleChargeData,
+      modalName,
+      rechargeConfig,
+      rechargeConfigRef,
     };
   },
 });

@@ -139,7 +139,9 @@ export default defineComponent({
       emit("editBtnClick", item);
     };
     const handleChargeClick = (item: any) => {
-      console.log(1);
+      store.dispatch("member/getchannelListAction", {
+        queryInfo: { member_id: item.id },
+      });
       emit("chargeBtnClick", item);
     };
     return {

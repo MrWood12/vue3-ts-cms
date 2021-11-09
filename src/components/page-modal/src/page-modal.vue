@@ -11,7 +11,18 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="centerDialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleConfirmClick">确定</el-button>
+          <el-button
+            v-if="clickName === 'modal'"
+            type="primary"
+            @click="handleConfirmClick"
+            >确定</el-button
+          >
+          <el-button
+            v-if="clickName === 'recharge'"
+            type="primary"
+            @click="handleRechargeClick"
+            >确定</el-button
+          >
         </span>
       </template>
     </el-dialog>
@@ -31,6 +42,10 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({}),
+    },
+    clickName: {
+      type: String,
+      default: "",
     },
     otherInfo: {
       type: Object,
@@ -75,7 +90,19 @@ export default defineComponent({
         });
       }
     };
-    return { centerDialogVisible, formData, handleConfirmClick };
+    const handleRechargeClick = () => {
+      centerDialogVisible.value = false;
+      store.dispatch("member/memberchargeAction", {
+        pageName: props.pageName,
+        queryInfo: { ...formData.value, ...props.otherInfo },
+      });
+    };
+    return {
+      centerDialogVisible,
+      formData,
+      handleConfirmClick,
+      handleRechargeClick,
+    };
   },
   components: {
     HyForm,

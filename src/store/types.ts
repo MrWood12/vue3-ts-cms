@@ -7,6 +7,7 @@ export interface IRootState {
 export interface IRootWithModule {
   login: ILoginState;
   system: IsystemState;
+  member: IsystemState;
 }
 
 export type IStoreType = IRootState & IRootWithModule;

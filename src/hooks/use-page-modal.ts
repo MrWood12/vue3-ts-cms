@@ -1,5 +1,8 @@
 import { ref } from "vue";
 import PageModal from "@/components/page-modal";
+import { useStore } from "@/store";
+
+const store = useStore();
 
 type CallbackType = () => void;
 export function usePageModal(
@@ -9,11 +12,13 @@ export function usePageModal(
 ) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>();
   const defaultInfo = ref({});
+  const modalName = ref("");
   const handleNewData = () => {
     defaultInfo.value = {};
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;
     }
+    modalName.value = "newModal";
     newCb && newCb();
   };
   const handleEditData = (item: any) => {
@@ -23,12 +28,13 @@ export function usePageModal(
     }
     editCb && editCb();
   };
-  const handleChargeData = () => {
-    defaultInfo.value = {};
-    console.log(2);
+  const handleChargeData = (item: any) => {
+    defaultInfo.value = { member_id: item.id };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;
     }
+    modalName.value = "rechargeModal";
+
     rechargeCb && rechargeCb();
   };
   return [
@@ -37,5 +43,6 @@ export function usePageModal(
     handleNewData,
     handleEditData,
     handleChargeData,
+    modalName,
   ];
 }

@@ -1,7 +1,7 @@
 import { IRootState } from "@/store/types";
 import { Module } from "vuex";
 import { ImemberState } from "./types";
-import { memberChannel } from "@/service/main/member/member";
+import { memberChannel, memberRecharge } from "@/service/main/member/member";
 const memberModule: Module<ImemberState, IRootState> = {
   namespaced: true,
   state() {
@@ -11,7 +11,7 @@ const memberModule: Module<ImemberState, IRootState> = {
     };
   },
   mutations: {
-    changeChannel(state, list: any[]) {
+    changeChannelList(state, list: any[]) {
       state.channelList = list;
     },
     changeMemberId(state, payload: any) {
@@ -20,12 +20,25 @@ const memberModule: Module<ImemberState, IRootState> = {
   },
 
   actions: {
-    // 请求列表
+    // 请求用户有效渠道列表
     async getchannelListAction({ commit }, payload: any) {
+      console.log(123);
       commit(`changeMemberId`, payload);
       const pageResult = await memberChannel(payload.queryInfo);
       const list = pageResult.data;
-      commit(`changeChannel`, list);
+      commit(`changeChannelList`, list);
+    },
+    // 充值
+    async memberchargeAction({ dispatch }, payload: any) {
+      const { pageName, queryInfo } = payload;
+      await memberRecharge(queryInfo);
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
     },
   },
 };
