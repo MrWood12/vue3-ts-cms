@@ -1,5 +1,4 @@
 import { hyRequest } from "../../index";
-import { ElMessage } from "element-plus";
 
 //获取用户有效渠道
 export function memberChannel(queryInfo: any) {

@@ -1,8 +1,5 @@
 import { ref } from "vue";
 import PageModal from "@/components/page-modal";
-import { useStore } from "@/store";
-
-const store = useStore();
 
 type CallbackType = () => void;
 export function usePageModal(
