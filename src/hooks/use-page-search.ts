@@ -8,10 +8,12 @@ export function usePageSearch() {
   };
   // 点击新建
   const handleNewClick = () => {
+    console.log("点击新建");
     pageContentRef.value?.handleNewClick();
   };
   // // 点击搜索
   const handleQueryClick = (queryInfo: any) => {
+    console.log(1);
     pageContentRef.value?.getPageData(queryInfo);
   };
   // 点击重置

@@ -1,6 +1,7 @@
 import { IRootState } from "@/store/types";
 import { Module } from "vuex";
 import { IsystemState } from "./types";
+import { ref } from "vue";
 import {
   getPageListData,
   createPageData,
@@ -16,6 +17,12 @@ const systemModule: Module<IsystemState, IRootState> = {
       channelCount: 0,
       memberList: [],
       memberCount: 0,
+      capitalpoolList: [],
+      capitalpoolCount: 0,
+      powerordersList: [],
+      powerordersCount: 0,
+      payordersList: [],
+      payordersCount: 0,
     };
   },
   mutations: {
@@ -30,6 +37,24 @@ const systemModule: Module<IsystemState, IRootState> = {
     },
     changeMemberCount(state, memberCount: number) {
       state.memberCount = memberCount;
+    },
+    changeCapitalpoolList(state, capitalpoolList: any[]) {
+      state.capitalpoolList = capitalpoolList;
+    },
+    changeCapitalpoolCount(state, capitalpoolCount: number) {
+      state.capitalpoolCount = capitalpoolCount;
+    },
+    changePowerordersList(state, powerordersList: any[]) {
+      state.powerordersList = powerordersList;
+    },
+    changePowerordersCount(state, powerordersCount: number) {
+      state.powerordersCount = powerordersCount;
+    },
+    changePayordersList(state, payordersList: any[]) {
+      state.payordersList = payordersList;
+    },
+    changepayordersCount(state, payordersCount: number) {
+      state.payordersCount = payordersCount;
     },
   },
   getters: {
@@ -55,17 +80,31 @@ const systemModule: Module<IsystemState, IRootState> = {
     async getPageListAction({ commit }, payload: any) {
       // 1、获取pageUrl
       const pageName = payload.pageName;
-      const pageUrl = `/${pageName}/index`;
-      // switch (pageName) {
-      //   case "channel":
-      //     pageUrl = "/channel";
-      //     break;
-      //   case "member":
-      //     pageUrl = "/member";
-      //     break;
-      // }
+      console.log(payload);
+      const pageUrl = ref("");
+      // const pageUrl = `/${pageName}/index`;
+      switch (pageName) {
+        case "channel":
+          pageUrl.value = "/channel/index";
+          break;
+        case "member":
+          pageUrl.value = "/member/index";
+          break;
+        case "capitalpool":
+          pageUrl.value = "/Platform/rechargeList";
+          break;
+        case "powerorders":
+          pageUrl.value = "/Rights/index";
+          break;
+        case "payorders":
+          pageUrl.value = "/Trans/index";
+          break;
+      }
       // 2、对页面发送请求
-      const pageResult = await getPageListData(pageUrl, payload.queryInfo);
+      const pageResult = await getPageListData(
+        pageUrl.value,
+        payload.queryInfo
+      );
 
       // 3、将数据存储到state中
       const count = pageResult.count;
@@ -91,8 +130,19 @@ const systemModule: Module<IsystemState, IRootState> = {
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
       console.log(pageName);
-      const pageUrl = `/${pageName}/create`;
-      await createPageData(pageUrl, queryInfo);
+      const pageUrl = ref("");
+      switch (pageName) {
+        case "channel":
+          pageUrl.value = "/channel/create";
+          break;
+        case "member":
+          pageUrl.value = "/member/create";
+          break;
+        case "capitalpool":
+          pageUrl.value = "/Platform/createRecharge";
+          break;
+      }
+      await createPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据
       dispatch("getPageListAction", {
         pageName,

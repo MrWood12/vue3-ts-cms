@@ -3,4 +3,10 @@ export interface IsystemState {
   channelCount: number;
   memberList: any[];
   memberCount: number;
+  capitalpoolList: any[];
+  capitalpoolCount: number;
+  powerordersList: any[];
+  powerordersCount: number;
+  payordersList: any[];
+  payordersCount: number;
 }

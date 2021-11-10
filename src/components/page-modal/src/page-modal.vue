@@ -12,6 +12,12 @@
         <span class="dialog-footer">
           <el-button @click="centerDialogVisible = false">取消</el-button>
           <el-button
+            v-if="clickName === 'capitalpool'"
+            type="primary"
+            @click="handleCapitalpoolClick"
+            >确定</el-button
+          >
+          <el-button
             v-if="clickName === 'modal'"
             type="primary"
             @click="handleConfirmClick"
@@ -97,11 +103,19 @@ export default defineComponent({
         queryInfo: { ...formData.value, ...props.otherInfo },
       });
     };
+    const handleCapitalpoolClick = () => {
+      centerDialogVisible.value = false;
+      store.dispatch("system/createPageDataAction", {
+        pageName: props.pageName,
+        queryInfo: { ...formData.value, ...props.otherInfo },
+      });
+    };
     return {
       centerDialogVisible,
       formData,
       handleConfirmClick,
       handleRechargeClick,
+      handleCapitalpoolClick,
     };
   },
   components: {

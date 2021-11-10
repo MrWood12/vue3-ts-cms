@@ -2,6 +2,7 @@ import { ILoginState } from "./login/types";
 import { IsystemState } from "./main/system/types";
 export interface IRootState {
   entireChannel: any[];
+  rechargeState: any[];
 }
 
 export interface IRootWithModule {

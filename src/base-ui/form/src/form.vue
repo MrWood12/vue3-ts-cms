@@ -48,6 +48,7 @@
                 v-bind="item.otherOptions"
                 format="YYYY/MM/DD"
                 value-format="YYYY-MM-DD"
+                :placeholder="item.placeholder"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               ></el-date-picker>
