@@ -7,3 +7,15 @@ export function getStateNumberData(queryInfo: any) {
     data: queryInfo,
   });
 }
+
+//获取权益总数
+export function getRechargeAmountData(queryInfo?: any) {
+  return hyRequest.post({
+    url: "/balance/amount",
+    data: {
+      start: 1,
+      limit: 10,
+      ...queryInfo,
+    },
+  });
+}

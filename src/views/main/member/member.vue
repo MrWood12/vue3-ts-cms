@@ -130,6 +130,8 @@ export default defineComponent({
 
     // 动态添加
     const store = useStore();
+    store.dispatch("getInitialDataAction");
+
     // 当组件数据发生改变，重新刷新组件
     const rechargeConfigRef = computed(() => {
       const departmentItem = rechargeConfig.formItems.find(

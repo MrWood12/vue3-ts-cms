@@ -36,12 +36,28 @@
     </div>
     <page-search
       :searchFormConfig="searchFormConfig"
-      @queryBtnClick="handleQueryClick"
-      @resetBtnClick="handleResetClick"
+      @queryBtnClick="handleQueryAndRechargeAmountClick"
+      @resetBtnClick="handleResetAndRechargeAmountClick"
     >
     </page-search>
+    <el-alert
+      style="
+        width: 95%;
+        margin: 0 auto;
+        background-color: #e6f7ff;
+        height: 40px;
+        --el-alert-icon-large-size: 19px;
+        margin-top: 15px;
+      "
+      type="info"
+      show-icon
+    >
+      <div style="font-size: 14px; margin-bottom: 3px">
+        累计消费金额 <span>{{ priceAmount }}</span> 元
+      </div>
+    </el-alert>
     <page-content
-      pageName="powerorders"
+      pageName="recharge"
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       :contentTableConfig="contentTableConfig"
@@ -54,7 +70,13 @@
         </div>
       </template>
       <template #rechargeStatus="scope">
-        <div class="circle-item">
+        <div
+          :class="{
+            'circle-item-success': scope.row.status == 1,
+            'circle-item-fail': scope.row.status == -1,
+            'circle-item-doing': scope.row.status == 0,
+          }"
+        >
           {{ $filters.rechargeStatusName(scope.row.status) }}
         </div>
       </template>
@@ -62,9 +84,9 @@
     <page-modal
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
-      clickName="powerorders"
+      clickName="recharge"
       :modalConfig="modalConfig"
-      pageName="powerorders"
+      pageName="recharge"
     ></page-modal>
   </div>
 </template>
@@ -87,23 +109,35 @@ import { useStore } from "vuex";
 export default defineComponent({
   components: { PageSearch, PageContent, pageModal },
   setup() {
-    const [handleQueryClick, handleResetClick, pageContentRef, handleNewClick] =
-      usePageSearch();
+    const [
+      handleQueryClick,
+      handleResetClick,
+      pageContentRef,
+      handleNewClick,
+      handleUploadClick,
+      handleQueryAndpowerAmountClick,
+      handleQueryAndRechargeAmountClick,
+      handleResetAndpowerAmountClick,
+      handleResetAndRechargeAmountClick,
+    ] = usePageSearch();
     const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
 
     const store = useStore();
     const failCountRef = computed(() => {
       const failCount = store.state.rechargeState.fail_count;
-      console.log(failCount);
       const penddingCount = store.state.rechargeState.pendding_count;
       const successCount = store.state.rechargeState.success_count;
       return { failCount, penddingCount, successCount };
     });
+    store.dispatch("getRechargeAmount");
 
     const handleRefresh = () => {
       store.dispatch("getStateNumber");
     };
 
+    const priceAmount = computed(() => {
+      return store.state.rechargeAmount.amount;
+    });
     return {
       searchFormConfig,
       contentTableConfig,
@@ -117,6 +151,12 @@ export default defineComponent({
       handleNewClick,
       failCountRef,
       handleRefresh,
+      priceAmount,
+      handleUploadClick,
+      handleQueryAndpowerAmountClick,
+      handleQueryAndRechargeAmountClick,
+      handleResetAndpowerAmountClick,
+      handleResetAndRechargeAmountClick,
     };
   },
 });
@@ -151,13 +191,37 @@ export default defineComponent({
     }
   }
 }
-.circle-item::before {
+.circle-item-success::before {
   content: "";
   width: 5px;
   height: 5px;
-  border: 1px solid red;
   border-radius: 50%;
-  background-color: red;
+  border: 1px solid #52c41a;
+  background-color: #52c41a;
   display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.circle-item-fail::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #f5222d;
+  background-color: #f5222d;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.circle-item-doing::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #1890ff;
+  background-color: #1890ff;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
 }
 </style>

@@ -9,4 +9,6 @@ export interface IsystemState {
   powerordersCount: number;
   payordersList: any[];
   payordersCount: number;
+  rechargeList: any[];
+  rechargeCount: number;
 }

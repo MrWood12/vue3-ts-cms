@@ -1,7 +1,7 @@
 import { IForm } from "@/base-ui/form";
 export const modalConfig: IForm = {
-  labelWidth: "70px",
   itemStyle: {
+    width: "330px",
     padding: "0 5px",
   },
   formItems: [
@@ -37,7 +37,7 @@ export const modalConfig: IForm = {
     {
       field: "status",
       type: "select",
-      label: "状态：",
+      label: "状态",
       placeholder: "请选择",
       options: [
         {

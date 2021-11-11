@@ -71,7 +71,12 @@ export default defineComponent({
     margin-left: 20px;
   }
 }
-
+.page-search {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
 .checkBtn {
   margin-top: 4px;
   width: 65px;

@@ -23,6 +23,8 @@ const systemModule: Module<IsystemState, IRootState> = {
       powerordersCount: 0,
       payordersList: [],
       payordersCount: 0,
+      rechargeList: [],
+      rechargeCount: 0,
     };
   },
   mutations: {
@@ -53,8 +55,14 @@ const systemModule: Module<IsystemState, IRootState> = {
     changePayordersList(state, payordersList: any[]) {
       state.payordersList = payordersList;
     },
-    changepayordersCount(state, payordersCount: number) {
+    changePayordersCount(state, payordersCount: number) {
       state.payordersCount = payordersCount;
+    },
+    changeRechargeList(state, rechargeList: any[]) {
+      state.rechargeList = rechargeList;
+    },
+    changeRechargeCount(state, rechargeCount: number) {
+      state.rechargeCount = rechargeCount;
     },
   },
   getters: {
@@ -80,7 +88,7 @@ const systemModule: Module<IsystemState, IRootState> = {
     async getPageListAction({ commit }, payload: any) {
       // 1、获取pageUrl
       const pageName = payload.pageName;
-      console.log(payload);
+      console.log(payload.pageName);
       const pageUrl = ref("");
       // const pageUrl = `/${pageName}/index`;
       switch (pageName) {
@@ -98,6 +106,9 @@ const systemModule: Module<IsystemState, IRootState> = {
           break;
         case "payorders":
           pageUrl.value = "/Trans/index";
+          break;
+        case "recharge":
+          pageUrl.value = "/balance/index";
           break;
       }
       // 2、对页面发送请求
@@ -129,7 +140,7 @@ const systemModule: Module<IsystemState, IRootState> = {
     async createPageDataAction({ dispatch }, payload: any) {
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
-      console.log(pageName);
+
       const pageUrl = ref("");
       switch (pageName) {
         case "channel":

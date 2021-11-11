@@ -30,6 +30,8 @@ import {
   ElBreadcrumbItem,
   ElPagination,
   ElDialog,
+  ElAlert,
+  ElIcon,
 } from "element-plus/lib/components";
 import { App } from "vue";
 const components = [
@@ -59,6 +61,8 @@ const components = [
   ElBreadcrumbItem,
   ElPagination,
   ElDialog,
+  ElAlert,
+  ElIcon,
 ];
 export default function (app: App): void {
   for (const component of components) {

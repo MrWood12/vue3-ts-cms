@@ -50,12 +50,12 @@ const rechargeType = [
   },
   {
     type: -1,
-    name: "失败",
+    name: "异常",
   },
 ];
-export function rechargeTypeById(status: number) {
+export function rechargeTypeById(type: number) {
   const rechargeName = rechargeType.find((item: any) => {
-    if (item.status === status) {
+    if (item.type === type) {
       return item;
     }
   });

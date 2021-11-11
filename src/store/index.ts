@@ -1,7 +1,12 @@
 import { createStore, Store, useStore as useVuexStore } from "vuex";
 import { IRootState, IStoreType } from "./types";
 import { getPageNormalData } from "@/service/main/system/system";
-import { getStateNumberData } from "@/service/main/recharge/recharge";
+import {
+  getStateNumberData,
+  getRechargeAmountData,
+} from "@/service/main/recharge/recharge";
+import { getPowerAmountData } from "@/service/main/powerorders/powerorders";
+
 import login from "./login/login";
 import system from "./main/system/system";
 import member from "./main/member/member";
@@ -9,6 +14,8 @@ const store = createStore<IRootState>({
   state: {
     entireChannel: [],
     rechargeState: [],
+    powerAmount: {},
+    rechargeAmount: {},
   },
   mutations: {
     changeEntireChannel(state, list) {
@@ -16,6 +23,13 @@ const store = createStore<IRootState>({
     },
     changeRechargeState(state, rechargeState) {
       state.rechargeState = rechargeState;
+    },
+    changePowerAmount(state, powerAmount) {
+      state.powerAmount = powerAmount;
+    },
+    changeRechargeAmount(state, rechargeAmount) {
+      console.log(1);
+      state.rechargeAmount = rechargeAmount;
     },
   },
   actions: {
@@ -28,12 +42,31 @@ const store = createStore<IRootState>({
     },
 
     async getStateNumber({ commit }) {
-      //请求当前余额状态总数
+      //请求当前余额状态
       const rechargeStateResult = await getStateNumberData("/balance/state");
       const rechargeState = rechargeStateResult.data;
       console.log(rechargeStateResult.data);
-      // 保存当前有效渠道数据
+      // 保存当前数据
       commit("changeRechargeState", rechargeState);
+    },
+
+    async getPowerAmount({ commit }, payload: any) {
+      //请求当前权益总数
+      console.log(payload);
+      const powerAmountResult = await getPowerAmountData(payload);
+      const powerAmount = powerAmountResult.data;
+      console.log(powerAmount);
+      // 保存当前有效渠道数据
+      commit("changePowerAmount", powerAmount);
+    },
+
+    async getRechargeAmount({ commit }, payload: any) {
+      //请求余额充值总数
+      console.log(payload);
+      const rechargeAmountResult = await getRechargeAmountData(payload);
+      const rechargeAmount = rechargeAmountResult.data;
+      // 保存余额充值总数数据
+      commit("changeRechargeAmount", rechargeAmount);
     },
   },
   modules: {
@@ -44,8 +77,9 @@ const store = createStore<IRootState>({
 });
 export function setupStore() {
   store.dispatch("login/loadLocalLogin");
-  store.dispatch("getInitialDataAction");
-  store.dispatch("getStateNumber");
+  // store.dispatch("getInitialDataAction");
+  // store.dispatch("getStateNumber");
+  // store.dispatch("getPowerAmount");
 }
 
 export function useStore(): Store<IStoreType> {

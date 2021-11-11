@@ -12,7 +12,7 @@ export const searchFormConfig: IForm = {
       placeholder: "请输入用户名/手机号",
     },
     {
-      field: "type",
+      field: "status",
       type: "select",
       placeholder: "请选择操作类型",
       options: [
@@ -26,7 +26,7 @@ export const searchFormConfig: IForm = {
         },
         {
           value: -1,
-          label: "失败",
+          label: "异常",
         },
       ],
     },

@@ -3,6 +3,8 @@ import { IsystemState } from "./main/system/types";
 export interface IRootState {
   entireChannel: any[];
   rechargeState: any[];
+  powerAmount: any;
+  rechargeAmount: any;
 }
 
 export interface IRootWithModule {
