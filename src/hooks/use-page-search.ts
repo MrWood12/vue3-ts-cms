@@ -30,20 +30,31 @@ export function usePageSearch() {
     pageContentRef.value?.getPageData(queryInfo);
     store.dispatch("getRechargeAmount", queryInfo);
   };
+  // // 点击搜索并且获取消费订单累计总数
+  const handleQueryAndPayorderAmountClick = (queryInfo: any) => {
+    pageContentRef.value?.getPageData(queryInfo);
+    store.dispatch("getPayorderAmount", queryInfo);
+  };
   // 点击重置
   const handleResetClick = () => {
     pageContentRef.value?.getPageData();
   };
+  // // 点击重置并且获取权益累计总数
   const handleResetAndpowerAmountClick = () => {
     pageContentRef.value?.getPageData();
     store.dispatch("getPowerAmount");
   };
+  // // 点击重置并且获取余额充值累计总数
   const handleResetAndRechargeAmountClick = () => {
     pageContentRef.value?.getPageData();
-    store.dispatch("getPowerAmount");
+    store.dispatch("getRechargeAmount");
   };
-
-  return [
+  // // 点击重置并且获取消费订单累计总数
+  const handleResetAndPayorderAmountClick = () => {
+    pageContentRef.value?.getPageData();
+    store.dispatch("getPayorderAmount");
+  };
+  return {
     handleQueryClick,
     handleResetClick,
     pageContentRef,
@@ -53,5 +64,7 @@ export function usePageSearch() {
     handleQueryAndRechargeAmountClick,
     handleResetAndpowerAmountClick,
     handleResetAndRechargeAmountClick,
-  ];
+    handleQueryAndPayorderAmountClick,
+    handleResetAndPayorderAmountClick,
+  };
 }

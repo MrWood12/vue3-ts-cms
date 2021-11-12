@@ -120,13 +120,13 @@ export default defineComponent({
     PageSearch,
   },
   setup() {
-    const [
+    const {
       handleQueryClick,
       handleResetClick,
       pageContentRef,
       handleNewClick,
       handleUploadClick,
-    ] = usePageSearch();
+    } = usePageSearch();
 
     // 动态添加
     const store = useStore();

@@ -1,13 +1,9 @@
 import { hyRequest } from "../index";
-import { IAccount, IDataType, ILoginResult } from "./type";
-
-enum LoginAPI {
-  AccountLogin = "/common/login",
-}
+import { IAccount } from "./type";
 
 export function loginAccountRequest(account: IAccount) {
-  return hyRequest.post<IDataType<ILoginResult>>({
-    url: LoginAPI.AccountLogin,
+  return hyRequest.post({
+    url: "/common/login",
     data: account,
   });
 }

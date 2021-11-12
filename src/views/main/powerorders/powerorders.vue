@@ -65,7 +65,7 @@ import { useStore } from "@/store";
 export default defineComponent({
   components: { PageSearch, PageContent, pageModal },
   setup() {
-    const [
+    const {
       handleQueryClick,
       handleResetClick,
       pageContentRef,
@@ -75,7 +75,7 @@ export default defineComponent({
       handleQueryAndRechargeAmountClick,
       handleResetAndpowerAmountClick,
       handleResetAndRechargeAmountClick,
-    ] = usePageSearch();
+    } = usePageSearch();
     const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
 
     const store = useStore();

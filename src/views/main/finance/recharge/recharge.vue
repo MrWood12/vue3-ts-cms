@@ -109,7 +109,7 @@ import { useStore } from "vuex";
 export default defineComponent({
   components: { PageSearch, PageContent, pageModal },
   setup() {
-    const [
+    const {
       handleQueryClick,
       handleResetClick,
       pageContentRef,
@@ -119,7 +119,7 @@ export default defineComponent({
       handleQueryAndRechargeAmountClick,
       handleResetAndpowerAmountClick,
       handleResetAndRechargeAmountClick,
-    ] = usePageSearch();
+    } = usePageSearch();
     const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
 
     const store = useStore();
@@ -130,7 +130,7 @@ export default defineComponent({
       return { failCount, penddingCount, successCount };
     });
     store.dispatch("getRechargeAmount");
-
+    store.dispatch("getStateNumber");
     const handleRefresh = () => {
       store.dispatch("getStateNumber");
     };

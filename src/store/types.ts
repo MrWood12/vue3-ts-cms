@@ -5,6 +5,9 @@ export interface IRootState {
   rechargeState: any[];
   powerAmount: any;
   rechargeAmount: any;
+  payorderAmount: any;
+  oilcardList: any[];
+  oilproductList: any[];
 }
 
 export interface IRootWithModule {

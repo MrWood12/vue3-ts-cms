@@ -25,6 +25,10 @@ const systemModule: Module<IsystemState, IRootState> = {
       payordersCount: 0,
       rechargeList: [],
       rechargeCount: 0,
+      cardorderList: [],
+      cardorderCount: 0,
+      cardapplicationList: [],
+      cardapplicationCount: 0,
     };
   },
   mutations: {
@@ -63,6 +67,18 @@ const systemModule: Module<IsystemState, IRootState> = {
     },
     changeRechargeCount(state, rechargeCount: number) {
       state.rechargeCount = rechargeCount;
+    },
+    changeCardorderList(state, cardorderList: any[]) {
+      state.cardorderList = cardorderList;
+    },
+    changeCardorderCount(state, cardorderCount: number) {
+      state.cardorderCount = cardorderCount;
+    },
+    changeCardapplicationList(state, cardapplicationList: any[]) {
+      state.cardapplicationList = cardapplicationList;
+    },
+    changeCardapplicationCount(state, cardapplicationCount: number) {
+      state.cardapplicationCount = cardapplicationCount;
     },
   },
   getters: {
@@ -109,6 +125,12 @@ const systemModule: Module<IsystemState, IRootState> = {
           break;
         case "recharge":
           pageUrl.value = "/balance/index";
+          break;
+        case "cardorder":
+          pageUrl.value = "/petoleum/rechargeList";
+          break;
+        case "cardapplication":
+          pageUrl.value = "/petoleum/applyList";
           break;
       }
       // 2、对页面发送请求

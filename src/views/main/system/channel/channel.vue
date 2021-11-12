@@ -43,8 +43,12 @@ import { usePageModal } from "@/hooks/use-page-modal";
 
 export default defineComponent({
   setup() {
-    const [handleQueryClick, handleResetClick, pageContentRef, handleNewClick] =
-      usePageSearch();
+    const {
+      handleQueryClick,
+      handleResetClick,
+      pageContentRef,
+      handleNewClick,
+    } = usePageSearch();
 
     // pageModal相关hook逻辑
     // 单独逻辑 比如是否显示密码框

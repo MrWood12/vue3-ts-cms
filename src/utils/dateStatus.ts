@@ -61,3 +61,41 @@ export function rechargeTypeById(type: number) {
   });
   return rechargeName?.name;
 }
+
+// 油卡充值类型
+const cardorderType = [
+  { type: 1, name: "申请油卡预充值" },
+  {
+    type: 2,
+    name: "油卡充值",
+  },
+];
+export function cardorderTypeById(type: number) {
+  const cardorderName = cardorderType.find((item: any) => {
+    if (item.type === type) {
+      return item;
+    }
+  });
+  return cardorderName?.name;
+}
+
+// 油卡充值状态
+const cardorderStatus = [
+  { status: 0, name: "待付款" },
+  {
+    status: 1,
+    name: "已付款",
+  },
+  {
+    status: -1,
+    name: "过期/关闭",
+  },
+];
+export function cardorderStatusById(status: number) {
+  const cardorderStatuName = cardorderStatus.find((item: any) => {
+    if (item.status === status) {
+      return item;
+    }
+  });
+  return cardorderStatuName?.name;
+}

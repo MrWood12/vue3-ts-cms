@@ -6,6 +6,7 @@ import {
   getRechargeAmountData,
 } from "@/service/main/recharge/recharge";
 import { getPowerAmountData } from "@/service/main/powerorders/powerorders";
+import { getPayorderAmountData } from "@/service/main/payorder/payorder";
 
 import login from "./login/login";
 import system from "./main/system/system";
@@ -16,6 +17,9 @@ const store = createStore<IRootState>({
     rechargeState: [],
     powerAmount: {},
     rechargeAmount: {},
+    payorderAmount: {},
+    oilcardList: [],
+    oilproductList: [],
   },
   mutations: {
     changeEntireChannel(state, list) {
@@ -30,6 +34,15 @@ const store = createStore<IRootState>({
     changeRechargeAmount(state, rechargeAmount) {
       console.log(1);
       state.rechargeAmount = rechargeAmount;
+    },
+    changePayorderAmount(state, payorderAmount) {
+      state.payorderAmount = payorderAmount;
+    },
+    changeOilcardList(state, oilcardList) {
+      state.oilcardList = oilcardList;
+    },
+    changeOilproductList(state, oilproductList) {
+      state.oilproductList = oilproductList;
     },
   },
   actions: {
@@ -60,13 +73,38 @@ const store = createStore<IRootState>({
       commit("changePowerAmount", powerAmount);
     },
 
-    async getRechargeAmount({ commit }, payload: any) {
+    async getRechargeAmount({ commit }, payload?: any) {
       //请求余额充值总数
       console.log(payload);
       const rechargeAmountResult = await getRechargeAmountData(payload);
       const rechargeAmount = rechargeAmountResult.data;
       // 保存余额充值总数数据
       commit("changeRechargeAmount", rechargeAmount);
+    },
+
+    async getPayorderAmount({ commit }, payload?: any) {
+      //请求消费订单总数
+      console.log(payload);
+      const payorderAmountResult = await getPayorderAmountData(payload);
+      const payorderAmount = payorderAmountResult.data;
+      // 保存消费订单总数数据
+      commit("changePayorderAmount", payorderAmount);
+    },
+
+    async getOilcardAction({ commit }) {
+      //请求油卡类型
+      const oilcardResult = await getPageNormalData("/petoleum/types");
+      const oilcardList = oilcardResult.data;
+      // 保存当前有效渠道数据
+      commit("changeOilcardList", oilcardList);
+    },
+
+    async getOilproductAction({ commit }) {
+      //请求油品类型
+      const oilproductResult = await getPageNormalData("/petoleum/gases");
+      const oilproductList = oilproductResult.data;
+      // 保存当前有效渠道数据
+      commit("changeOilproductList", oilproductList);
     },
   },
   modules: {

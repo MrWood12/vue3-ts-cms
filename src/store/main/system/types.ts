@@ -11,4 +11,8 @@ export interface IsystemState {
   payordersCount: number;
   rechargeList: any[];
   rechargeCount: number;
+  cardorderList: any[];
+  cardorderCount: number;
+  cardapplicationList: any[];
+  cardapplicationCount: number;
 }

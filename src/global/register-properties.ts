@@ -5,6 +5,8 @@ import {
   getMemberStatusNameById,
   getpowerordersTypeById,
   rechargeTypeById,
+  cardorderTypeById,
+  cardorderStatusById,
 } from "@/utils/dateStatus";
 export default function registerProperties(app: App) {
   app.config.globalProperties.$filters = {
@@ -23,6 +25,12 @@ export default function registerProperties(app: App) {
     },
     rechargeStatusName(status: number) {
       return rechargeTypeById(status);
+    },
+    cardorderTypeName(type: number) {
+      return cardorderTypeById(type);
+    },
+    cardorderStatusName(status: number) {
+      return cardorderStatusById(status);
     },
   };
 }

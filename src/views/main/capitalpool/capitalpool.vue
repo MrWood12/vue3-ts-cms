@@ -44,8 +44,12 @@ import { usePageModal } from "@/hooks/use-page-modal";
 export default defineComponent({
   components: { PageSearch, PageContent, pageModal },
   setup() {
-    const [handleQueryClick, handleResetClick, pageContentRef, handleNewClick] =
-      usePageSearch();
+    const {
+      handleQueryClick,
+      handleResetClick,
+      pageContentRef,
+      handleNewClick,
+    } = usePageSearch();
     const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
     return {
       searchFormConfig,
