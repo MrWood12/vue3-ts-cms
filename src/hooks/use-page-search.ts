@@ -54,6 +54,16 @@ export function usePageSearch() {
     pageContentRef.value?.getPageData();
     store.dispatch("getPayorderAmount");
   };
+  // // 点击搜索并且获取油卡申请总数
+  const handleQueryAndApplicationClick = (queryInfo: any) => {
+    pageContentRef.value?.getPageData(queryInfo);
+    store.dispatch("getApplicationStateAction", queryInfo);
+  };
+  // // 点击重置并且获取油卡申请总数
+  const handleResetAndApplicationClick = () => {
+    pageContentRef.value?.getPageData();
+    store.dispatch("getApplicationStateAction");
+  };
   return {
     handleQueryClick,
     handleResetClick,
@@ -66,5 +76,7 @@ export function usePageSearch() {
     handleResetAndRechargeAmountClick,
     handleQueryAndPayorderAmountClick,
     handleResetAndPayorderAmountClick,
+    handleQueryAndApplicationClick,
+    handleResetAndApplicationClick,
   };
 }

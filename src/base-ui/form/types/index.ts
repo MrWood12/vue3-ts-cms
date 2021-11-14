@@ -11,6 +11,7 @@ export interface IFormItem {
   // 针对特殊的属性
   otherOptions?: any;
   isHidden?: boolean;
+  disabled?: boolean;
 }
 export interface IForm {
   formItems: IFormItem[];

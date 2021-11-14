@@ -14,6 +14,7 @@
         >
           <template v-if="item.type === 'input' || item.type === 'password'">
             <el-input
+              :disabled="item.disabled"
               :placeholder="item.placeholder"
               :show-password="item.type === 'password'"
               size="small"

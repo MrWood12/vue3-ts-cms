@@ -14,16 +14,14 @@ export const contentTableConfig = {
     { prop: "oil_card_no", label: "油卡类型", minWidth: "100" },
 
     {
-      prop: "type",
+      prop: "orin_amount",
       label: "充值金额",
       minWidth: "100",
-      slotName: "cardorderType",
     },
     {
-      prop: "type",
+      prop: "amount",
       label: "实付金额",
       minWidth: "100",
-      slotName: "cardorderType",
     },
     { prop: "create_time", label: "下单时间", minWidth: "100" },
     // { label: "操作", minWidth: "120", slotName: "handler" },

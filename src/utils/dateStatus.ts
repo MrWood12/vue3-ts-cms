@@ -99,3 +99,32 @@ export function cardorderStatusById(status: number) {
   });
   return cardorderStatuName?.name;
 }
+
+// 油卡充值状态
+const cardapplicationStatus = [
+  { status: 0, name: "待付款" },
+  {
+    status: 1,
+    name: "已付款,待发货",
+  },
+  {
+    status: 2,
+    name: "已发货",
+  },
+  {
+    status: 10,
+    name: "完成",
+  },
+  {
+    status: -1,
+    name: "关闭",
+  },
+];
+export function cardapplicationStatusById(status: number) {
+  const cardapplicationStatuName = cardapplicationStatus.find((item: any) => {
+    if (item.status === status) {
+      return item;
+    }
+  });
+  return cardapplicationStatuName?.name;
+}

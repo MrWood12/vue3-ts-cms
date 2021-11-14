@@ -7,6 +7,10 @@ import {
 } from "@/service/main/recharge/recharge";
 import { getPowerAmountData } from "@/service/main/powerorders/powerorders";
 import { getPayorderAmountData } from "@/service/main/payorder/payorder";
+import {
+  getApplicationStateData,
+  getApplicationDetailData,
+} from "@/service/main/application/application";
 
 import login from "./login/login";
 import system from "./main/system/system";
@@ -20,6 +24,8 @@ const store = createStore<IRootState>({
     payorderAmount: {},
     oilcardList: [],
     oilproductList: [],
+    applicationStateList: {},
+    applicationDetailList: {},
   },
   mutations: {
     changeEntireChannel(state, list) {
@@ -44,6 +50,12 @@ const store = createStore<IRootState>({
     changeOilproductList(state, oilproductList) {
       state.oilproductList = oilproductList;
     },
+    changeApplicationStateList(state, applicationStateList) {
+      state.applicationStateList = applicationStateList;
+    },
+    changeApplicationDetailList(state, applicationDetailList) {
+      state.applicationDetailList = applicationDetailList;
+    },
   },
   actions: {
     async getInitialDataAction({ commit }) {
@@ -55,7 +67,7 @@ const store = createStore<IRootState>({
     },
 
     async getStateNumber({ commit }) {
-      //请求当前余额状态
+      //请求当前余额总量状态
       const rechargeStateResult = await getStateNumberData("/balance/state");
       const rechargeState = rechargeStateResult.data;
       console.log(rechargeStateResult.data);
@@ -105,6 +117,20 @@ const store = createStore<IRootState>({
       const oilproductList = oilproductResult.data;
       // 保存当前有效渠道数据
       commit("changeOilproductList", oilproductList);
+    },
+    async getApplicationStateAction({ commit }, payload?: any) {
+      //请求油品类型
+      const applicationStateResult = await getApplicationStateData(payload);
+      const applicationStateList = applicationStateResult.data;
+      // 保存当前有效渠道数据
+      commit("changeApplicationStateList", applicationStateList);
+    },
+    async getApplicationDetailAction({ commit }, payload?: any) {
+      //请求申请详情
+      const applicationDeatilResult = await getApplicationDetailData(payload);
+      const applicationDetailList = applicationDeatilResult.data;
+      // 保存当前有效渠道数据
+      commit("changeApplicationDetailList", applicationDetailList);
     },
   },
   modules: {

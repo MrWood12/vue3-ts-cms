@@ -72,7 +72,7 @@ export default defineComponent({
       handleQueryAndPayorderAmountClick,
       handleResetAndPayorderAmountClick,
     } = usePageSearch();
-    const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
+    const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
     const store = useStore();
     store.dispatch("getPayorderAmount");
     const priceAmount = computed(() => {

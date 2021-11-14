@@ -153,14 +153,14 @@ export default defineComponent({
       });
       return modalConfig;
     });
-    const [
+    const {
       pageModalRef,
       defaultInfo,
       handleNewData,
       handleEditData,
       handleChargeData,
       modalName,
-    ] = usePageModal();
+    } = usePageModal();
     return {
       contentTableConfig,
       searchFormConfig,

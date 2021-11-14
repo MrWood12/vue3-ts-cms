@@ -66,7 +66,7 @@ export default defineComponent({
     // };
     // const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
     //   usePageModal(newCallback, editCallback);
-    const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
+    const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
       usePageModal(rechargeCallback);
     return {
       searchFormConfig,

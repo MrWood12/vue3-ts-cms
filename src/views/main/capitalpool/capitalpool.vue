@@ -50,7 +50,7 @@ export default defineComponent({
       pageContentRef,
       handleNewClick,
     } = usePageSearch();
-    const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
+    const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
     return {
       searchFormConfig,
       contentTableConfig,

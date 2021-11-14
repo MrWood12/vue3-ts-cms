@@ -8,12 +8,15 @@ export interface IRootState {
   payorderAmount: any;
   oilcardList: any[];
   oilproductList: any[];
+  applicationStateList: any;
+  applicationDetailList: any;
 }
 
 export interface IRootWithModule {
   login: ILoginState;
   system: IsystemState;
   member: IsystemState;
+  application: IsystemState;
 }
 
 export type IStoreType = IRootState & IRootWithModule;

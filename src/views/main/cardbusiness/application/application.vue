@@ -1,9 +1,37 @@
 <template>
   <div class="capitalpool">
+    <div class="page-statistics">
+      <div class="static-item">
+        <div class="item-title">未发货</div>
+        <div class="item-number" style="color: #596ef9">
+          {{ orderCountRef.undispatch }}
+        </div>
+      </div>
+      <div
+        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
+      ></div>
+      <div class="static-item">
+        <div class="item-title">已发货</div>
+        <div>
+          <div class="item-number" style="color: #ff0000">
+            {{ orderCountRef.dispatch }}
+          </div>
+        </div>
+      </div>
+      <div
+        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
+      ></div>
+      <div class="static-item">
+        <div class="item-title">完成</div>
+        <div class="item-number" style="color: #bbbbbb">
+          {{ orderCountRef.complete }}
+        </div>
+      </div>
+    </div>
     <page-search
       :searchFormConfig="searchFormConfigRef"
-      @queryBtnClick="handleQueryClick"
-      @resetBtnClick="handleResetClick"
+      @queryBtnClick="handleQueryAndApplicationClick"
+      @resetBtnClick="handleResetAndApplicationClick"
     >
     </page-search>
     <page-content
@@ -27,23 +55,51 @@
         <div>{{ scope.row.goods_phone }}</div>
         <div>{{ scope.row.goods_address }}</div>
       </template>
-      <template #logiInfo="scope">
+      <!-- <template #logiInfo="scope">
         <div>{{ scope.row.logi_name }}</div>
         <div>{{ scope.row.logi_number }}</div>
-      </template>
+      </template> -->
 
       <template #cardapplicationStatus="scope">
+        <div
+          :class="{
+            'circle-item-success': scope.row.status == 10,
+            'circle-item-fail': scope.row.status == 0,
+            'circle-item-doing': scope.row.status == 1 || scope.row.status == 2,
+            'circle-item-undone': scope.row.status == -1,
+          }"
+        >
+          {{ $filters.cardapplicationStatusName(scope.row.status) }}
+        </div>
+      </template>
+      <template #applicationLable="scope">
         <div>
-          {{ $filters.cardorderStatusName(scope.row.status) }}
+          <!-- <el-button
+            type="text"
+            v-if="scope.row.status == 1"
+            @click="handleApplicationDeliverData(scope.row)"
+            >发货</el-button
+          >-->
+          <el-button
+            type="text"
+            @click="handleApplicationDeliverData(scope.row)"
+            >发货</el-button
+          >
+          <el-button type="text" @click="handleApplicationDetailData(scope.row)"
+            >查看详情</el-button
+          >
         </div>
       </template>
     </page-content>
     <page-modal
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
-      clickName="cardapplication"
-      :modalConfig="modalConfig"
-      pageName="cardapplication"
+      :modalConfig="
+        modalName === 'applicationDetailModal'
+          ? detailConfigRef
+          : deliverConfigRef
+      "
+      pageName="application"
     ></page-modal>
   </div>
 </template>
@@ -57,7 +113,7 @@ import pageModal from "@/components/page-modal";
 
 import { searchFormConfig } from "./config/search.config";
 import { contentTableConfig } from "./config/content.config";
-import { modalConfig } from "./config/modal.config";
+import { detailConfigRef, deliverConfigRef } from "./config/modal.config";
 
 import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
@@ -68,21 +124,34 @@ export default defineComponent({
   setup() {
     const {
       pageContentRef,
-      handleNewClick,
-      handleUploadClick,
-      handleQueryClick,
-      handleResetClick,
+      handleQueryAndApplicationClick,
+      handleResetAndApplicationClick,
     } = usePageSearch();
-    const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
+    const {
+      modalName,
+      pageModalRef,
+      defaultInfo,
+      handleNewData,
+      handleApplicationDetailData,
+      handleApplicationDeliverData,
+    } = usePageModal();
 
     const store = useStore();
     store.dispatch("getPowerAmount");
     store.dispatch("getOilcardAction");
     store.dispatch("getOilproductAction");
-    const priceAmount = computed(() => {
-      return store.state.powerAmount.amount;
-    });
+    store.dispatch("getApplicationStateAction");
+    // const priceAmount = computed(() => {
+    //   return store.state.powerAmount.amount;
+    // });
     console.log(store.state.oilcardList);
+    console.log(store.state.applicationStateList);
+    const orderCountRef = computed(() => {
+      const undispatch = store.state.applicationStateList.undispatch;
+      const dispatch = store.state.applicationStateList.dispatch;
+      const complete = store.state.applicationStateList.complete;
+      return { undispatch, dispatch, complete };
+    });
     const searchFormConfigRef = computed(() => {
       const typeItem = searchFormConfig.formItems.find(
         (item) => item.field === "type"
@@ -99,22 +168,87 @@ export default defineComponent({
       return searchFormConfig;
     });
     return {
-      searchFormConfig,
       contentTableConfig,
-      modalConfig,
       pageContentRef,
       pageModalRef,
       defaultInfo,
       handleNewData,
-      handleNewClick,
-      priceAmount,
-      handleUploadClick,
-      handleQueryClick,
-      handleResetClick,
       searchFormConfigRef,
+      orderCountRef,
+      handleQueryAndApplicationClick,
+      handleResetAndApplicationClick,
+      modalName,
+      detailConfigRef,
+      deliverConfigRef,
+      handleApplicationDetailData,
+      handleApplicationDeliverData,
     };
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.circle-item-success::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #52c41a;
+  background-color: #52c41a;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.circle-item-fail::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #f5222d;
+  background-color: #f5222d;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.circle-item-doing::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #1890ff;
+  background-color: #1890ff;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.circle-item-undone::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #cacaca;
+  background-color: #cacaca;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+.page-statistics {
+  height: 108px;
+  border-bottom: solid 20px #f0f2f5;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .static-item {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .item-title {
+      font-size: 14px;
+    }
+    .item-number {
+      font-size: 24px;
+    }
+  }
+}
+</style>

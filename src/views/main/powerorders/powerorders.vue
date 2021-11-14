@@ -76,7 +76,7 @@ export default defineComponent({
       handleResetAndpowerAmountClick,
       handleResetAndRechargeAmountClick,
     } = usePageSearch();
-    const [pageModalRef, defaultInfo, handleNewData] = usePageModal();
+    const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
 
     const store = useStore();
     store.dispatch("getPowerAmount");

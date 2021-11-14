@@ -7,6 +7,7 @@ import {
   rechargeTypeById,
   cardorderTypeById,
   cardorderStatusById,
+  cardapplicationStatusById,
 } from "@/utils/dateStatus";
 export default function registerProperties(app: App) {
   app.config.globalProperties.$filters = {
@@ -31,6 +32,9 @@ export default function registerProperties(app: App) {
     },
     cardorderStatusName(status: number) {
       return cardorderStatusById(status);
+    },
+    cardapplicationStatusName(status: number) {
+      return cardapplicationStatusById(status);
     },
   };
 }
