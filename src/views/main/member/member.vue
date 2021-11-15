@@ -137,7 +137,6 @@ export default defineComponent({
       const departmentItem = rechargeConfig.formItems.find(
         (item) => item.field === "channel_id"
       );
-      console.log(store.state.member.channelList);
       departmentItem!.options = store.state.member.channelList.map((item) => {
         return { label: item.channel_name, value: item.channel_id };
       });

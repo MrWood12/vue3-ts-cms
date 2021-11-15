@@ -2,6 +2,8 @@ import { ref } from "vue";
 import PageModal from "@/components/page-modal";
 import store from "@/store";
 import { computed } from "vue";
+import localCache from "@/utils/localCache";
+
 type CallbackType = () => void;
 export function usePageModal(
   newCb?: CallbackType,
@@ -37,20 +39,27 @@ export function usePageModal(
   };
   const handleApplicationDetailData = (item: any) => {
     store.dispatch("getApplicationDetailAction", item.id);
-    const applicationDetailList = computed(
-      () => store.state.applicationDetailList
+    const applicationDataList = computed(() =>
+      localCache.getCache("applicationDataList")
     );
-    console.log(applicationDetailList);
-    defaultInfo.value = { ...applicationDetailList.value };
+    console.log(applicationDataList);
+    defaultInfo.value = { ...applicationDataList.value };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;
     }
     modalName.value = "applicationDetailModal";
-
     rechargeCb && rechargeCb();
   };
   const handleApplicationDeliverData = (item: any) => {
-    defaultInfo.value = { ...item };
+    store.dispatch("getApplicationDetailAction", item.id);
+    const applicationDataList = computed(() =>
+      localCache.getCache("applicationDataList")
+    );
+    console.log(applicationDataList);
+    defaultInfo.value = {
+      order_no: applicationDataList.value.order_no,
+      oil_card_no: applicationDataList.value.oil_card_no,
+    };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;
     }

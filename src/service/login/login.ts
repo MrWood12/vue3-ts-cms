@@ -1,9 +1,8 @@
 import { hyRequest } from "../index";
-import { IAccount } from "./type";
 
-export function loginAccountRequest(account: IAccount) {
+export function loginAccountRequest(queryInfo: any) {
   return hyRequest.post({
     url: "/common/login",
-    data: account,
+    data: { ...queryInfo },
   });
 }

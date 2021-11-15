@@ -21,3 +21,13 @@ export function getApplicationDetailData(queryInfo: any) {
     },
   });
 }
+
+// 发货
+export function getApplicationDeliverData(queryInfo: any) {
+  return hyRequest.post({
+    url: "/petoleum/bindDispatch",
+    data: {
+      ...queryInfo,
+    },
+  });
+}

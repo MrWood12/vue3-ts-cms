@@ -10,7 +10,10 @@ import { getPayorderAmountData } from "@/service/main/payorder/payorder";
 import {
   getApplicationStateData,
   getApplicationDetailData,
+  getApplicationDeliverData,
 } from "@/service/main/application/application";
+
+import localCache from "@/utils/localCache";
 
 import login from "./login/login";
 import system from "./main/system/system";
@@ -25,7 +28,8 @@ const store = createStore<IRootState>({
     oilcardList: [],
     oilproductList: [],
     applicationStateList: {},
-    applicationDetailList: {},
+    applicationDataList: {},
+    applicationDeliverList: {},
   },
   mutations: {
     changeEntireChannel(state, list) {
@@ -53,8 +57,11 @@ const store = createStore<IRootState>({
     changeApplicationStateList(state, applicationStateList) {
       state.applicationStateList = applicationStateList;
     },
-    changeApplicationDetailList(state, applicationDetailList) {
-      state.applicationDetailList = applicationDetailList;
+    changeApplicationDataList(state, applicationDataList) {
+      state.applicationDataList = applicationDataList;
+    },
+    changeApplicationDeliverList(state, applicationDeliverList) {
+      state.applicationDeliverList = applicationDeliverList;
     },
   },
   actions: {
@@ -126,11 +133,24 @@ const store = createStore<IRootState>({
       commit("changeApplicationStateList", applicationStateList);
     },
     async getApplicationDetailAction({ commit }, payload?: any) {
+      // console.log(payload);
+      // return getApplicationDetailData(payload).then((res) => {
+      //   console.log(res);
+      //   commit("changeApplicationDataList", res.data);
+      // });
       //请求申请详情
-      const applicationDeatilResult = await getApplicationDetailData(payload);
-      const applicationDetailList = applicationDeatilResult.data;
+      const applicationDatalResult = await getApplicationDetailData(payload);
+      const applicationDataList = applicationDatalResult.data;
+      console.log(applicationDataList);
+      localCache.setsessionCache("applicationDataList", applicationDataList);
       // 保存当前有效渠道数据
-      commit("changeApplicationDetailList", applicationDetailList);
+      commit("changeApplicationDataList", applicationDataList);
+      console.log(store.state.applicationDataList);
+    },
+    async getApplicationDeliverAction({ commit }, payload?: any) {
+      const applicationDeliverResult = await getApplicationDeliverData(payload);
+      const applicationDeliverList = applicationDeliverResult.data;
+      commit("changeApplicationDeliverList", applicationDeliverList);
     },
   },
   modules: {

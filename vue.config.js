@@ -6,7 +6,7 @@ module.exports = {
     // proxy: "http://api.yikah.cn",
     proxy: {
       "/backend": {
-        target: "http://api.yikah.cn",
+        target: "https://api.yikah.cn",
         secure: false,
         ws: true,
         changeOrigin: true,

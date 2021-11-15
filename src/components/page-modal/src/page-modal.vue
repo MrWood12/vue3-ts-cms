@@ -10,7 +10,6 @@
       <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="centerDialogVisible = false">取消</el-button>
           <el-button
             v-if="clickName === 'capitalpool'"
             type="primary"
@@ -29,6 +28,13 @@
             @click="handleRechargeClick"
             >确定</el-button
           >
+          <el-button
+            v-if="clickName === 'application'"
+            type="primary"
+            @click="handleApplicationClick"
+            >确定</el-button
+          >
+          <el-button @click="centerDialogVisible = false">取消</el-button>
         </span>
       </template>
     </el-dialog>
@@ -110,12 +116,20 @@ export default defineComponent({
         queryInfo: { ...formData.value, ...props.otherInfo },
       });
     };
+    const handleApplicationClick = () => {
+      centerDialogVisible.value = false;
+      store.dispatch("getApplicationDeliverAction", {
+        pageName: props.pageName,
+        queryInfo: { ...formData.value, ...props.otherInfo },
+      });
+    };
     return {
       centerDialogVisible,
       formData,
       handleConfirmClick,
       handleRechargeClick,
       handleCapitalpoolClick,
+      handleApplicationClick,
     };
   },
   components: {

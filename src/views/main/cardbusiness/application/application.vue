@@ -74,17 +74,13 @@
       </template>
       <template #applicationLable="scope">
         <div>
-          <!-- <el-button
+          <el-button
             type="text"
             v-if="scope.row.status == 1"
             @click="handleApplicationDeliverData(scope.row)"
             >发货</el-button
-          >-->
-          <el-button
-            type="text"
-            @click="handleApplicationDeliverData(scope.row)"
-            >发货</el-button
           >
+
           <el-button type="text" @click="handleApplicationDetailData(scope.row)"
             >查看详情</el-button
           >
@@ -94,6 +90,7 @@
     <page-modal
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
+      :clickName="modalName === 'applicationDetailModal' ? '' : 'application'"
       :modalConfig="
         modalName === 'applicationDetailModal'
           ? detailConfigRef

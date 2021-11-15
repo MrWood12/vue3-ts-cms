@@ -9,7 +9,8 @@ export interface IRootState {
   oilcardList: any[];
   oilproductList: any[];
   applicationStateList: any;
-  applicationDetailList: any;
+  applicationDataList: any;
+  applicationDeliverList: any;
 }
 
 export interface IRootWithModule {

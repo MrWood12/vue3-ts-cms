@@ -109,22 +109,26 @@ export const deliverConfigRef = {
   },
   formItems: [
     {
-      field: "bank_account",
+      field: "order_no",
       type: "input",
-      label: "账号名称",
-      placeholder: "请输入账号名称",
+      label: "订单编号",
+      disabled: true,
     },
     {
-      field: "bank_number",
+      field: "oil_card_no",
       type: "input",
-      label: "银行账号",
-      placeholder: "请输入银行账号",
+      label: "油卡编号",
+      disabled: true,
     },
     {
-      field: "bank_name",
+      field: "logi_name",
       type: "input",
-      label: "银行名称",
-      placeholder: "请输入银行名称",
+      label: "物流公司名称",
+    },
+    {
+      field: "logi_number",
+      type: "input",
+      label: "物流单号",
     },
   ],
 };
