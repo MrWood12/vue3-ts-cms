@@ -22,6 +22,7 @@
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
       :modalConfig="modalConfig"
+      clickName="modal"
       pageName="channel"
     ></page-modal>
   </div>

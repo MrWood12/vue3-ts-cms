@@ -230,6 +230,21 @@ const systemModule: Module<IsystemState, IRootState> = {
         },
       });
     },
+    // 余额导入
+    async handleUploadAmountClick({ dispatch }, payload: any) {
+      // 1、创建数据请求
+      const { pageName, queryInfo } = payload;
+      const pageUrl = "/balance/import";
+      await upLoadFile(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
+    },
   },
 };
 export default systemModule;

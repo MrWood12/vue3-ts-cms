@@ -25,7 +25,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item icon="el-icon-circle-close"
+              <el-dropdown-item icon="el-icon-circle-close" @click="clearLogin"
                 >退出登录</el-dropdown-item
               >
             </el-dropdown-menu>
@@ -39,22 +39,30 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "@/store";
-
+import localCache from "@/utils/localCache";
+import { useRouter } from "vue-router";
 export default defineComponent({
   emits: ["foldChange"],
   setup(props, { emit }) {
     const store = useStore();
+    const router = useRouter();
+
     const name = computed(() => store.state.login.userInfo.name);
     const isFold = ref(false);
     const handleFoldClick = () => {
       isFold.value = !isFold.value;
       emit("foldChange", isFold.value);
     };
-
+    const clearLogin = () => {
+      localCache.clearCache();
+      router.push("/login");
+    };
     return {
       isFold,
       handleFoldClick,
       name,
+      clearLogin,
+      localCache,
     };
   },
 });

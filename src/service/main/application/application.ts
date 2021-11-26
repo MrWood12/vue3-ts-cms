@@ -1,4 +1,5 @@
 import { hyRequest } from "../../index";
+import { ElMessage } from "element-plus";
 
 //获取消费金额总数
 export function getApplicationStateData(queryInfo?: any) {
@@ -24,10 +25,18 @@ export function getApplicationDetailData(queryInfo: any) {
 
 // 发货
 export function getApplicationDeliverData(queryInfo: any) {
+  console.log(queryInfo);
   return hyRequest.post({
     url: "/petoleum/bindDispatch",
     data: {
       ...queryInfo,
+    },
+    interceptors: {
+      responseInterceptor: (res) => {
+        ElMessage.success(res.msg);
+        // console.log("单独响应的response");
+        return res;
+      },
     },
   });
 }

@@ -118,7 +118,6 @@ export const deliverConfigRef = {
       field: "oil_card_no",
       type: "input",
       label: "油卡编号",
-      disabled: true,
     },
     {
       field: "logi_name",

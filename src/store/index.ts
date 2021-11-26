@@ -147,9 +147,19 @@ const store = createStore<IRootState>({
       commit("changeApplicationDataList", applicationDataList);
       console.log(store.state.applicationDataList);
     },
-    async getApplicationDeliverAction({ commit }, payload?: any) {
-      const applicationDeliverResult = await getApplicationDeliverData(payload);
+    // 发货
+    async getApplicationDeliverAction({ dispatch }, { commit }, payload?: any) {
+      const applicationDeliverResult = await getApplicationDeliverData(
+        payload.queryInfo
+      );
       const applicationDeliverList = applicationDeliverResult.data;
+      dispatch("system/getPageListAction", {
+        pageName: payload.pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
       commit("changeApplicationDeliverList", applicationDeliverList);
     },
   },

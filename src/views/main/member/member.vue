@@ -48,7 +48,20 @@
             type="primary"
             icon="el-icon-plus"
             style="margin-left: 25px"
-            >导入</el-button
+            >会员导入</el-button
+          >
+        </el-upload>
+        <el-upload
+          action="/backend/balance/import"
+          :http-request="handleUploadAmountClick"
+          accept=".xlsx"
+          :show-file-list="false"
+        >
+          <el-button
+            type="primary"
+            icon="el-icon-plus"
+            style="margin-left: 25px"
+            >余额导入</el-button
           >
         </el-upload>
       </template>
@@ -126,6 +139,7 @@ export default defineComponent({
       pageContentRef,
       handleNewClick,
       handleUploadClick,
+      handleUploadAmountClick,
     } = usePageSearch();
 
     // 动态添加
@@ -173,6 +187,7 @@ export default defineComponent({
       handleResetClick,
       handleNewClick,
       handleUploadClick,
+      handleUploadAmountClick,
       handleChargeData,
       modalName,
       rechargeConfig,

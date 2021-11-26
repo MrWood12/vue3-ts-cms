@@ -15,7 +15,7 @@ export const contentTableConfig = {
       prop: "memberStatus",
       label: "状态",
       minWidth: "100",
-      slotName: "memberStatus",
+      slotName: "status",
     },
     { label: "操作", minWidth: "120", slotName: "memberhandler" },
   ],

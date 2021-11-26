@@ -1,7 +1,11 @@
 import { IRootState } from "@/store/types";
 import { Module } from "vuex";
 import { ImemberState } from "./types";
-import { memberChannel, memberRecharge } from "@/service/main/member/member";
+import {
+  changeStatus,
+  memberChannel,
+  memberRecharge,
+} from "@/service/main/member/member";
 const memberModule: Module<ImemberState, IRootState> = {
   namespaced: true,
   state() {
@@ -32,13 +36,37 @@ const memberModule: Module<ImemberState, IRootState> = {
     async memberchargeAction({ dispatch }, payload: any) {
       const { pageName, queryInfo } = payload;
       await memberRecharge(queryInfo);
-      dispatch("getPageListAction", {
-        pageName,
-        queryInfo: {
-          start: 1,
-          limit: 10,
+      console.log("跳转");
+      dispatch(
+        "system/getPageListAction",
+        {
+          pageName,
+          queryInfo: {
+            start: 1,
+            limit: 10,
+          },
         },
-      });
+        { root: true }
+      );
+    },
+    // 更新状态
+    async changeStatus({ dispatch }, payload: any) {
+      const { pageName, queryInfo } = payload;
+      console.log(payload);
+      await changeStatus(queryInfo);
+
+      console.log("跳转");
+      dispatch(
+        "system/getPageListAction",
+        {
+          pageName,
+          queryInfo: {
+            start: 1,
+            limit: 10,
+          },
+        },
+        { root: true }
+      );
     },
   },
 };

@@ -58,7 +58,6 @@ export function usePageModal(
     console.log(applicationDataList);
     defaultInfo.value = {
       order_no: applicationDataList.value.order_no,
-      oil_card_no: applicationDataList.value.oil_card_no,
     };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;

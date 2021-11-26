@@ -78,7 +78,7 @@
             type="text"
             v-if="scope.row.status == 1"
             @click="handleApplicationDeliverData(scope.row)"
-            >发货</el-button
+            >绑定与发货</el-button
           >
 
           <el-button type="text" @click="handleApplicationDetailData(scope.row)"

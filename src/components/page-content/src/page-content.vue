@@ -21,6 +21,7 @@
           @click="handleUpdateClick(scope.row)"
         />
       </template>
+
       <template #handler="scope">
         <div class="handle-btns">
           <el-button
@@ -73,6 +74,9 @@ export default defineComponent({
       type: String,
       require: true,
     },
+    clickName: {
+      type: String,
+    },
   },
   emits: ["newBtnClick", "editBtnClick", "chargeBtnClick"],
   setup(props, { emit }) {
@@ -80,7 +84,6 @@ export default defineComponent({
     // 分页点击下一页
     const pageInfo = ref({ currentPage: 0, pageSize: 10 });
     watch(pageInfo, () => getPageData());
-
     // 发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch("system/getPageListAction", {
@@ -116,17 +119,34 @@ export default defineComponent({
     );
     // 更新状态
     const handleUpdateClick = (queryInfo: any = {}) => {
-      store.dispatch("system/updatePageDataAction", {
-        pageName: props.pageName,
-        queryInfo: {
-          id: queryInfo.id,
-          status: queryInfo.status,
-        },
-      });
+      console.log(queryInfo);
+      if (props.pageName == "member") {
+        store.dispatch("system/updatePageDataAction", {
+          pageName: props.pageName,
+          queryInfo: {
+            member_id: queryInfo.id,
+            status: queryInfo.status ? "active" : "freeze",
+          },
+        });
+      } else if (props.pageName == "channel") {
+        store.dispatch("system/updatePageDataAction", {
+          pageName: props.pageName,
+          queryInfo: {
+            id: queryInfo.id,
+            status: queryInfo.status,
+          },
+        });
+      }
     };
     // 导入
     const hanleLoadDataClick = (queryInfo: any = {}) => {
       store.dispatch("system/uploadPageDataAction", {
+        pageName: props.pageName,
+        queryInfo: queryInfo,
+      });
+    };
+    const handleUploadAmountClick = (queryInfo: any = {}) => {
+      store.dispatch("system/handleUploadAmountClick", {
         pageName: props.pageName,
         queryInfo: queryInfo,
       });
@@ -155,6 +175,7 @@ export default defineComponent({
       handleUpdateClick,
       hanleLoadDataClick,
       handleChargeClick,
+      handleUploadAmountClick,
     };
   },
   components: {
