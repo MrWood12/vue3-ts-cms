@@ -3,11 +3,12 @@ import PageContent from "@/components/page-content";
 import store from "@/store";
 export function usePageSearch() {
   const pageContentRef = ref<InstanceType<typeof PageContent>>();
+  // 余额导入
   const handleUploadAmountClick = (queryInfo: any) => {
     console.log(5);
     pageContentRef.value?.handleUploadAmountClick(queryInfo.file);
   };
-  // 点击导入
+  // 用户导入
   const handleUploadClick = (queryInfo: any) => {
     console.log(5);
     pageContentRef.value?.hanleLoadDataClick(queryInfo.file);

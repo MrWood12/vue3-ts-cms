@@ -15,9 +15,17 @@
       <!-- 2、列中插槽 -->
       <template #status="scope">
         <el-switch
+          v-if="clickName != 'shop'"
           v-model="scope.row.status"
           :active-value="1"
           :inactive-value="-1"
+          @click="handleUpdateClick(scope.row)"
+        />
+        <el-switch
+          v-if="clickName == 'shop'"
+          v-model="scope.row.is_debt"
+          :active-value="1"
+          :inactive-value="0"
           @click="handleUpdateClick(scope.row)"
         />
       </template>
@@ -125,7 +133,7 @@ export default defineComponent({
           pageName: props.pageName,
           queryInfo: {
             member_id: queryInfo.id,
-            status: queryInfo.status ? "active" : "freeze",
+            status: queryInfo.status == 1 ? "active" : "freeze",
           },
         });
       } else if (props.pageName == "channel") {
@@ -134,6 +142,15 @@ export default defineComponent({
           queryInfo: {
             id: queryInfo.id,
             status: queryInfo.status,
+          },
+        });
+      } else if (props.pageName == "shop") {
+        // 是否支持核销
+        store.dispatch("system/updatePageDataAction", {
+          pageName: props.pageName,
+          queryInfo: {
+            id: queryInfo.id,
+            is_debt: queryInfo.is_debt,
           },
         });
       }

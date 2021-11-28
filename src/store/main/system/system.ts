@@ -29,6 +29,8 @@ const systemModule: Module<IsystemState, IRootState> = {
       cardorderCount: 0,
       cardapplicationList: [],
       cardapplicationCount: 0,
+      shopList: [],
+      shopCount: 0,
     };
   },
   mutations: {
@@ -79,6 +81,12 @@ const systemModule: Module<IsystemState, IRootState> = {
     },
     changeCardapplicationCount(state, cardapplicationCount: number) {
       state.cardapplicationCount = cardapplicationCount;
+    },
+    changeShopList(state, shopList: any[]) {
+      state.shopList = shopList;
+    },
+    changeShopCount(state, shopCount: number) {
+      state.shopCount = shopCount;
     },
   },
   getters: {
@@ -131,6 +139,9 @@ const systemModule: Module<IsystemState, IRootState> = {
           break;
         case "cardapplication":
           pageUrl.value = "/petoleum/applyList";
+          break;
+        case "shop":
+          pageUrl.value = "/shop/index";
           break;
       }
       // 2、对页面发送请求
@@ -204,16 +215,29 @@ const systemModule: Module<IsystemState, IRootState> = {
     async updatePageDataAction({ dispatch }, payload: any) {
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
-      const pageUrl = `/${pageName}/updateStatus`;
-      await updateStatus(pageUrl, queryInfo);
-      // 2、请求最新数据
-      dispatch("getPageListAction", {
-        pageName,
-        queryInfo: {
-          start: 1,
-          limit: 10,
-        },
-      });
+      if (pageName == "shop") {
+        const pageUrl = "/shop/updateDebt";
+        await updateStatus(pageUrl, queryInfo);
+        // 2、请求最新数据
+        dispatch("getPageListAction", {
+          pageName,
+          queryInfo: {
+            start: 1,
+            limit: 10,
+          },
+        });
+      } else {
+        const pageUrl = `/${pageName}/updateStatus`;
+        await updateStatus(pageUrl, queryInfo);
+        // 2、请求最新数据
+        dispatch("getPageListAction", {
+          pageName,
+          queryInfo: {
+            start: 1,
+            limit: 10,
+          },
+        });
+      }
     },
     // 导入
     async uploadPageDataAction({ dispatch }, payload: any) {

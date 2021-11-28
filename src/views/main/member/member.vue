@@ -83,17 +83,6 @@
           {{ item }}
         </div>
       </template>
-      <template #memberStatus="scope">
-        <div
-          :class="{
-            'status-is-active': scope.row.status == 1,
-            'status-cold-active': scope.row.status == -1,
-            'status-none-active': scope.row.status == -2,
-          }"
-        >
-          {{ $filters.memberStatusName(scope.row.status) }}
-        </div>
-      </template>
     </page-content>
     <page-modal
       :modalConfig="
