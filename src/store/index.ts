@@ -73,6 +73,14 @@ const store = createStore<IRootState>({
       commit("changeEntireChannel", entireChannelList);
     },
 
+    async getMemberStateAction({ commit }, payload?: any) {
+      //请求油卡业务状态总额
+      const applicationStateResult = await getApplicationStateData(payload);
+      const applicationStateList = applicationStateResult.data;
+      // 保存当前有效渠道数据
+      commit("changeApplicationStateList", applicationStateList);
+    },
+
     async getStateNumber({ commit }) {
       //请求当前余额总量状态
       const rechargeStateResult = await getStateNumberData("/balance/state");
@@ -125,13 +133,15 @@ const store = createStore<IRootState>({
       // 保存当前有效渠道数据
       commit("changeOilproductList", oilproductList);
     },
+
     async getApplicationStateAction({ commit }, payload?: any) {
-      //请求油品类型
+      //请求油卡业务状态总额
       const applicationStateResult = await getApplicationStateData(payload);
       const applicationStateList = applicationStateResult.data;
       // 保存当前有效渠道数据
       commit("changeApplicationStateList", applicationStateList);
     },
+
     async getApplicationDetailAction({ commit }, payload?: any) {
       // console.log(payload);
       // return getApplicationDetailData(payload).then((res) => {

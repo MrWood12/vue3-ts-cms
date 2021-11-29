@@ -185,6 +185,9 @@ const systemModule: Module<IsystemState, IRootState> = {
         case "capitalpool":
           pageUrl.value = "/Platform/createRecharge";
           break;
+        case "shop":
+          pageUrl.value = "/shop/create";
+          break;
       }
       await createPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据

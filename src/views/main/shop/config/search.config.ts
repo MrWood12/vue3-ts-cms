@@ -7,15 +7,9 @@ export const searchFormConfig: IForm = {
 
   formItems: [
     {
-      field: "username",
-      type: "input",
-      placeholder: "请输入用户名称",
-    },
-
-    {
       field: "name",
       type: "input",
-      placeholder: "请选择名称",
+      placeholder: "请输入服务点名称",
     },
   ],
 };

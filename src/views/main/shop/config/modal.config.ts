@@ -1,33 +1,65 @@
 export const modalConfig = {
   formItems: [
     {
-      field: "bank_account",
+      field: "name",
       type: "input",
-      label: "账号名称",
-      placeholder: "请输入账号名称",
+      label: "站点名称",
+      placeholder: "请输入站点名称",
     },
     {
-      field: "bank_number",
+      field: "address",
       type: "input",
-      label: "银行账号",
-      placeholder: "请输入银行账号",
+      label: "地址",
+      placeholder: "请输入地址",
     },
     {
-      field: "bank_name",
+      field: "lng",
       type: "input",
-      label: "银行名称",
-      placeholder: "请输入银行名称",
+      label: "经度",
+      placeholder: "请输入经度",
     },
     {
-      field: "amount",
+      field: "lat",
       type: "input",
-      label: "充值金额",
-      placeholder: "请输入充值金额",
+      label: "维度",
+      placeholder: "请输入维度",
     },
     {
-      field: "desc",
-      type: "input",
-      label: "备注",
+      field: "type",
+      type: "select",
+      label: "类型",
+      placeholder: "请选择",
+      options: [
+        {
+          value: 1,
+          label: "中石油",
+        },
+        {
+          value: 2,
+          label: "中石化",
+        },
+      ],
+    },
+    {
+      field: "is_debt",
+      type: "select",
+      label: "是否显示",
+      placeholder: "请选择",
+      options: [
+        {
+          value: 0,
+          label: "不支持",
+        },
+        {
+          value: 1,
+          label: "支持",
+        },
+      ],
+    },
+    {
+      field: "picture",
+      type: "upload",
+      label: "上传图片",
     },
   ],
 };

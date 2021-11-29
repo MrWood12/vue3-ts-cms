@@ -45,7 +45,7 @@ const mokeUserMenus = [
   {
     icon: "el-icon-monitor",
     id: 6,
-    name: "店铺管理",
+    name: "服务站管理",
     sort: 6,
     type: 2,
     url: "/main/shop",

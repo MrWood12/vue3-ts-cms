@@ -34,6 +34,12 @@
             @click="handleApplicationClick"
             >确定</el-button
           >
+          <el-button
+            v-if="clickName === 'shop'"
+            type="primary"
+            @click="handleShopClick"
+            >确定</el-button
+          >
           <el-button @click="centerDialogVisible = false">取消</el-button>
         </span>
       </template>
@@ -116,6 +122,13 @@ export default defineComponent({
         queryInfo: { ...formData.value, ...props.otherInfo },
       });
     };
+    const handleShopClick = () => {
+      centerDialogVisible.value = false;
+      store.dispatch("system/createPageDataAction", {
+        pageName: props.pageName,
+        queryInfo: { ...formData.value, ...props.otherInfo },
+      });
+    };
     const handleApplicationClick = () => {
       centerDialogVisible.value = false;
       store.dispatch("getApplicationDeliverAction", {
@@ -130,6 +143,7 @@ export default defineComponent({
       handleRechargeClick,
       handleCapitalpoolClick,
       handleApplicationClick,
+      handleShopClick,
     };
   },
   components: {

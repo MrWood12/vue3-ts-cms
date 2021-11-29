@@ -2,8 +2,8 @@
   <div class="shop">
     <page-search
       :searchFormConfig="searchFormConfig"
-      @queryBtnClick="handleQueryAndpowerAmountClick"
-      @resetBtnClick="handleResetAndpowerAmountClick"
+      @queryBtnClick="handleQueryClick"
+      @resetBtnClick="handleResetClick"
     >
     </page-search>
     <page-content
@@ -13,6 +13,11 @@
       :contentTableConfig="contentTableConfig"
       clickName="shop"
     >
+      <template v-slot:headerHandler>
+        <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
+          >新建</el-button
+        >
+      </template>
       <template #images="scope">
         <el-image
           style="width: 100px; height: 100px"
@@ -41,6 +46,10 @@
           @click="handleDeleteShop(scope.row.id)"
           >删除</el-button
         >
+      </template>
+      <template #oilCard="scope"
+        ><div v-if="scope.row.type == 2">中国石化</div>
+        <div v-if="scope.row.type == 1">中国石油</div>
       </template>
     </page-content>
     <page-modal
@@ -73,8 +82,10 @@ export default defineComponent({
   setup() {
     const {
       pageContentRef,
-      handleQueryAndpowerAmountClick,
-      handleResetAndpowerAmountClick,
+
+      handleResetClick,
+      handleQueryClick,
+      handleNewClick,
     } = usePageSearch();
     const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
 
@@ -106,9 +117,10 @@ export default defineComponent({
       pageModalRef,
       defaultInfo,
       handleNewData,
-      handleQueryAndpowerAmountClick,
-      handleResetAndpowerAmountClick,
+      handleResetClick,
+      handleQueryClick,
       handleDeleteShop,
+      handleNewClick,
       // handleImageUploadClick,
     };
   },

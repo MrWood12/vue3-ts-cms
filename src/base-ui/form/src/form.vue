@@ -42,6 +42,39 @@
               ></el-option>
             </el-select>
           </template>
+          <template v-else-if="item.type === 'upload'">
+            <el-input
+              :disabled="item.disabled"
+              :placeholder="item.placeholder"
+              :show-password="item.type === 'password'"
+              action="/backend/shop/pictureUpload"
+              size="small"
+              style="width: 270px"
+              minlength:150
+              v-bind="item.otherOptions"
+              :model-value="imageurl"
+              @update:modelValue="handleValueChange($event, item.field)"
+            ></el-input>
+            <el-upload
+              action="#"
+              limit="1"
+              list-type="picture-card"
+              :http-request="handleImageUploadClick"
+            >
+              <template #default>
+                <el-icon><plus /></el-icon>
+              </template>
+              <template #file="{ file }">
+                <div>
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                </div>
+              </template>
+            </el-upload>
+          </template>
           <template v-else-if="item.type === 'datepicker'">
             <el-date-picker
               size="small"
@@ -67,8 +100,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, ref, watch } from "vue";
 import { IFormItem } from "../types";
+import { Plus } from "@element-plus/icons";
+import { upLoadFile } from "@/service/main/system/system";
+
 export default defineComponent({
   props: {
     modelValue: {
@@ -89,6 +125,9 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue"],
+  components: {
+    Plus,
+  },
   setup(props, { emit }) {
     // const formData = ref({ ...props.modelValue });
     // watch(
@@ -100,11 +139,23 @@ export default defineComponent({
     //     deep: true,
     //   }
     // );
+    const imageurl = ref("");
+    // 图片上传
+    const handleImageUploadClick = (file: any) => {
+      console.log(file.file);
+      upLoadFile("/shop/pictureUpload", file.file).then((res) => {
+        imageurl.value = res.data;
+      });
+    };
+
     const handleValueChange = (value: any, field: string) => {
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
+
     return {
       handleValueChange,
+      handleImageUploadClick,
+      imageurl,
     };
   },
 });
@@ -125,5 +176,30 @@ export default defineComponent({
 .formclass {
   display: flex;
   flex-wrap: wrap;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 130px;
+  height: 130px;
+  text-align: center;
+}
+.avatar-uploader-icon svg {
+  margin-top: 74px; /* (178px - 28px) / 2 - 1px */
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
