@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import { IFormItem } from "../types";
 import { Plus } from "@element-plus/icons";
 import { upLoadFile } from "@/service/main/system/system";
