@@ -44,3 +44,9 @@ export function changeStatus(queryInfo: any) {
     },
   });
 }
+// 获取用户状态总量
+export function getMemberStateData() {
+  return hyRequest.post({
+    url: "/member/state",
+  });
+}

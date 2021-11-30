@@ -1,7 +1,7 @@
 const mokeUserMenus = [
   {
     // 图标
-    icon: "el-icon-monitor",
+    icon: "el-icon-house",
     id: 1,
     name: "工作台",
     sort: 1,
@@ -11,7 +11,7 @@ const mokeUserMenus = [
     url: "/main/workbench",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-user",
     id: 2,
     name: "会员管理",
     sort: 2,
@@ -19,7 +19,7 @@ const mokeUserMenus = [
     url: "/main/member",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-money",
     id: 3,
     name: "资金池",
     sort: 3,
@@ -27,7 +27,7 @@ const mokeUserMenus = [
     url: "/main/capitalpool",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-shopping-cart-full",
     id: 4,
     name: "权益订单",
     sort: 4,
@@ -35,7 +35,7 @@ const mokeUserMenus = [
     url: "/main/powerorders",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-sold-out",
     id: 5,
     name: "消费订单",
     sort: 5,
@@ -43,7 +43,7 @@ const mokeUserMenus = [
     url: "/main/payorders",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-odometer",
     id: 6,
     name: "服务站管理",
     sort: 6,
@@ -51,7 +51,15 @@ const mokeUserMenus = [
     url: "/main/shop",
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-connection",
+    id: 11,
+    name: "后台用户管理",
+    sort: 11,
+    type: 2,
+    url: "/main/users",
+  },
+  {
+    icon: "el-icon-bank-card",
     id: 7,
     name: "油卡业务",
     sort: 7,
@@ -82,7 +90,7 @@ const mokeUserMenus = [
     ],
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-coin",
     id: 8,
     name: "财务管理",
     sort: 7,
@@ -120,15 +128,46 @@ const mokeUserMenus = [
     ],
   },
   {
-    icon: "el-icon-monitor",
+    icon: "el-icon-document-copy",
     id: 9,
-    name: "系统配置",
+    name: "导入文件查询",
     sort: 8,
+    type: 1,
+    url: "/main/import",
+    children: [
+      {
+        id: 91,
+        name: "导入会员列表",
+        sort: 8,
+        type: 2,
+        url: "/main/import/user",
+      },
+      {
+        id: 92,
+        name: "导入余额列表",
+        sort: 8,
+        type: 2,
+        url: "/main/import/amount",
+      },
+      {
+        id: 93,
+        name: "导入批次列表",
+        sort: 8,
+        type: 2,
+        url: "/main/import/list",
+      },
+    ],
+  },
+  {
+    icon: "el-icon-setting",
+    id: 10,
+    name: "系统配置",
+    sort: 10,
     type: 1,
     url: "/main/system",
     children: [
       {
-        id: 91,
+        id: 101,
         name: "渠道管理",
         sort: 8,
         type: 2,

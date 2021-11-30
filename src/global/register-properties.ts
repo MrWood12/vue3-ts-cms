@@ -1,6 +1,7 @@
 import { App } from "vue";
 
 import { getChannelById, getChannelData } from "@/utils/date-channel";
+import { getRoleByName } from "@/utils/date-role";
 import {
   getMemberStatusNameById,
   getpowerordersTypeById,
@@ -35,6 +36,9 @@ export default function registerProperties(app: App) {
     },
     cardapplicationStatusName(status: number) {
       return cardapplicationStatusById(status);
+    },
+    roleName(name: string) {
+      return getRoleByName(name);
     },
   };
 }

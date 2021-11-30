@@ -13,6 +13,7 @@ import {
   getApplicationDeliverData,
 } from "@/service/main/application/application";
 
+import { getMemberStateData } from "@/service/main/member/member";
 import localCache from "@/utils/localCache";
 
 import login from "./login/login";
@@ -30,6 +31,9 @@ const store = createStore<IRootState>({
     applicationStateList: {},
     applicationDataList: {},
     applicationDeliverList: {},
+    memberStateList: {},
+    cardManageDataList: {},
+    entireRoleList: [],
   },
   mutations: {
     changeEntireChannel(state, list) {
@@ -63,6 +67,15 @@ const store = createStore<IRootState>({
     changeApplicationDeliverList(state, applicationDeliverList) {
       state.applicationDeliverList = applicationDeliverList;
     },
+    changeMemberStateList(state, memberStateList) {
+      state.memberStateList = memberStateList;
+    },
+    changeCardManageDataList(state, cardManageDataList) {
+      state.cardManageDataList = cardManageDataList;
+    },
+    changeEntireRole(state, entireRoleList) {
+      state.entireRoleList = entireRoleList;
+    },
   },
   actions: {
     async getInitialDataAction({ commit }) {
@@ -73,12 +86,12 @@ const store = createStore<IRootState>({
       commit("changeEntireChannel", entireChannelList);
     },
 
-    async getMemberStateAction({ commit }, payload?: any) {
-      //请求油卡业务状态总额
-      const applicationStateResult = await getApplicationStateData(payload);
-      const applicationStateList = applicationStateResult.data;
-      // 保存当前有效渠道数据
-      commit("changeApplicationStateList", applicationStateList);
+    async getMemberStateAction({ commit }) {
+      //请求用户状态
+      const memberStateResult = await getMemberStateData();
+      console.log(memberStateResult);
+      const memberStateList = memberStateResult.data;
+      commit("changeMemberStateList", memberStateList);
     },
 
     async getStateNumber({ commit }) {
@@ -171,6 +184,14 @@ const store = createStore<IRootState>({
         },
       });
       commit("changeApplicationDeliverList", applicationDeliverList);
+    },
+    // 获取角色列表
+    async getRoleDataAction({ commit }) {
+      //请求当前有效渠道数据
+      const entireRoleResult = await getPageNormalData("/user/roleList");
+      const entireRoleList = entireRoleResult.data;
+      // 保存当前有效渠道数据
+      commit("changeEntireRole", entireRoleList);
     },
   },
   modules: {

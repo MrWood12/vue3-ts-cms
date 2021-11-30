@@ -11,7 +11,7 @@ export const contentTableConfig = {
       slotName: "cardorderStatus",
     },
     { prop: "amount", label: "油品类型", minWidth: "100" },
-    { prop: "oil_card_no", label: "油卡类型", minWidth: "100" },
+    { prop: "oil_card_no", label: "卡号", minWidth: "100" },
 
     {
       prop: "orin_amount",

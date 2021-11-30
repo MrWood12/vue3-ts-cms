@@ -11,6 +11,9 @@ export interface IRootState {
   applicationStateList: any;
   applicationDataList: any;
   applicationDeliverList: any;
+  memberStateList: any;
+  cardManageDataList: any;
+  entireRoleList: any[];
 }
 
 export interface IRootWithModule {

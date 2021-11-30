@@ -17,4 +17,14 @@ export interface IsystemState {
   cardapplicationCount: number;
   shopList: any[];
   shopCount: number;
+  cardmanageList: any[];
+  cardmanageCount: number;
+  importuserList: any[];
+  importuserCount: number;
+  importlistList: any[];
+  importlistCount: number;
+  importamountCount: number;
+  importamountList: any[];
+  usersCount: number;
+  usersList: any[];
 }

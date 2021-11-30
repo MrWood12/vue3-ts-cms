@@ -31,6 +31,16 @@ const systemModule: Module<IsystemState, IRootState> = {
       cardapplicationCount: 0,
       shopList: [],
       shopCount: 0,
+      cardmanageList: [],
+      cardmanageCount: 0,
+      importuserList: [],
+      importuserCount: 0,
+      importlistList: [],
+      importlistCount: 0,
+      importamountCount: 0,
+      importamountList: [],
+      usersCount: 0,
+      usersList: [],
     };
   },
   mutations: {
@@ -88,6 +98,36 @@ const systemModule: Module<IsystemState, IRootState> = {
     changeShopCount(state, shopCount: number) {
       state.shopCount = shopCount;
     },
+    changeCardmanageList(state, cardmanageList: any[]) {
+      state.cardmanageList = cardmanageList;
+    },
+    changeCardmanageCount(state, cardmanageCount: number) {
+      state.cardmanageCount = cardmanageCount;
+    },
+    changeImportuserList(state, importuserList: any[]) {
+      state.importuserList = importuserList;
+    },
+    changeImportuserCount(state, importuserCount: number) {
+      state.importuserCount = importuserCount;
+    },
+    changeImportlistList(state, importlistList: any[]) {
+      state.importlistList = importlistList;
+    },
+    changeImportlistCount(state, importlistCount: number) {
+      state.importlistCount = importlistCount;
+    },
+    changeImportamountList(state, importamountList: any[]) {
+      state.importamountList = importamountList;
+    },
+    changeImportamountCount(state, importamountCount: number) {
+      state.importamountCount = importamountCount;
+    },
+    changeUsersList(state, usersList: any[]) {
+      state.usersList = usersList;
+    },
+    changeUsersCount(state, usersCount: number) {
+      state.usersCount = usersCount;
+    },
   },
   getters: {
     pageListData(state) {
@@ -143,6 +183,21 @@ const systemModule: Module<IsystemState, IRootState> = {
         case "shop":
           pageUrl.value = "/shop/index";
           break;
+        case "cardmanage":
+          pageUrl.value = "/petoleum/bindList";
+          break;
+        case "importuser":
+          pageUrl.value = "/Import/memberList";
+          break;
+        case "importlist":
+          pageUrl.value = "/Import/index";
+          break;
+        case "importamount":
+          pageUrl.value = "/Import/balanceList";
+          break;
+        case "users":
+          pageUrl.value = "/user/index";
+          break;
       }
       // 2、对页面发送请求
       const pageResult = await getPageListData(
@@ -188,6 +243,9 @@ const systemModule: Module<IsystemState, IRootState> = {
         case "shop":
           pageUrl.value = "/shop/create";
           break;
+        case "users":
+          pageUrl.value = "/user/create";
+          break;
       }
       await createPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据
@@ -202,9 +260,15 @@ const systemModule: Module<IsystemState, IRootState> = {
     // 编辑
     async editPageDataAction({ dispatch }, payload: any) {
       // 1、创建数据请求
-      const { pageName, queryInfo, id } = payload;
-      const pageUrl = `/${pageName}/${id}`;
-      await editPageData(pageUrl, queryInfo);
+      const { pageName, queryInfo } = payload;
+      const pageUrl = ref("");
+
+      switch (pageName) {
+        case "users":
+          pageUrl.value = "/user/updateUser";
+          break;
+      }
+      await editPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据
       dispatch("getPageListAction", {
         pageName,

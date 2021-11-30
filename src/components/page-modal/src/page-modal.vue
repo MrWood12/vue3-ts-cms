@@ -40,6 +40,12 @@
             @click="handleShopClick"
             >确定</el-button
           >
+          <el-button
+            v-if="clickName === 'users'"
+            type="primary"
+            @click="handleConfirmClick"
+            >确定</el-button
+          >
           <el-button @click="centerDialogVisible = false">取消</el-button>
         </span>
       </template>

@@ -2,22 +2,37 @@
   <div class="member">
     <div class="page-statistics">
       <div class="static-item">
-        <div class="item-title">已激活</div>
-        <div class="item-number" style="color: #596ef9">123</div>
+        <div class="item-title">激活且购买权益</div>
+        <div class="item-number" style="color: #596ef9">
+          {{ memberStateRef.active }}
+        </div>
       </div>
       <div
         style="float: left; width: 1px; height: 50%; background: #d9d9d9"
       ></div>
       <div class="static-item">
-        <div class="item-title">未激活</div>
-        <div class="item-number" style="color: #ff0000">123</div>
+        <div class="item-title">未开通权益</div>
+        <div class="item-number" style="color: #ff0000">
+          {{ memberStateRef.unactive }}
+        </div>
       </div>
       <div
         style="float: left; width: 1px; height: 50%; background: #d9d9d9"
       ></div>
       <div class="static-item">
-        <div class="item-title">到期&冻结</div>
-        <div class="item-number" style="color: #bbbbbb">123</div>
+        <div class="item-title">已过期</div>
+        <div class="item-number" style="color: #ff0000">
+          {{ memberStateRef.exped }}
+        </div>
+      </div>
+      <div
+        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
+      ></div>
+      <div class="static-item">
+        <div class="item-title">冻结</div>
+        <div class="item-number" style="color: #bbbbbb">
+          {{ memberStateRef.freeze }}
+        </div>
       </div>
     </div>
     <page-search
@@ -134,7 +149,14 @@ export default defineComponent({
     // 动态添加
     const store = useStore();
     store.dispatch("getInitialDataAction");
-
+    store.dispatch("getMemberStateAction");
+    const memberStateRef = computed(() => {
+      const unactive = store.state.memberStateList.unactive;
+      const active = store.state.memberStateList.active;
+      const exped = store.state.memberStateList.exped;
+      const freeze = store.state.memberStateList.freeze;
+      return { unactive, active, exped, freeze };
+    });
     // 当组件数据发生改变，重新刷新组件
     const rechargeConfigRef = computed(() => {
       const departmentItem = rechargeConfig.formItems.find(
@@ -181,6 +203,7 @@ export default defineComponent({
       modalName,
       rechargeConfig,
       rechargeConfigRef,
+      memberStateRef,
     };
   },
 });
