@@ -1,6 +1,11 @@
 export const modalConfig = {
   formItems: [
     {
+      field: "id",
+      type: "input",
+      label: "ID",
+    },
+    {
       field: "name",
       type: "input",
       label: "渠道名称",
@@ -14,7 +19,7 @@ export const modalConfig = {
     },
     {
       field: "desc",
-      type: "input",
+      type: "textarea",
       label: "备注",
       isHidden: false,
     },

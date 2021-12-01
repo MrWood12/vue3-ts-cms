@@ -42,14 +42,16 @@
     ></page-search>
 
     <page-content
-      :contentTableConfig="contentTableConfig"
+      :contentTableConfig="
+        userInfo.role == 'admin' ? contentTableConfig : channelTableConfig
+      "
       pageName="member"
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
       @chargeBtnClick="handleChargeData"
     >
-      <template v-slot:headerHandler>
+      <template v-slot:headerHandler v-if="userInfo.role == 'admin'">
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
           >新建</el-button
         >
@@ -122,7 +124,10 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 
-import { contentTableConfig } from "./config/content.config";
+import {
+  contentTableConfig,
+  channelTableConfig,
+} from "./config/content.config";
 import { searchFormConfig } from "./config/search.config";
 import { modalConfig, rechargeConfig } from "./config/modal.config";
 
@@ -131,6 +136,9 @@ import { usePageModal } from "@/hooks/use-page-modal";
 
 import PageContent from "@/components/page-content/src/page-content.vue";
 import PageSearch from "@/components/page-search/src/page-search.vue";
+
+import localCache from "@/utils/localCache";
+
 export default defineComponent({
   components: {
     PageContent,
@@ -145,7 +153,7 @@ export default defineComponent({
       handleUploadClick,
       handleUploadAmountClick,
     } = usePageSearch();
-
+    const userInfo = localCache.getCache("userInfo");
     // 动态添加
     const store = useStore();
     store.dispatch("getInitialDataAction");
@@ -204,6 +212,8 @@ export default defineComponent({
       rechargeConfig,
       rechargeConfigRef,
       memberStateRef,
+      userInfo,
+      channelTableConfig,
     };
   },
 });

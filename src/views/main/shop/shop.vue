@@ -39,13 +39,18 @@
             >上传图片</el-button
           >
         </el-upload> -->
-
-        <el-button
-          type="text"
-          icon="el-icon-delete"
-          @click="handleDeleteShop(scope.row.id)"
-          >删除</el-button
+        <el-popconfirm
+          confirm-button-text="是"
+          cancel-button-text="否"
+          :icon="InfoFilled"
+          icon-color="red"
+          title="是否删除"
+          @confirm="handleDeleteShop(scope.row.id)"
         >
+          <template #reference>
+            <el-button type="text" icon="el-icon-delete">删除</el-button>
+          </template>
+        </el-popconfirm>
       </template>
       <template #oilCard="scope"
         ><div v-if="scope.row.type == 2">中国石化</div>

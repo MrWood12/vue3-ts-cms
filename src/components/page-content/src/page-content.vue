@@ -71,6 +71,7 @@ import { defineComponent, computed, ref, watch } from "vue";
 import { useStore } from "@/store";
 
 import HyTable from "@/base-ui/table";
+import localCache from "@/utils/localCache";
 
 export default defineComponent({
   props: {
@@ -88,6 +89,8 @@ export default defineComponent({
   },
   emits: ["newBtnClick", "editBtnClick", "chargeBtnClick"],
   setup(props, { emit }) {
+    const userInfo = localCache.getCache("userInfo");
+
     const store = useStore();
     // 分页点击下一页
     const pageInfo = ref({ currentPage: 0, pageSize: 10 });
@@ -193,6 +196,7 @@ export default defineComponent({
       hanleLoadDataClick,
       handleChargeClick,
       handleUploadAmountClick,
+      userInfo,
     };
   },
   components: {

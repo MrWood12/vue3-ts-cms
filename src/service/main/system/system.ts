@@ -36,6 +36,13 @@ export function editPageData(url: string, queryInfo: any) {
   return hyRequest.post({
     url: url,
     data: queryInfo,
+    interceptors: {
+      responseInterceptor: (res) => {
+        ElMessage.success(res.msg);
+        // console.log("单独响应的response");
+        return res;
+      },
+    },
   });
 }
 // 更新状态

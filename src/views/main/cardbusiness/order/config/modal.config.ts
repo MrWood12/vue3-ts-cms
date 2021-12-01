@@ -26,7 +26,7 @@ export const modalConfig = {
     },
     {
       field: "desc",
-      type: "input",
+      type: "textarea",
       label: "备注",
     },
   ],

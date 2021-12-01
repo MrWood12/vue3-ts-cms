@@ -1,22 +1,39 @@
+·
 <template>
   <div class="hy-form">
     <div class="header">
       <slot name="header"></slot>
     </div>
-    <el-form :label-width="labelWidth" class="formclass" inline>
+    <el-form
+      :label-width="labelWidth"
+      class="formclass"
+      inline
+      :rules="rules"
+      :ref="ref"
+    >
       <template v-for="item in formItems" :key="item.placeholder">
         <el-form-item
           class="item-class"
           v-if="!item.isHidden"
           :label="item.label"
-          :rules="item.rules"
           :style="itemStyle"
+          :prop="item.filed"
         >
-          <template v-if="item.type === 'input' || item.type === 'password'">
+          <template
+            v-if="
+              item.type === 'input' ||
+              item.type === 'password' ||
+              item.type === 'textarea'
+            "
+          >
             <el-input
               :disabled="item.disabled"
               :placeholder="item.placeholder"
               :show-password="item.type === 'password'"
+              :type="item.type === 'textarea' ? 'textarea' : ''"
+              :autosize="
+                item.type === 'textarea' ? { minRows: 2, maxRows: 4 } : ''
+              "
               size="small"
               style="width: 270px"
               minlength:150
@@ -93,6 +110,7 @@
         <slot name="lineBtn"></slot>
       </div>
     </el-form>
+
     <div class="footer">
       <slot name="footer"></slot>
     </div>
@@ -115,6 +133,11 @@ export default defineComponent({
       type: Array as PropType<IFormItem[]>,
       default: () => [],
     },
+    rules: {
+      type: Array,
+      default: () => [],
+    },
+
     labelWidth: {
       type: String,
       default: "70px",

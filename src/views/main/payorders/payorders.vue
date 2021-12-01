@@ -34,7 +34,7 @@
         </div>
       </template>
       <template #amts="scope">
-        {{ scope.row.pay_amt }}+{{ scope.row.discount_amt }}
+        {{ scope.row.pay_amt }}+{{ scope.row.point_amt }}
       </template>
     </page-content>
     <page-modal

@@ -53,22 +53,25 @@ export default defineComponent({
 
     // pageModal相关hook逻辑
     // 单独逻辑 比如是否显示密码框
-    const rechargeCallback = () => {
-      const passwordItem = modalConfig.formItems.find(
-        (item) => item.field === "password"
+    const editCallback = () => {
+      const idItem = modalConfig.formItems.find((item) => item.field === "id");
+      const statusItem = modalConfig.formItems.find(
+        (item) => item.field === "status"
       );
-      passwordItem!.isHidden = false;
+      idItem!.isHidden = true;
+      statusItem!.isHidden = true;
     };
-    // const editCallback = () => {
-    //   const passwordItem = modalConfig.formItems.find(
-    //     (item) => item.field === "password"
-    //   );
-    //   passwordItem!.isHidden = true;
-    // };
-    // const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
-    //   usePageModal(newCallback, editCallback);
+    const newCallback = () => {
+      const idItem = modalConfig.formItems.find((item) => item.field === "id");
+      const statusItem = modalConfig.formItems.find(
+        (item) => item.field === "status"
+      );
+      idItem!.isHidden = true;
+      statusItem!.isHidden = false;
+    };
     const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
-      usePageModal(rechargeCallback);
+      usePageModal(newCallback, editCallback);
+
     return {
       searchFormConfig,
       contentTableConfig,

@@ -4,7 +4,7 @@
 // 生产环境：production
 // 测试环境：test
 let BASE_URL = "";
-const TIME_OUT = 10000;
+const TIME_OUT = 15000;
 if (process.env.NODE_ENV === "development") {
   BASE_URL = "/backend";
 } else if (process.env.NODE_ENV === "production") {

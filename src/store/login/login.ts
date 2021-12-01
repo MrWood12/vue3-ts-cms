@@ -9,7 +9,7 @@ import {
 import localCache from "@/utils/localCache";
 import router from "@/router";
 import { mapMenusToRoutes } from "@/utils/map-menus";
-import mokeUserMenus from "./mock-userMenus";
+import { adminMenus, channelMenus } from "./mock-userMenus";
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
@@ -73,10 +73,17 @@ const loginModule: Module<ILoginState, IRootState> = {
       // // 3、请求用户菜单
       // // const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id);
       // // const userMenus = userMenusResult.data;
-      const userMenus = mokeUserMenus;
-      // console.log(userMenus);
-      commit("changeUserMenus", userMenus);
-      localCache.setlocalCache("userMenus", userMenus);
+      if (userInfo.role === "admin") {
+        const userMenus = adminMenus;
+        // console.log(userMenus);
+        commit("changeUserMenus", userMenus);
+        localCache.setlocalCache("userMenus", userMenus);
+      } else if (userInfo.role === "channel") {
+        const userMenus = channelMenus;
+        // console.log(userMenus);
+        commit("changeUserMenus", userMenus);
+        localCache.setlocalCache("userMenus", userMenus);
+      }
 
       // 4、跳转首页
       router.push("/main");

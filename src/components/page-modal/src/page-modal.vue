@@ -8,6 +8,7 @@
       destroy-on-close
     >
       <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
+
       <template #footer>
         <span class="dialog-footer">
           <el-button
@@ -49,6 +50,13 @@
           <el-button @click="centerDialogVisible = false">取消</el-button>
         </span>
       </template>
+      <el-divider></el-divider>
+
+      <div class="dialog-bottom" v-if="clickName === 'recharge'">
+        <el-table :data="tableData" border style="width: 100%">
+          <el-table-column prop="date" label="Date" width="180" />
+        </el-table>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -79,6 +87,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    rules: {
+      type: Array,
+      default: () => [],
+    },
   },
   setup(props) {
     const centerDialogVisible = ref(false);
@@ -93,6 +105,7 @@ export default defineComponent({
       }
     );
     // 点击确定按钮的逻辑
+
     const store = useStore();
 
     const handleConfirmClick = () => {
@@ -106,6 +119,13 @@ export default defineComponent({
           id: props.defaultInfo.id,
         });
       } else {
+        //  this.$refs[formName].validate((valid) => {
+        // if (valid) {
+        //   alert('submit!')
+        // } else {
+        //   console.log('error submit!!')
+        //   return false
+        // }
         // '新建
         console.log("新建");
         store.dispatch("system/createPageDataAction", {
@@ -158,4 +178,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.dialog-bottom {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+</style>

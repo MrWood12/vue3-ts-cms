@@ -43,16 +43,16 @@ export const modalConfig = {
     {
       field: "is_debt",
       type: "select",
-      label: "是否显示",
+      label: "是否支持商品核销",
       placeholder: "请选择",
       options: [
         {
           value: 0,
-          label: "不支持",
+          label: "不核销",
         },
         {
           value: 1,
-          label: "支持",
+          label: "核销",
         },
       ],
     },

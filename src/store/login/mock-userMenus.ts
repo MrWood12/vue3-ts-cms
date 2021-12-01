@@ -1,4 +1,4 @@
-const mokeUserMenus = [
+const adminMenus = [
   {
     // 图标
     icon: "el-icon-house",
@@ -111,20 +111,6 @@ const mokeUserMenus = [
         type: 2,
         url: "/main/finance/recharge",
       },
-      {
-        id: 83,
-        name: "余额交易记录",
-        sort: 7,
-        type: 2,
-        url: "/main/finance/trade",
-      },
-      {
-        id: 84,
-        name: "现金交易记录",
-        sort: 7,
-        type: 2,
-        url: "/main/finance/cashtrade",
-      },
     ],
   },
   {
@@ -176,4 +162,41 @@ const mokeUserMenus = [
     ],
   },
 ];
-export default mokeUserMenus;
+const channelMenus = [
+  {
+    icon: "el-icon-user",
+    id: 1,
+    name: "会员管理",
+    sort: 1,
+    type: 2,
+    url: "/main/member",
+  },
+
+  {
+    icon: "el-icon-shopping-cart-full",
+    id: 2,
+    name: "权益订单",
+    sort: 2,
+    type: 2,
+    url: "/main/powerorders",
+  },
+
+  {
+    icon: "el-icon-coin",
+    id: 3,
+    name: "财务管理",
+    sort: 7,
+    type: 1,
+    url: "/main/finance",
+    children: [
+      {
+        id: 31,
+        name: "余额充值记录",
+        sort: 7,
+        type: 2,
+        url: "/main/finance/recharge",
+      },
+    ],
+  },
+];
+export { adminMenus, channelMenus };

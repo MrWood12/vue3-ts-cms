@@ -1,5 +1,5 @@
 import { IForm } from "@/base-ui/form";
-export const modalConfig: IForm = {
+export const modalConfig = {
   itemStyle: {
     width: "330px",
     padding: "0 5px",
@@ -52,7 +52,7 @@ export const modalConfig: IForm = {
     },
     {
       field: "desc",
-      type: "input",
+      type: "textarea",
       label: "备注",
     },
   ],
@@ -67,6 +67,7 @@ export const rechargeConfig: IForm = {
       field: "member_id",
       type: "input",
       label: "用户id",
+      isHidden: true,
     },
     {
       field: "channel_id",

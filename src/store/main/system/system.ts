@@ -267,6 +267,9 @@ const systemModule: Module<IsystemState, IRootState> = {
         case "users":
           pageUrl.value = "/user/updateUser";
           break;
+        case "channel":
+          pageUrl.value = "/channel/updateChannel";
+          break;
       }
       await editPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据
