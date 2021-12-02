@@ -168,22 +168,25 @@ const store = createStore<IRootState>({
       localCache.setsessionCache("applicationDataList", applicationDataList);
       // 保存当前有效渠道数据
       commit("changeApplicationDataList", applicationDataList);
-      console.log(store.state.applicationDataList);
     },
     // 发货
-    async getApplicationDeliverAction({ dispatch }, { commit }, payload?: any) {
-      const applicationDeliverResult = await getApplicationDeliverData(
-        payload.queryInfo
-      );
-      const applicationDeliverList = applicationDeliverResult.data;
-      dispatch("system/getPageListAction", {
-        pageName: payload.pageName,
-        queryInfo: {
-          start: 1,
-          limit: 10,
+    async getApplicationDeliverAction({ dispatch }, payload?: any) {
+      console.log("123", payload);
+      // console.log(payload.queryInfo);
+      await getApplicationDeliverData(payload.queryInfo);
+      // const applicationDeliverList = applicationDeliverResult.data;
+      dispatch(
+        "system/getPageListAction",
+        {
+          pageName: "cardapplication",
+          queryInfo: {
+            start: 1,
+            limit: 10,
+          },
         },
-      });
-      commit("changeApplicationDeliverList", applicationDeliverList);
+        { root: true }
+      );
+      // commit("changeApplicationDeliverList", applicationDeliverList);
     },
     // 获取角色列表
     async getRoleDataAction({ commit }) {

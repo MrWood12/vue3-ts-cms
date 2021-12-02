@@ -5,6 +5,7 @@ import {
   changeStatus,
   memberChannel,
   memberRecharge,
+  getRechargeList,
 } from "@/service/main/member/member";
 const memberModule: Module<ImemberState, IRootState> = {
   namespaced: true,
@@ -12,6 +13,7 @@ const memberModule: Module<ImemberState, IRootState> = {
     return {
       channelList: [],
       memberId: 0,
+      rechargeList: [],
     };
   },
   mutations: {
@@ -20,6 +22,9 @@ const memberModule: Module<ImemberState, IRootState> = {
     },
     changeMemberId(state, payload: any) {
       state.memberId = payload;
+    },
+    changeRechargeList(state, list: any[]) {
+      state.rechargeList = list;
     },
   },
 
@@ -67,6 +72,13 @@ const memberModule: Module<ImemberState, IRootState> = {
         },
         { root: true }
       );
+    },
+    // 充值余额列表
+    async getRechargeList({ commit }, payload: any) {
+      const pageResult = await getRechargeList(payload.queryInfo);
+      console.log("pageResult", pageResult);
+      const list = pageResult.data;
+      commit(`changeRechargeList`, list);
     },
   },
 };

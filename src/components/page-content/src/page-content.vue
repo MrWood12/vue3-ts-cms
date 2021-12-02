@@ -182,6 +182,10 @@ export default defineComponent({
       store.dispatch("member/getchannelListAction", {
         queryInfo: { member_id: item.id },
       });
+      // 点击充值同时获取该用户充值列表
+      store.dispatch("member/getRechargeList", {
+        queryInfo: { realname_phone: item.phone },
+      });
       emit("chargeBtnClick", item);
     };
     return {

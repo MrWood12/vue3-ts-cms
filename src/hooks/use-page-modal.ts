@@ -50,12 +50,12 @@ export function usePageModal(
     modalName.value = "applicationDetailModal";
     rechargeCb && rechargeCb();
   };
+  // 发货
   const handleApplicationDeliverData = (item: any) => {
     store.dispatch("getApplicationDetailAction", item.id);
     const applicationDataList = computed(() =>
       localCache.getCache("applicationDataList")
     );
-    console.log(applicationDataList);
     defaultInfo.value = {
       order_no: applicationDataList.value.order_no,
     };

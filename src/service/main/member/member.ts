@@ -50,3 +50,16 @@ export function getMemberStateData() {
     url: "/member/state",
   });
 }
+
+// 根据ID获取用户数据
+export function getRechargeList(queryInfo: any) {
+  console.log("res", queryInfo);
+  return hyRequest.post({
+    url: "/balance/index",
+    data: {
+      start: 1,
+      limit: 10,
+      realname_phone: queryInfo.realname_phone,
+    },
+  });
+}

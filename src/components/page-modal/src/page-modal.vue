@@ -53,8 +53,13 @@
       <el-divider></el-divider>
 
       <div class="dialog-bottom" v-if="clickName === 'recharge'">
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column prop="date" label="Date" width="180" />
+        <el-table :data="rechargeList" height="250" border style="width: 100%">
+          <el-table-column prop="order_no" label="订单号" />
+
+          <el-table-column prop="phone" label="手机号" />
+          <el-table-column prop="amount" label="充值金额" />
+          <el-table-column prop="create_time" label="创建时间" />
+          <el-table-column prop="opera_name" label="操作员" />
         </el-table>
       </div>
     </el-dialog>
@@ -62,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 import { useStore } from "vuex";
 import HyForm from "@/base-ui/form";
 export default defineComponent({
@@ -107,7 +112,9 @@ export default defineComponent({
     // 点击确定按钮的逻辑
 
     const store = useStore();
-
+    const rechargeList = computed(() => {
+      return store.state.member.rechargeList;
+    });
     const handleConfirmClick = () => {
       centerDialogVisible.value = false;
       if (Object.keys(props.defaultInfo).length) {
@@ -119,13 +126,6 @@ export default defineComponent({
           id: props.defaultInfo.id,
         });
       } else {
-        //  this.$refs[formName].validate((valid) => {
-        // if (valid) {
-        //   alert('submit!')
-        // } else {
-        //   console.log('error submit!!')
-        //   return false
-        // }
         // '新建
         console.log("新建");
         store.dispatch("system/createPageDataAction", {
@@ -157,9 +157,17 @@ export default defineComponent({
     };
     const handleApplicationClick = () => {
       centerDialogVisible.value = false;
+      console.log(1);
       store.dispatch("getApplicationDeliverAction", {
         pageName: props.pageName,
         queryInfo: { ...formData.value, ...props.otherInfo },
+      });
+      store.dispatch("system/getPageListAction", {
+        pageName: props.pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
       });
     };
     return {
@@ -170,6 +178,7 @@ export default defineComponent({
       handleCapitalpoolClick,
       handleApplicationClick,
       handleShopClick,
+      rechargeList,
     };
   },
   components: {
@@ -178,10 +187,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.dialog-bottom {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-}
-</style>
+<style scoped></style>
