@@ -10,7 +10,7 @@
       pageName="users"
       ref="pageContentRef"
       @newBtnClick="handleNewData"
-      @editBtnClick="handleEditData"
+      @editBtnClick="handleUsersEditData"
     >
       <template v-slot:headerHandler>
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
@@ -25,6 +25,11 @@
       <template #roleName="scope">
         <div v-if="scope.row.role_name != ''">
           {{ $filters.roleName(scope.row.role_name) }}
+        </div>
+      </template>
+      <template #channels="scope">
+        <div v-for="(item, index) in scope.row.channel_names" :key="index">
+          {{ item }}
         </div>
       </template>
     </page-content>
@@ -83,8 +88,13 @@ export default defineComponent({
     // };
     // const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
     //   usePageModal(newCallback, editCallback);
-    const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
-      usePageModal(editCallback);
+    const {
+      pageModalRef,
+      defaultInfo,
+      handleNewData,
+      handleEditData,
+      handleUsersEditData,
+    } = usePageModal(editCallback);
 
     const modalConfigRef = computed(() => {
       const departmentItem = modalConfig.formItems.find(
@@ -114,6 +124,7 @@ export default defineComponent({
       pageModalRef,
       defaultInfo,
       handleNewClick,
+      handleUsersEditData,
       modalConfigRef,
     };
   },

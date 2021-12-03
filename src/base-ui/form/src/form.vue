@@ -106,7 +106,11 @@
           </template>
           <template v-else-if="item.type === 'checkbox'">
             <el-checkbox-group
-              :model-value="queryCheckList"
+              :model-value="
+                modelValue[`${item.field}`]
+                  ? modelValue[`${item.field}`]
+                  : modelValueChannels
+              "
               @update:modelValue="handleValueChange($event, item.field)"
               @change="changeCheckbox"
             >
@@ -177,10 +181,10 @@ export default defineComponent({
     //     deep: true,
     //   }
     // );
-    const queryCheckList = ref([]);
+    const modelValueChannels = ref([]);
     const changeCheckbox = (data: any) => {
       console.log(data);
-      queryCheckList.value = data;
+      modelValueChannels.value = data;
     };
     const imageurl = ref([]);
     // 图片上传
@@ -201,7 +205,7 @@ export default defineComponent({
       handleValueChange,
       handleImageUploadClick,
       imageurl,
-      queryCheckList,
+      modelValueChannels,
       changeCheckbox,
     };
   },

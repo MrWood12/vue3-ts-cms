@@ -28,6 +28,22 @@ export function usePageModal(
     }
     editCb && editCb();
   };
+  const handleUsersEditData = (item: any) => {
+    console.log("item", item);
+    defaultInfo.value = {
+      id: item.id,
+      username: item.username,
+      name: item.name,
+      phone: item.phone,
+      status: item.status,
+      role_name: item.role_name,
+      channels: item.channel_names,
+    };
+    if (pageModalRef.value) {
+      pageModalRef.value.centerDialogVisible = true;
+    }
+    editCb && editCb();
+  };
   const handleChargeData = (item: any) => {
     defaultInfo.value = { member_id: item.member_id };
     if (pageModalRef.value) {
@@ -71,6 +87,7 @@ export function usePageModal(
     defaultInfo,
     handleNewData,
     handleEditData,
+    handleUsersEditData,
     handleChargeData,
     modalName,
     handleApplicationDetailData,

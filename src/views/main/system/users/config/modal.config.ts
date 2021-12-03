@@ -18,6 +18,7 @@ export const modalConfig = {
       label: "姓名",
       placeholder: "请输入姓名",
     },
+
     {
       field: "password",
       type: "input",
@@ -28,6 +29,7 @@ export const modalConfig = {
       field: "phone",
       type: "input",
       label: "联系号码",
+      placeholder: "请输入姓名",
     },
     {
       field: "status",

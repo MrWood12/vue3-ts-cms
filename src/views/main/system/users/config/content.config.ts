@@ -12,6 +12,12 @@ export const contentTableConfig = {
       minWidth: "100",
       slotName: "roleName",
     },
+    {
+      prop: "channels",
+      label: "授权渠道",
+      minWidth: "100",
+      slotName: "channels",
+    },
     { prop: "status", label: "状态", minWidth: "100", slotName: "userstatus" },
     { prop: "add_time", label: "添加时间", minWidth: "100" },
     { prop: "update_time", label: "更新时间", minWidth: "100" },
