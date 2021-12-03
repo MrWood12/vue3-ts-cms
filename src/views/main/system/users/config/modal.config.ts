@@ -51,5 +51,10 @@ export const modalConfig = {
       label: "角色信息",
       placeholder: "请选择角色",
     },
+    {
+      field: "channels",
+      type: "checkbox",
+      label: "选择渠道",
+    },
   ],
 };

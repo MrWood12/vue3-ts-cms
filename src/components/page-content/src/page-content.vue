@@ -135,7 +135,7 @@ export default defineComponent({
         store.dispatch("system/updatePageDataAction", {
           pageName: props.pageName,
           queryInfo: {
-            member_id: queryInfo.id,
+            member_id: queryInfo.member_id,
             status: queryInfo.status == 1 ? "active" : "freeze",
           },
         });
@@ -180,7 +180,7 @@ export default defineComponent({
     };
     const handleChargeClick = (item: any) => {
       store.dispatch("member/getchannelListAction", {
-        queryInfo: { member_id: item.id },
+        queryInfo: { member_id: item.member_id },
       });
       // 点击充值同时获取该用户充值列表
       store.dispatch("member/getRechargeList", {

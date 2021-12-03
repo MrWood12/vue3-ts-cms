@@ -39,5 +39,10 @@ export const modalConfig = {
         },
       ],
     },
+    {
+      field: "picture",
+      type: "upload",
+      label: "上传图片",
+    },
   ],
 };

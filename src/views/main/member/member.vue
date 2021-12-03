@@ -87,17 +87,39 @@
         <div class="info-phone">{{ scope.row.phone }}</div>
       </template>
       <template #right="scope">
+        <div></div>
         <div class="start-time">{{ scope.row.right_start_time }}</div>
         <div class="end-time">{{ scope.row.right_end_time }}</div>
       </template>
       <template #channel="scope">
-        <div
+        <!-- <div
           class="start-time"
           v-for="item in $filters.channelData(scope.row.channels)"
           :key="item.name"
         >
-          <!-- {{ scope.row.channels.map((item) => item.name)[0] }} -->
+          {{ scope.row.channels.map((item) => item.name)[0] }}
           {{ item }}
+        </div> -->
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-item: center;
+            text-align: center;
+            justify-content: center;
+          "
+        >
+          <el-image
+            style="width: 30px; height: 30px"
+            :src="scope.row.picture"
+            :preview-src-list="[scope.row.picture]"
+            :initial-index="1"
+          >
+          </el-image>
+
+          <div style="display: flex; align-items: center">
+            {{ scope.row.name }}
+          </div>
         </div>
       </template>
     </page-content>
@@ -181,7 +203,7 @@ export default defineComponent({
         (item) => item.field === "channel_id"
       );
       departmentItem!.options = store.state.entireChannel.map((item) => {
-        return { label: item.name, value: item.id };
+        return { label: item.name, value: item.member_id };
       });
       return modalConfig;
     });
@@ -238,6 +260,8 @@ export default defineComponent({
   .static-item {
     height: 60%;
     display: flex;
+    width: 20%;
+
     flex-direction: column;
     justify-content: space-around;
     .item-title {

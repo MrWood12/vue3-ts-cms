@@ -181,6 +181,7 @@ export default defineComponent({
   .static-item {
     height: 60%;
     display: flex;
+
     flex-direction: column;
     justify-content: space-around;
     .item-title {

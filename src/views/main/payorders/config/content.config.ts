@@ -7,7 +7,7 @@ export const contentTableConfig = {
     { prop: "orig_amt", label: "消费金额", minWidth: "100" },
     {
       prop: "amts",
-      label: "联付（余额+现金）",
+      label: "联付（现金+余额）",
       minWidth: "100",
       slotName: "amts",
     },

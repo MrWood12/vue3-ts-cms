@@ -1,6 +1,8 @@
 export const contentTableConfig = {
   // title: "列表",
   propList: [
+    { prop: "picture", label: "图标", minWidth: "100", slotName: "picture" },
+
     { prop: "name", label: "渠道名称", minWidth: "100" },
     { prop: "desc", label: "备注", minWidth: "100" },
     { prop: "price", label: "权益定价", minWidth: "100" },

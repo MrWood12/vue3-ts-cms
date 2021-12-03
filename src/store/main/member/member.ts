@@ -31,7 +31,7 @@ const memberModule: Module<ImemberState, IRootState> = {
   actions: {
     // 请求用户有效渠道列表
     async getchannelListAction({ commit }, payload: any) {
-      console.log(123);
+      console.log(payload.queryInfo);
       commit(`changeMemberId`, payload);
       const pageResult = await memberChannel(payload.queryInfo);
       const list = pageResult.data;

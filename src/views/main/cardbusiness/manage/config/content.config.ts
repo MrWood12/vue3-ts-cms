@@ -6,11 +6,16 @@ export const contentTableConfig = {
     { prop: "card_no", label: "车牌号", minWidth: "100" },
     { prop: "phone", label: "手机号", minWidth: "100" },
     { prop: "realname", label: "名称", minWidth: "100" },
-    { prop: "type", label: "油卡类型", minWidth: "100", slotName: "oilCard" },
-    { prop: "gas", label: "油品类型", minWidth: "100", slotName: "oilProduct" },
     {
       prop: "oil_card_no",
       label: "油卡卡号",
+      minWidth: "100",
+    },
+    { prop: "type", label: "油卡类型", minWidth: "100", slotName: "oilCard" },
+    { prop: "gas", label: "油品类型", minWidth: "100", slotName: "oilProduct" },
+    {
+      prop: "recharge_amount",
+      label: "累计充值",
       minWidth: "100",
     },
     {

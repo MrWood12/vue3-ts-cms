@@ -42,6 +42,14 @@ const adminMenus = [
     type: 2,
     url: "/main/payorders",
   },
+  {
+    icon: "el-icon-odometer",
+    id: 6,
+    name: "服务站管理",
+    sort: 6,
+    type: 2,
+    url: "/main/shop",
+  },
 
   {
     icon: "el-icon-bank-card",
@@ -145,18 +153,11 @@ const adminMenus = [
         url: "/main/system/channel",
       },
       {
-        id: 102,
+        id: 101,
         name: "后台用户管理",
         sort: 11,
         type: 2,
         url: "/main/system/users",
-      },
-      {
-        id: 103,
-        name: "服务站管理",
-        sort: 6,
-        type: 2,
-        url: "/main/system/shop",
       },
     ],
   },

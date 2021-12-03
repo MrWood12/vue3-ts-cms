@@ -104,6 +104,20 @@
               @update:modelValue="handleValueChange($event, item.field)"
             ></el-date-picker>
           </template>
+          <template v-else-if="item.type === 'checkbox'">
+            <el-checkbox-group
+              :model-value="queryCheckList"
+              @update:modelValue="handleValueChange($event, item.field)"
+              @change="changeCheckbox"
+            >
+              <el-checkbox
+                v-for="option in item.options"
+                :key="option.label"
+                :name="option.label"
+                :label="option.label"
+              />
+            </el-checkbox-group>
+          </template>
         </el-form-item>
       </template>
       <div class="lineBtn">
@@ -152,6 +166,7 @@ export default defineComponent({
     Plus,
   },
   setup(props, { emit }) {
+    // const checkList = ref("");
     // const formData = ref({ ...props.modelValue });
     // watch(
     //   formData,
@@ -162,16 +177,23 @@ export default defineComponent({
     //     deep: true,
     //   }
     // );
-    const imageurl = ref("");
+    const queryCheckList = ref([]);
+    const changeCheckbox = (data: any) => {
+      console.log(data);
+      queryCheckList.value = data;
+    };
+    const imageurl = ref([]);
     // 图片上传
     const handleImageUploadClick = (file: any) => {
       console.log(file.file);
       upLoadFile("/shop/pictureUpload", file.file).then((res) => {
         imageurl.value = res.data;
       });
+      handleValueChange(imageurl, "picture");
     };
 
     const handleValueChange = (value: any, field: string) => {
+      console.log(1);
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
 
@@ -179,6 +201,8 @@ export default defineComponent({
       handleValueChange,
       handleImageUploadClick,
       imageurl,
+      queryCheckList,
+      changeCheckbox,
     };
   },
 });

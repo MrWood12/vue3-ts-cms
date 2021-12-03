@@ -72,6 +72,7 @@ export default defineComponent({
       passwordItem!.isHidden = true;
     };
     const store = useStore();
+    store.dispatch("getInitialDataAction");
 
     store.dispatch("getRoleDataAction");
     // const editCallback = () => {
@@ -92,8 +93,15 @@ export default defineComponent({
       departmentItem!.options = store.state.entireRoleList.map((item) => {
         return { label: item.value, value: item.name };
       });
+      const channelsItem = modalConfig.formItems.find(
+        (item) => item.field === "channels"
+      );
+      channelsItem!.options = store.state.entireChannel.map((item) => {
+        return { label: item.name, value: item.id };
+      });
       return modalConfig;
     });
+
     return {
       searchFormConfig,
       contentTableConfig,

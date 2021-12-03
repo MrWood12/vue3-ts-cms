@@ -58,6 +58,7 @@
 
           <el-table-column prop="phone" label="手机号" />
           <el-table-column prop="amount" label="充值金额" />
+          <el-table-column prop="exp_date" label="金额到期时间" />
           <el-table-column prop="create_time" label="创建时间" />
           <el-table-column prop="opera_name" label="操作员" />
         </el-table>

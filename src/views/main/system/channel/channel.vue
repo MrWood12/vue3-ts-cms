@@ -15,7 +15,15 @@
       <template v-slot:headerHandler>
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
           >新建</el-button
+        > </template
+      ><template #picture="scope">
+        <el-image
+          style="width: 80px; height: 80px"
+          :src="scope.row.picture"
+          :preview-src-list="[scope.row.picture]"
+          :initial-index="1"
         >
+        </el-image>
       </template>
     </page-content>
     <page-modal

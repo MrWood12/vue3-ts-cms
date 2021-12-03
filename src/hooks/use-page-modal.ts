@@ -29,7 +29,7 @@ export function usePageModal(
     editCb && editCb();
   };
   const handleChargeData = (item: any) => {
-    defaultInfo.value = { member_id: item.id };
+    defaultInfo.value = { member_id: item.member_id };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;
     }

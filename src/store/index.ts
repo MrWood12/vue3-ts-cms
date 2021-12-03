@@ -175,6 +175,7 @@ const store = createStore<IRootState>({
       // console.log(payload.queryInfo);
       await getApplicationDeliverData(payload.queryInfo);
       // const applicationDeliverList = applicationDeliverResult.data;
+      dispatch("getApplicationStateAction");
       dispatch(
         "system/getPageListAction",
         {
