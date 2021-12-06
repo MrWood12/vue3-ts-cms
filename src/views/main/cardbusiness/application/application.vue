@@ -32,6 +32,7 @@
       :searchFormConfig="searchFormConfigRef"
       @queryBtnClick="handleQueryAndApplicationClick"
       @resetBtnClick="handleResetAndApplicationClick"
+      pageName="cardapplication"
     >
     </page-search>
     <page-content

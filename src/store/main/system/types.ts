@@ -27,4 +27,8 @@ export interface IsystemState {
   importamountList: any[];
   usersCount: number;
   usersList: any[];
+  normalmemberCount: number;
+  normalmemberList: any[];
+  exportlistList: any[];
+  exportlistCount: number;
 }

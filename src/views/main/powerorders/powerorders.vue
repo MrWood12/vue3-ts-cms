@@ -4,6 +4,7 @@
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryAndpowerAmountClick"
       @resetBtnClick="handleResetAndpowerAmountClick"
+      pageName="powerorders"
     >
     </page-search>
     <el-alert

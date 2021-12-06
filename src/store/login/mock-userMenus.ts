@@ -15,9 +15,26 @@ const adminMenus = [
     id: 2,
     name: "会员管理",
     sort: 2,
-    type: 2,
+    type: 1,
     url: "/main/member",
+    children: [
+      {
+        id: 21,
+        name: "权益会员",
+        sort: 7,
+        type: 2,
+        url: "/main/member/powermember",
+      },
+      {
+        id: 22,
+        name: "非权益会员",
+        sort: 7,
+        type: 2,
+        url: "/main/member/normalmember",
+      },
+    ],
   },
+
   {
     icon: "el-icon-money",
     id: 3,
@@ -101,7 +118,7 @@ const adminMenus = [
   {
     icon: "el-icon-document-copy",
     id: 9,
-    name: "导入文件查询",
+    name: "导入文件列表",
     sort: 8,
     type: 1,
     url: "/main/import",
@@ -128,6 +145,14 @@ const adminMenus = [
         url: "/main/import/list",
       },
     ],
+  },
+  {
+    icon: "el-icon-upload",
+    id: 6,
+    name: "导出文件列表",
+    sort: 6,
+    type: 2,
+    url: "/main/exportlist",
   },
   {
     icon: "el-icon-setting",

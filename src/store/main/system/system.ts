@@ -8,6 +8,7 @@ import {
   editPageData,
   updateStatus,
   upLoadFile,
+  exportPageData,
 } from "@/service/main/system/system";
 const systemModule: Module<IsystemState, IRootState> = {
   namespaced: true,
@@ -41,6 +42,10 @@ const systemModule: Module<IsystemState, IRootState> = {
       importamountList: [],
       usersCount: 0,
       usersList: [],
+      normalmemberCount: 0,
+      normalmemberList: [],
+      exportlistList: [],
+      exportlistCount: 0,
     };
   },
   mutations: {
@@ -128,6 +133,18 @@ const systemModule: Module<IsystemState, IRootState> = {
     changeUsersCount(state, usersCount: number) {
       state.usersCount = usersCount;
     },
+    changeNormalmemberList(state, normalmemberList: any[]) {
+      state.normalmemberList = normalmemberList;
+    },
+    changeNormalmemberCount(state, normalmemberCount: number) {
+      state.normalmemberCount = normalmemberCount;
+    },
+    changeExportlistList(state, exportlistList: any[]) {
+      state.exportlistList = exportlistList;
+    },
+    changeExportlistCount(state, exportlistCount: number) {
+      state.exportlistCount = exportlistCount;
+    },
   },
   getters: {
     pageListData(state) {
@@ -197,6 +214,12 @@ const systemModule: Module<IsystemState, IRootState> = {
           break;
         case "users":
           pageUrl.value = "/user/index";
+          break;
+        case "normalmember":
+          pageUrl.value = "/member/potentialList";
+          break;
+        case "exportlist":
+          pageUrl.value = "/explode/index";
           break;
       }
       // 2、对页面发送请求
@@ -330,6 +353,46 @@ const systemModule: Module<IsystemState, IRootState> = {
       const { pageName, queryInfo } = payload;
       const pageUrl = "/balance/import";
       await upLoadFile(pageUrl, queryInfo);
+      // 2、请求最新数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+        },
+      });
+    },
+    // 导出
+    async editExportDataAction({ dispatch }, payload: any) {
+      console.log("导出");
+      // 1、创建数据请求
+      const { pageName, queryInfo } = payload;
+      const pageUrl = ref("");
+
+      switch (pageName) {
+        case "member":
+          pageUrl.value = "/explode/rightMember";
+          break;
+        case "capitalpool":
+          pageUrl.value = "/explode/platformRecharge";
+          break;
+        case "powerorders":
+          pageUrl.value = "/explode/rightOrder";
+          break;
+        case "payorders":
+          pageUrl.value = "/explode/trans";
+          break;
+        case "cardapplication":
+          pageUrl.value = "/explode/applyOrder";
+          break;
+        case "cardorder":
+          pageUrl.value = "/explode/rechargeOrder";
+          break;
+        case "recharge":
+          pageUrl.value = "/explode/balanceRechargeOrder";
+          break;
+      }
+      await exportPageData(pageUrl.value, queryInfo);
       // 2、请求最新数据
       dispatch("getPageListAction", {
         pageName,

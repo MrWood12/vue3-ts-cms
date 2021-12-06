@@ -16,6 +16,13 @@
           @click="handleQueryClick"
           >查询</el-button
         >
+        <el-button
+          v-if="pageName"
+          @click="handleExportClick"
+          size="small"
+          class="checkBtn"
+          >导出</el-button
+        >
       </template>
     </hy-form>
   </div>
@@ -24,15 +31,22 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import HyForm from "@/base-ui/form";
+import { useStore } from "@/store";
+import { ElMessageBox } from "element-plus";
 export default defineComponent({
   props: {
     searchFormConfig: {
       type: Object,
       required: true,
     },
+    pageName: {
+      type: String,
+      default: () => "",
+    },
   },
-  emits: ["queryBtnClick", "resetBtnClick"],
+  emits: ["queryBtnClick", "resetBtnClick", "exportBtnClick"],
   setup(props, { emit }) {
+    const store = useStore();
     // s双向绑定应该是由配置文件的field来决定
     // 1、优化一：formData中的属性应该动态决定
     const formItems = props.searchFormConfig?.formItems ?? [];
@@ -44,7 +58,6 @@ export default defineComponent({
 
     // 2、查询
     const handleQueryClick = () => {
-      console.log(formData.value);
       emit("queryBtnClick", formData.value);
     };
     // 3、重置
@@ -52,10 +65,30 @@ export default defineComponent({
       formData.value = formOriginData;
       emit("resetBtnClick");
     };
+    // 4、导出
+    const handleExportClick = () => {
+      ElMessageBox.confirm("是否导出文件", "导出", {
+        confirmButtonText: "导出",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          store.dispatch("system/editExportDataAction", {
+            pageName: props.pageName,
+            queryInfo: {
+              ...formData.value,
+            },
+          });
+        })
+        .catch(() => {
+          console.log("已取消");
+        });
+    };
     return {
       formData,
       handleQueryClick,
       handleResetClick,
+      handleExportClick,
     };
   },
   components: {

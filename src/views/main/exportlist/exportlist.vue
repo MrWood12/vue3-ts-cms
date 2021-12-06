@@ -1,45 +1,44 @@
 <template>
-  <div class="capitalpool">
+  <div class="exportlist">
     <page-search
       :searchFormConfig="searchFormConfig"
-      @queryBtnClick="handleQueryClick"
-      @resetBtnClick="handleResetClick"
-      pageName="cardorder"
+      @queryBtnClick="handleQueryAndPayorderAmountClick"
+      @resetBtnClick="handleResetAndPayorderAmountClick"
     >
     </page-search>
+
     <page-content
-      pageName="cardorder"
+      pageName="exportlist"
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       :contentTableConfig="contentTableConfig"
     >
-      <template #info="scope">
-        <div class="info-name">{{ scope.row.realname }}</div>
-        <div class="info-phone">{{ scope.row.phone }}</div>
-      </template>
-      <template #cardorderType="scope">
-        <div>
-          {{ $filters.cardorderTypeName(scope.row.type) }}
+      <template #exportstatus="scope">
+        <div class="circle-item-success" v-if="scope.row.status == 10">
+          执行完成
+        </div>
+        <div class="circle-item-doing" v-if="scope.row.status == 1">待执行</div>
+        <div class="circle-item-doing" v-if="scope.row.status == 2">执行中</div>
+        <div class="circle-item-fail" v-if="scope.row.status == -1">
+          执行失败
         </div>
       </template>
-      <template #cardorderStatus="scope">
-        <div
-          :class="{
-            'circle-item-success': scope.row.status == 1,
-            'circle-item-fail': scope.row.status == -1,
-            'circle-item-doing': scope.row.status == 0,
-          }"
-        >
-          {{ $filters.cardorderStatusName(scope.row.status) }}
-        </div>
+      <template #exporttype="scope">
+        <div v-if="scope.row.type == 10001">权益会员</div>
+        <div v-if="scope.row.type == 20001">资金池</div>
+        <div v-if="scope.row.type == 30001">权益订单</div>
+        <div v-if="scope.row.type == 40001">消费订单</div>
+        <div v-if="scope.row.type == 50001">油卡申请</div>
+        <div v-if="scope.row.type == 60001">油卡充值</div>
+        <div v-if="scope.row.type == 70001">余额充值记录</div>
       </template>
     </page-content>
     <page-modal
       :defaultInfo="defaultInfo"
       ref="pageModalRef"
-      clickName="cardorder"
+      clickName="payorders"
       :modalConfig="modalConfig"
-      pageName="cardorder"
+      pageName="exportlist"
     ></page-modal>
   </div>
 </template>
@@ -57,39 +56,39 @@ import { modalConfig } from "./config/modal.config";
 
 import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
-
-import { useStore } from "@/store";
+import { useStore } from "vuex";
 export default defineComponent({
   components: { PageSearch, PageContent, pageModal },
   setup() {
     const {
-      pageContentRef,
-      handleNewClick,
-      handleUploadClick,
       handleQueryClick,
       handleResetClick,
+      pageContentRef,
+      handleNewClick,
+      handleQueryAndPayorderAmountClick,
+      handleResetAndPayorderAmountClick,
     } = usePageSearch();
     const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
-
     const store = useStore();
-    store.dispatch("getPowerAmount");
-
+    store.dispatch("getPayorderAmount");
     const priceAmount = computed(() => {
-      return store.state.powerAmount.amount;
+      return store.state.payorderAmount;
     });
+    console.log(priceAmount);
     return {
       searchFormConfig,
       contentTableConfig,
       modalConfig,
+      handleQueryClick,
+      handleResetClick,
       pageContentRef,
       pageModalRef,
       defaultInfo,
       handleNewData,
       handleNewClick,
       priceAmount,
-      handleUploadClick,
-      handleQueryClick,
-      handleResetClick,
+      handleQueryAndPayorderAmountClick,
+      handleResetAndPayorderAmountClick,
     };
   },
 });

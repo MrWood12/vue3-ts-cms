@@ -38,6 +38,7 @@
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryAndRechargeAmountClick"
       @resetBtnClick="handleResetAndRechargeAmountClick"
+      pageName="recharge"
     >
     </page-search>
     <el-alert

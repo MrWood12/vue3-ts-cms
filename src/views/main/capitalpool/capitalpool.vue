@@ -4,6 +4,7 @@
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryClick"
       @resetBtnClick="handleResetClick"
+      pageName="capitalpool"
     >
     </page-search>
     <page-content

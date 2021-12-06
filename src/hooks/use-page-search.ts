@@ -10,19 +10,15 @@ export function usePageSearch() {
   };
   // 用户导入
   const handleUploadClick = (queryInfo: any) => {
-    console.log(5);
     pageContentRef.value?.hanleLoadDataClick(queryInfo.file);
   };
   // 点击新建
   const handleNewClick = () => {
-    console.log(1);
     // store.dispatch("getInitialDataAction");
     pageContentRef.value?.handleNewClick();
   };
   // // 点击搜索
   const handleQueryClick = (queryInfo: any) => {
-    console.log(2);
-
     pageContentRef.value?.getPageData(queryInfo);
   };
   // // 点击搜索并且获取权益累计总数

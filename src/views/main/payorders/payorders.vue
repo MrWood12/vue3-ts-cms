@@ -4,6 +4,7 @@
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryAndPayorderAmountClick"
       @resetBtnClick="handleResetAndPayorderAmountClick"
+      pageName="payorders"
     >
     </page-search>
     <el-alert

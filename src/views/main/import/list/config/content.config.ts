@@ -8,13 +8,15 @@ export const contentTableConfig = {
 
     {
       prop: "url",
-      label: "导入url地址",
+      label: "批次源文件",
       minWidth: "100",
+      slotName: "navigateToUrl",
     },
     {
       prop: "fail_url",
-      label: "失败url地址",
+      label: "失败文件",
       minWidth: "100",
+      slotName: "navigateToUrl",
     },
     {
       prop: "status",

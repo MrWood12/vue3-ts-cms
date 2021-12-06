@@ -39,9 +39,20 @@ export const searchFormConfig: IForm = {
           value: -1,
           label: "冻结",
         },
+      ],
+    },
+    {
+      field: "is_exp",
+      type: "select",
+      placeholder: "请选择是否过期",
+      options: [
         {
-          value: -2,
-          label: "到期",
+          value: 1,
+          label: "过期",
+        },
+        {
+          value: -1,
+          label: "未过期",
         },
       ],
     },

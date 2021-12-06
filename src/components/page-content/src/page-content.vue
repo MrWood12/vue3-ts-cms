@@ -52,6 +52,13 @@
           >
         </div>
       </template>
+      <template #navigateToUrl="scope">
+        <div>
+          <a :href="scope.row.url">
+            <el-button type="text" icon="el-icon-bottom">下载</el-button>
+          </a>
+        </div>
+      </template>
       <!-- 在pagecontent中动态插入剩余插槽 -->
       <template
         v-for="item in otherPropsSlots"
@@ -125,6 +132,7 @@ export default defineComponent({
         if (item.slotName === "handler") return false;
         if (item.slotName === "status") return false;
         if (item.slotName === "memberhandler") return false;
+        if (item.slotName === "navigateToUrl") return false;
         return true;
       }
     );

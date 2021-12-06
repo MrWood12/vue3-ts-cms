@@ -1,40 +1,5 @@
 <template>
   <div class="member">
-    <div class="page-statistics">
-      <div class="static-item">
-        <div class="item-title">激活且购买权益</div>
-        <div class="item-number" style="color: #596ef9">
-          {{ memberStateRef.active }}
-        </div>
-      </div>
-      <div
-        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
-      ></div>
-      <div class="static-item">
-        <div class="item-title">未开通权益</div>
-        <div class="item-number" style="color: #ff0000">
-          {{ memberStateRef.unactive }}
-        </div>
-      </div>
-      <div
-        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
-      ></div>
-      <div class="static-item">
-        <div class="item-title">已过期</div>
-        <div class="item-number" style="color: #ff0000">
-          {{ memberStateRef.exped }}
-        </div>
-      </div>
-      <div
-        style="float: left; width: 1px; height: 50%; background: #d9d9d9"
-      ></div>
-      <div class="static-item">
-        <div class="item-title">冻结</div>
-        <div class="item-number" style="color: #bbbbbb">
-          {{ memberStateRef.freeze }}
-        </div>
-      </div>
-    </div>
     <page-search
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryClick"
@@ -45,13 +10,13 @@
       :contentTableConfig="
         userInfo.role == 'admin' ? contentTableConfig : channelTableConfig
       "
-      pageName="member"
+      pageName="normalmember"
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
       @chargeBtnClick="handleChargeData"
     >
-      <template v-slot:headerHandler v-if="userInfo.role == 'admin'">
+      <!-- <template v-slot:headerHandler v-if="userInfo.role == 'admin'">
         <el-button type="primary" icon="el-icon-plus" @click="handleNewClick"
           >新建</el-button
         >
@@ -91,8 +56,8 @@
         <div class="start-time">{{ scope.row.right_start_time }}</div>
         <div class="end-time">{{ scope.row.right_end_time }}</div>
       </template>
-      <template #channel="scope">
-        <!-- <div
+      <template #channel="scope"> -->
+      <!-- <div
           class="start-time"
           v-for="item in $filters.channelData(scope.row.channels)"
           :key="item.name"
@@ -100,7 +65,7 @@
           {{ scope.row.channels.map((item) => item.name)[0] }}
           {{ item }}
         </div> -->
-        <div
+      <!-- <div
           style="
             display: flex;
             flex-direction: row;
@@ -121,7 +86,7 @@
             {{ scope.row.name }}
           </div>
         </div>
-      </template>
+      </template> -->
     </page-content>
     <page-modal
       :modalConfig="
@@ -130,7 +95,7 @@
       :defaultInfo="defaultInfo"
       :clickName="modalName === 'newModal' ? 'modal' : 'recharge'"
       ref="pageModalRef"
-      pageName="member"
+      pageName="normalmember"
     ></page-modal>
     <!-- <page-modal
       v-else-if="modalName === 'rechargeModal'"
@@ -146,10 +111,7 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 
-import {
-  contentTableConfig,
-  channelTableConfig,
-} from "./config/content.config";
+import { contentTableConfig } from "./config/content.config";
 import { searchFormConfig } from "./config/search.config";
 import { modalConfig, rechargeConfig } from "./config/modal.config";
 
@@ -235,7 +197,6 @@ export default defineComponent({
       rechargeConfigRef,
       memberStateRef,
       userInfo,
-      channelTableConfig,
     };
   },
 });
