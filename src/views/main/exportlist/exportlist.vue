@@ -4,6 +4,7 @@
       :searchFormConfig="searchFormConfig"
       @queryBtnClick="handleQueryAndPayorderAmountClick"
       @resetBtnClick="handleResetAndPayorderAmountClick"
+      refresh="exportlist"
     >
     </page-search>
 

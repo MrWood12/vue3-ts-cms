@@ -23,6 +23,14 @@
           class="checkBtn"
           >导出</el-button
         >
+
+        <el-button
+          v-if="refresh == 'exportlist'"
+          @click="handleRefreshClick"
+          size="small"
+          class="checkBtn"
+          >刷新</el-button
+        >
       </template>
     </hy-form>
   </div>
@@ -40,6 +48,10 @@ export default defineComponent({
       required: true,
     },
     pageName: {
+      type: String,
+      default: () => "",
+    },
+    refresh: {
       type: String,
       default: () => "",
     },
@@ -84,11 +96,23 @@ export default defineComponent({
           console.log("已取消");
         });
     };
+    //5、刷新
+    const handleRefreshClick = () => {
+      store.dispatch("system/getPageListAction", {
+        pageName: props.refresh,
+        queryInfo: {
+          start: 1,
+          limit: 10,
+          ...formData.value,
+        },
+      });
+    };
     return {
       formData,
       handleQueryClick,
       handleResetClick,
       handleExportClick,
+      handleRefreshClick,
     };
   },
   components: {

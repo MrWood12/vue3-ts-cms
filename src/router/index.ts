@@ -17,11 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "main",
     component: () => import("@/views/main/main.vue"),
   },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "not-found",
-    component: () => import("@/views/main/main.vue"),
-  },
+  // {
+  //   path: "/:pathMatch(.*)*",
+  //   name: "not-found",
+  //   component: () => import("@/views/main/main.vue"),
+  // },
   {
     path: "/:pathMatch(.*)*",
     name: "not-found",
@@ -36,19 +36,21 @@ const router = createRouter({
 
 // router导航守卫
 router.beforeEach((to) => {
+  console.log(to);
+  console.log(router.getRoutes());
   // 登录校验
   if (to.path !== "/login") {
     const token = localCache.getCache("token");
     const userInfo = localCache.getCache("userInfo");
     const createTime = localCache.getCache("createTime");
     if (!token) {
-      return "./login";
+      return "/login";
     } else {
       const nowDate = localCache.getCache("nowDate");
       const finaldata = (nowDate - createTime) / 1000;
       if (finaldata > userInfo.expires_in) {
         localCache.clearCache();
-        return "./login";
+        return "/login";
       }
     }
   }

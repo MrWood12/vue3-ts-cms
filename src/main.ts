@@ -1,14 +1,15 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import { setupStore } from "./store";
 import router from "./router";
 import store from "./store";
 import { globalRegister } from "./global/index";
-import { setupStore } from "./store";
 
 // import "./service/axios-demo";
 // import { hyRequest } from "./service/index";
 import "normalize.css";
 import "./assets/css/index.less";
+setupStore();
 
 const app = createApp(App);
 
@@ -17,7 +18,6 @@ const app = createApp(App);
 app.use(globalRegister);
 app.use(store);
 // 注册动态路由
-setupStore();
 app.use(router);
 
 app.mount("#app");
