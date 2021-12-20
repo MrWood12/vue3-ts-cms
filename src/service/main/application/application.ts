@@ -14,7 +14,6 @@ export function getApplicationStateData(queryInfo?: any) {
 }
 //获取详情
 export function getApplicationDetailData(queryInfo: any) {
-  console.log(queryInfo);
   return hyRequest.post({
     url: "/petoleum/applyInfo",
     data: {
@@ -25,7 +24,6 @@ export function getApplicationDetailData(queryInfo: any) {
 
 // 发货
 export function getApplicationDeliverData(queryInfo: any) {
-  console.log(queryInfo);
   return hyRequest.post({
     url: "/petoleum/bindDispatch",
     data: {

@@ -11,21 +11,7 @@ export const searchFormConfig: IForm = {
       type: "input",
       placeholder: "请输入用户名/手机号",
     },
-    {
-      field: "is_exp",
-      type: "select",
-      placeholder: "是否过期",
-      options: [
-        {
-          value: 1,
-          label: "过期",
-        },
-        {
-          value: -1,
-          label: "未过期",
-        },
-      ],
-    },
+
     {
       field: "status",
       type: "select",

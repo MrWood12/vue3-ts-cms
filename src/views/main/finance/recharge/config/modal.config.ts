@@ -24,6 +24,7 @@ export const modalConfig = {
       label: "充值金额",
       placeholder: "请输入充值金额",
     },
+
     {
       field: "desc",
       type: "textarea",

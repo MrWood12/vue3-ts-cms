@@ -46,7 +46,6 @@ const store = createStore<IRootState>({
       state.powerAmount = powerAmount;
     },
     changeRechargeAmount(state, rechargeAmount) {
-      console.log(1);
       state.rechargeAmount = rechargeAmount;
     },
     changePayorderAmount(state, payorderAmount) {
@@ -89,7 +88,6 @@ const store = createStore<IRootState>({
     async getMemberStateAction({ commit }) {
       //请求用户状态
       const memberStateResult = await getMemberStateData();
-      console.log(memberStateResult);
       const memberStateList = memberStateResult.data;
       commit("changeMemberStateList", memberStateList);
     },
@@ -98,24 +96,20 @@ const store = createStore<IRootState>({
       //请求当前余额总量状态
       const rechargeStateResult = await getStateNumberData("/balance/state");
       const rechargeState = rechargeStateResult.data;
-      console.log(rechargeStateResult.data);
       // 保存当前数据
       commit("changeRechargeState", rechargeState);
     },
 
     async getPowerAmount({ commit }, payload: any) {
       //请求当前权益总数
-      console.log(payload);
       const powerAmountResult = await getPowerAmountData(payload);
       const powerAmount = powerAmountResult.data;
-      console.log(powerAmount);
       // 保存当前有效渠道数据
       commit("changePowerAmount", powerAmount);
     },
 
     async getRechargeAmount({ commit }, payload?: any) {
       //请求余额充值总数
-      console.log(payload);
       const rechargeAmountResult = await getRechargeAmountData(payload);
       const rechargeAmount = rechargeAmountResult.data;
       // 保存余额充值总数数据
@@ -124,7 +118,6 @@ const store = createStore<IRootState>({
 
     async getPayorderAmount({ commit }, payload?: any) {
       //请求消费订单总数
-      console.log(payload);
       const payorderAmountResult = await getPayorderAmountData(payload);
       const payorderAmount = payorderAmountResult.data;
       // 保存消费订单总数数据
@@ -164,14 +157,12 @@ const store = createStore<IRootState>({
       //请求申请详情
       const applicationDatalResult = await getApplicationDetailData(payload);
       const applicationDataList = applicationDatalResult.data;
-      console.log(applicationDataList);
       localCache.setsessionCache("applicationDataList", applicationDataList);
       // 保存当前有效渠道数据
       commit("changeApplicationDataList", applicationDataList);
     },
     // 发货
     async getApplicationDeliverAction({ dispatch }, payload?: any) {
-      console.log("123", payload);
       // console.log(payload.queryInfo);
       await getApplicationDeliverData(payload.queryInfo);
       // const applicationDeliverList = applicationDeliverResult.data;

@@ -104,6 +104,9 @@ export default defineComponent({
     watch(pageInfo, () => getPageData());
     // 发送网络请求
     const getPageData = (queryInfo: any = {}) => {
+      console.log(queryInfo);
+      console.log(pageInfo.value.currentPage);
+      console.log(pageInfo.value.pageSize);
       store.dispatch("system/getPageListAction", {
         pageName: props.pageName,
         queryInfo: {
@@ -138,7 +141,6 @@ export default defineComponent({
     );
     // 更新状态
     const handleUpdateClick = (queryInfo: any = {}) => {
-      console.log(queryInfo);
       if (props.pageName == "member") {
         store.dispatch("system/updatePageDataAction", {
           pageName: props.pageName,

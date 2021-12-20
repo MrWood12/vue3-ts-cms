@@ -75,7 +75,6 @@ export default defineComponent({
     const priceAmount = computed(() => {
       return store.state.payorderAmount;
     });
-    console.log(priceAmount);
     return {
       searchFormConfig,
       contentTableConfig,

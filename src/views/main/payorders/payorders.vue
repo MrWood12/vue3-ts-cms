@@ -34,6 +34,11 @@
           {{ scope.row.realname }}({{ scope.row.phone }})
         </div>
       </template>
+
+      <template #payorderstatus="scope">
+        <div v-if="scope.row.status == 1">消费</div>
+        <div v-if="scope.row.status == 2">退款</div>
+      </template>
       <template #amts="scope">
         {{ scope.row.pay_amt }}+{{ scope.row.point_amt }}
       </template>
@@ -79,7 +84,6 @@ export default defineComponent({
     const priceAmount = computed(() => {
       return store.state.payorderAmount;
     });
-    console.log(priceAmount);
     return {
       searchFormConfig,
       contentTableConfig,

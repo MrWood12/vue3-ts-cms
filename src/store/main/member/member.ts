@@ -31,7 +31,6 @@ const memberModule: Module<ImemberState, IRootState> = {
   actions: {
     // 请求用户有效渠道列表
     async getchannelListAction({ commit }, payload: any) {
-      console.log(payload.queryInfo);
       commit(`changeMemberId`, payload);
       const pageResult = await memberChannel(payload.queryInfo);
       const list = pageResult.data;
@@ -41,7 +40,6 @@ const memberModule: Module<ImemberState, IRootState> = {
     async memberchargeAction({ dispatch }, payload: any) {
       const { pageName, queryInfo } = payload;
       await memberRecharge(queryInfo);
-      console.log("跳转");
       dispatch(
         "system/getPageListAction",
         {
@@ -57,10 +55,8 @@ const memberModule: Module<ImemberState, IRootState> = {
     // 更新状态
     async changeStatus({ dispatch }, payload: any) {
       const { pageName, queryInfo } = payload;
-      console.log(payload);
       await changeStatus(queryInfo);
 
-      console.log("跳转");
       dispatch(
         "system/getPageListAction",
         {
@@ -76,7 +72,6 @@ const memberModule: Module<ImemberState, IRootState> = {
     // 充值余额列表
     async getRechargeList({ commit }, payload: any) {
       const pageResult = await getRechargeList(payload.queryInfo);
-      console.log("pageResult", pageResult);
       const list = pageResult.data;
       commit(`changeRechargeList`, list);
     },

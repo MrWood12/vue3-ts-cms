@@ -23,6 +23,25 @@
           class="checkBtn"
           >导出</el-button
         >
+        <el-select
+          style="margin-left: 15px"
+          v-if="
+            pageName == 'powerorder' ||
+            pageName == 'member' ||
+            pageName == 'recharge'
+          "
+          v-model="value"
+          placeholder="选择渠道"
+          @change="channelChange"
+        >
+          <el-option
+            v-for="item in selectChannel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
 
         <el-button
           v-if="refresh == 'exportlist'"
@@ -37,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import HyForm from "@/base-ui/form";
 import { useStore } from "@/store";
 import { ElMessageBox } from "element-plus";
@@ -68,6 +87,7 @@ export default defineComponent({
     }
     const formData = ref(formOriginData);
 
+    const value = ref("");
     // 2、查询
     const handleQueryClick = () => {
       emit("queryBtnClick", formData.value);
@@ -75,6 +95,7 @@ export default defineComponent({
     // 3、重置
     const handleResetClick = () => {
       formData.value = formOriginData;
+      value.value = "";
       emit("resetBtnClick");
     };
     // 4、导出
@@ -107,12 +128,36 @@ export default defineComponent({
         },
       });
     };
+    // 6、渠道筛选
+    store.dispatch("getInitialDataAction");
+
+    const selectChannel = computed(() => {
+      const channelSelect = store.state.entireChannel.map((item) => {
+        return { label: item.name, value: item.id };
+      });
+      return channelSelect;
+    });
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 });
+    watch(pageInfo, () => channelChange());
+    const channelChange = () => {
+      store.dispatch("system/getPageListAction", {
+        pageName: props.pageName,
+        queryInfo: {
+          start: pageInfo.value.currentPage,
+          limit: pageInfo.value.pageSize,
+          channel_id: value.value,
+        },
+      });
+    };
     return {
       formData,
       handleQueryClick,
       handleResetClick,
       handleExportClick,
       handleRefreshClick,
+      selectChannel,
+      value,
+      channelChange,
     };
   },
   components: {

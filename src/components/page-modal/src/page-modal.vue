@@ -120,7 +120,6 @@ export default defineComponent({
       centerDialogVisible.value = false;
       if (Object.keys(props.defaultInfo).length) {
         //编辑
-        console.log("编辑");
         store.dispatch("system/editPageDataAction", {
           pageName: props.pageName,
           queryInfo: { ...formData.value, ...props.otherInfo },
@@ -128,7 +127,6 @@ export default defineComponent({
         });
       } else {
         // '新建
-        console.log("新建");
         store.dispatch("system/createPageDataAction", {
           pageName: props.pageName,
           queryInfo: { ...formData.value, ...props.otherInfo },
@@ -158,7 +156,6 @@ export default defineComponent({
     };
     const handleApplicationClick = () => {
       centerDialogVisible.value = false;
-      console.log(1);
       store.dispatch("getApplicationDeliverAction", {
         pageName: props.pageName,
         queryInfo: { ...formData.value, ...props.otherInfo },

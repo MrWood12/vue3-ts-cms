@@ -36,8 +36,6 @@ const router = createRouter({
 
 // router导航守卫
 router.beforeEach((to) => {
-  console.log(to);
-  console.log(router.getRoutes());
   // 登录校验
   if (to.path !== "/login") {
     const token = localCache.getCache("token");

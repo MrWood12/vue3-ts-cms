@@ -169,7 +169,6 @@ const systemModule: Module<IsystemState, IRootState> = {
     async getPageListAction({ commit }, payload: any) {
       // 1、获取pageUrl
       const pageName = payload.pageName;
-      console.log(payload.pageName);
       const pageUrl = ref("");
       // const pageUrl = `/${pageName}/index`;
       switch (pageName) {
@@ -364,7 +363,6 @@ const systemModule: Module<IsystemState, IRootState> = {
     },
     // 导出
     async editExportDataAction({ dispatch }, payload: any) {
-      console.log("导出");
       // 1、创建数据请求
       const { pageName, queryInfo } = payload;
       const pageUrl = ref("");

@@ -5,6 +5,12 @@ export const contentTableConfig = {
     { prop: "info", label: "账号信息", minWidth: "100", slotName: "info" },
     { prop: "amount", label: "充值金额", minWidth: "100" },
     {
+      prop: "channel_id",
+      label: "渠道",
+      minWidth: "100",
+      slotName: "rechargechannel",
+    },
+    {
       prop: "status",
       label: "状态",
       minWidth: "100",

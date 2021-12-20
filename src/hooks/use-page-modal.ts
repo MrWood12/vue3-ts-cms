@@ -29,7 +29,6 @@ export function usePageModal(
     editCb && editCb();
   };
   const handleUsersEditData = (item: any) => {
-    console.log("item", item);
     defaultInfo.value = {
       id: item.id,
       username: item.username,
@@ -58,7 +57,6 @@ export function usePageModal(
     const applicationDataList = computed(() =>
       localCache.getCache("applicationDataList")
     );
-    console.log(applicationDataList);
     defaultInfo.value = { ...applicationDataList.value };
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true;

@@ -48,7 +48,6 @@ const loginModule: Module<ILoginState, IRootState> = {
   },
   actions: {
     async accountLoginAction({ commit }, payload: any) {
-      console.log(payload);
       // 1、实现登录逻辑
       const loginResult = await loginAccountRequest(payload);
       const { token } = loginResult.data;

@@ -5,7 +5,6 @@ export function usePageSearch() {
   const pageContentRef = ref<InstanceType<typeof PageContent>>();
   // 余额导入
   const handleUploadAmountClick = (queryInfo: any) => {
-    console.log(5);
     pageContentRef.value?.handleUploadAmountClick(queryInfo.file);
   };
   // 用户导入

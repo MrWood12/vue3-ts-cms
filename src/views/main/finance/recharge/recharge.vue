@@ -70,6 +70,11 @@
           }})
         </div>
       </template>
+      <template #rechargechannel="scope">
+        <div>
+          {{ $filters.channelName(scope.row.channel_id).name }}
+        </div>
+      </template>
       <template #rechargeStatus="scope">
         <div
           :class="{
@@ -124,6 +129,7 @@ export default defineComponent({
     const { pageModalRef, defaultInfo, handleNewData } = usePageModal();
 
     const store = useStore();
+    store.dispatch("getInitialDataAction");
     const failCountRef = computed(() => {
       const failCount = store.state.rechargeState.fail_count;
       const penddingCount = store.state.rechargeState.pendding_count;

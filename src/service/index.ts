@@ -31,7 +31,6 @@ const hyRequest = new HCRequest({
       return res;
     },
     responseInterceptorCatch: (err) => {
-      console.log(err.response.data);
       // console.log("响应失败的拦截");
       const errData = err.response.data;
       if (errData.status == 0) {

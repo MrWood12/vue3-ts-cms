@@ -11,6 +11,12 @@ export const contentTableConfig = {
       minWidth: "100",
       slotName: "amts",
     },
+    {
+      prop: "status",
+      label: "消费状态",
+      minWidth: "100",
+      slotName: "payorderstatus",
+    },
     { prop: "shop_no", label: "消费终端", minWidth: "120" },
     { prop: "trans_date", label: "支付时间", minWidth: "100" },
 

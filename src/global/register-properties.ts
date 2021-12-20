@@ -1,6 +1,5 @@
 import { App } from "vue";
 
-// import { getChannelById } from "@/utils/date-channel";
 import { getChannelById, getChannelData } from "@/utils/date-channel";
 import { getRoleByName } from "@/utils/date-role";
 import {
@@ -14,7 +13,6 @@ import {
 export default function registerProperties(app: App) {
   app.config.globalProperties.$filters = {
     channelName(id: number) {
-      console.log(id);
       return getChannelById(id);
     },
     channelData(data: any) {

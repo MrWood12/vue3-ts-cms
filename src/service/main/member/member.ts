@@ -28,7 +28,6 @@ export function memberRecharge(queryInfo: any) {
 }
 //更新状态
 export function changeStatus(queryInfo: any) {
-  console.log(queryInfo);
   return hyRequest.post({
     url: "/member/updateStatus",
     data: {
@@ -53,7 +52,6 @@ export function getMemberStateData() {
 
 // 根据ID获取用户数据
 export function getRechargeList(queryInfo: any) {
-  console.log("res", queryInfo);
   return hyRequest.post({
     url: "/balance/index",
     data: {

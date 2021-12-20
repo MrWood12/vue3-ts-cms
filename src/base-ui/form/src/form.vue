@@ -183,13 +183,11 @@ export default defineComponent({
     // );
     const modelValueChannels = ref([]);
     const changeCheckbox = (data: any) => {
-      console.log(data);
       modelValueChannels.value = data;
     };
     const imageurl = ref([]);
     // 图片上传
     const handleImageUploadClick = (file: any) => {
-      console.log(file.file);
       upLoadFile("/shop/pictureUpload", file.file).then((res) => {
         imageurl.value = res.data;
       });
@@ -197,7 +195,6 @@ export default defineComponent({
     };
 
     const handleValueChange = (value: any, field: string) => {
-      console.log(1);
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
 

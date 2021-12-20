@@ -142,8 +142,6 @@ export default defineComponent({
     // const priceAmount = computed(() => {
     //   return store.state.powerAmount.amount;
     // });
-    console.log(store.state.oilcardList);
-    console.log(store.state.applicationStateList);
     const orderCountRef = computed(() => {
       const undispatch = store.state.applicationStateList.undispatch;
       const dispatch = store.state.applicationStateList.dispatch;
